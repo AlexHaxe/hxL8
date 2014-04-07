@@ -1,0 +1,35 @@
+# 64bit Version
+-cp src
+-cpp out
+
+-lib hxSerial
+-lib hxlode
+-lib hxcpp
+-D HXCPP_M64
+-D static
+
+-main hxl8.L8Ctl
+
+--next 
+
+# 32bit Version
+-cp src
+-cpp out32
+
+-lib hxSerial
+-lib hxlode
+-lib hxcpp
+-D static
+
+-main hxl8.L8Ctl
+
+# Java needs replacements for hxserial and hxlode
+# --next
+# 
+# -cp src
+# -java out
+# 
+# -lib hxSerial
+# -lib hxlode
+# 
+# -main hxl8.L8Ctl
