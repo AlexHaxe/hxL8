@@ -28,14 +28,6 @@ class L8ResponseUID extends L8ResponseBase
             m_UID = "???";
             return;
         }
-
-//        var buf : StringBuf = new StringBuf ();        
-//        for (index in 1...data.length)
-//        {
-//            
-//            38 39 37 39 32 32 47 
-//            15 00 35 00 1A
-//        }
         var rawUID : String = data.toHex ();
         m_UID = rawUID.substr (2, 14) + "-" + rawUID.substr (16);
     }

@@ -48,10 +48,8 @@ class L8CrcCalc
                     value <<= 1;
                 }
             }
-//            trace (value & 255);
             buffer.addByte (value & 255);
         }
         m_table = buffer.getBytes ();        
-//        trace (m_table.length); 
     } 
 }
