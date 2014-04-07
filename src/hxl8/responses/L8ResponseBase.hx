@@ -3,7 +3,13 @@ package hxl8.responses;
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
+#if cpp
 import hxSerial.Serial;
+#elseif java
+import hxl8.java.Serial;
+#else
+fail unsupported
+#end
 
 import hxl8.commands.L8CrcCalc;
 

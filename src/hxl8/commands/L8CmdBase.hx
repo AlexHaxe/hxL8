@@ -3,7 +3,13 @@ package hxl8.commands;
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
+#if cpp
 import hxSerial.Serial;
+#elseif java
+import hxl8.java.Serial;
+#else
+fail unsupported
+#end
 
 import hxl8.commands.L8CrcCalc;
 
@@ -40,15 +46,17 @@ class L8CmdBase
         toSendBuf.addByte (L8CrcCalc.calcCRC (data));
         
         var sendBytes : Bytes = toSendBuf.getBytes ();
-        var written : Int = serial.writeBytes(sendBytes.toString());
+#if cpp
+        var written : Int = serial.writeBytes (sendBytes.toString ());
+#elseif java
+        var written : Int = serial.writeBytes (sendBytes.getData ());
+#else
+fail unsupported
+#end
         if (written != sendBytes.length)
         {
             throw new L8SendException (1, "length mismatch");
         }
-        
-//        trace (sendBytes.toString ());
-//        trace (sendBytes.toHex ());
-        
         serial.flush (true, true);
     }
     public function hasResponse () : Bool

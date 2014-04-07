@@ -24,12 +24,13 @@
 -main hxl8.L8Ctl
 
 # Java needs replacements for hxserial and hxlode
-# --next
-# 
-# -cp src
-# -java out
-# 
+--next
+
+-cp src
+-java outJava
+-java-lib lib/jssc.jar
+
 # -lib hxSerial
 # -lib hxlode
-# 
-# -main hxl8.L8Ctl
+
+-main hxl8.L8Ctl

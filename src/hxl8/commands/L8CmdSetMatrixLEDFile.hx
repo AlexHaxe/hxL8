@@ -5,7 +5,11 @@ import sys.FileSystem;
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
+#if cpp
 import hxlode.PicoPNG;
+#elseif neko
+import hxlode.PicoPNG;
+#end
 
 import hxl8.commands.L8CmdBase;
 
@@ -28,6 +32,9 @@ class L8CmdSetMatrixLEDFile extends L8CmdBase
     }
     override public function getBytes () : BytesBuffer
     {
+#if java
+        throw new L8SendException (3, "java currently not supported!");
+#else
         if (!FileSystem.exists (m_fileName))
         {
             throw new L8SendException (3, "image file not found!");
@@ -36,7 +43,7 @@ class L8CmdSetMatrixLEDFile extends L8CmdBase
         
         if ((img.width < 8) || (img.height < 8))
         {
-        throw new L8SendException (3, "image too small - needs at least 8x8 pixels!");
+            throw new L8SendException (3, "image too small - needs at least 8x8 pixels!");
         }
         if (m_offsetX + 8 > img.width)
         {
@@ -65,5 +72,6 @@ class L8CmdSetMatrixLEDFile extends L8CmdBase
 	        }
         }
         return buffer;  
+#end
     }
 }

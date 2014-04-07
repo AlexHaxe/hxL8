@@ -15,6 +15,8 @@ fail - unsupported
 
 #if cpp
 import hxSerial.Serial;
+#elseif java
+import hxl8.java.Serial;
 #else
 fail - unsupported
 #end
@@ -240,7 +242,9 @@ class L8Ctl
         
         Sys.println ("Poweroff - poweroff");
         Sys.println ("Reset - reset");
+#if cpp
         Sys.println ("MatrixLEDFile Filename.png offsetX offsetY - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!");
+#end
         Sys.println ("MatrixLEDUni RGB|RRGGBB - set matrix to one color, default: 000 = off");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
         Sys.println ("Text RGB|RRGGBB text speed true|false - scrolling text with speed (not working) and true|false for loop, Default: color=F00, loop=true");

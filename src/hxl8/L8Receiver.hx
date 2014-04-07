@@ -12,6 +12,8 @@ import sys.FileSystem;
 
 #if cpp
 import hxSerial.Serial;
+#elseif java
+import hxl8.java.Serial;
 #else
 fail - unsupported
 #end
