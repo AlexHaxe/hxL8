@@ -87,15 +87,15 @@ class L8Ctl
 	                commands.push (new L8CmdQueryBatChg ());
 	            case "colorchange":
                     commands.push (new L8CmdAppStop ());
-	                var color : Int = parseInt (args, 0);
-	                var speed : Int = parseInt (args, 64);
+	                var color : Int = consumeArgInt (args, 0);
+	                var speed : Int = consumeArgInt (args, 64);
 	                commands.push (new L8CmdAppRunColorChanger (color, speed, false));
 	            case "dice":
                     commands.push (new L8CmdAppStop ());	                
-	                var rgb : L8RGB = parseColor (args, "F00");
+	                var rgb : L8RGB = consumeArgColor (args, "F00");
 	                commands.push (new L8CmdAppRunDice (rgb));
 	            case "enableallnotifcations":
-	                var enable : Bool = parseBool (args, true);
+	                var enable : Bool = consumeArgBool (args, true);
 	                commands.push (new L8CmdEnableAllNotifications (enable));
 	            case "getmatrix":
 	                commands.push (new L8CmdGetCurrentMatrix ());
@@ -111,21 +111,21 @@ class L8Ctl
 	                commands.push (new L8CmdReset ());
 	            case "setmatrixledfile", "matrixledfile", "matrixfile":
 	                var fileName : String = args.shift ();
-	                var offsetX : Int = parseInt (args, 0);
-	                var offsetY : Int = parseInt (args, 0);
+	                var offsetX : Int = consumeArgInt (args, 0);
+	                var offsetY : Int = consumeArgInt (args, 0);
 	                commands.push (new L8CmdSetMatrixLEDFile (fileName, offsetX, offsetY));
 	            case "setmatrixleduni", "matrixleduni", "matrixuni":
-	                var rgb : L8RGB = parseColor (args, "000");
+	                var rgb : L8RGB = consumeArgColor (args, "000");
 	                commands.push (new L8CmdSetMatrixLEDUni (rgb));
 	            case "setsuperled", "superled", "super":
-	                var rgb : L8RGB = parseColor (args, "000");
+	                var rgb : L8RGB = consumeArgColor (args, "000");
 	                commands.push (new L8CmdSetSuperLED (rgb));
 	            case "text":
 //                    commands.push (new L8CmdAppStop ());
-                    var rgb : L8RGB = parseColor (args, "F00");
+                    var rgb : L8RGB = consumeArgColor (args, "F00");
                     var text : String = args.shift ();
-	                var speed : Int = parseInt (args, 0);
-	                var loop : Bool = parseBool (args, true);
+	                var speed : Int = consumeArgInt (args, 0);
+	                var loop : Bool = consumeArgBool (args, true);
 	                commands.push (new L8CmdSetText (speed, loop, rgb, text));
 	            case "uid":
 	                commands.push (new L8CmdQueryMCUID ());
@@ -183,7 +183,7 @@ class L8Ctl
 
         serial.close ();
     }
-    private function parseColor (args : Array<String>, defaultRGB : String) : L8RGB
+    private function consumeArgColor (args : Array<String>, defaultRGB : String) : L8RGB
     {
         if (args.length <= 0)
         {
@@ -191,7 +191,7 @@ class L8Ctl
         }
         return new L8RGB (args.shift ());
     }
-    private function parseInt (args : Array<String>, defaultValue : Int) : Int
+    private function consumeArgInt (args : Array<String>, defaultValue : Int) : Int
     {
         if (args.length <= 0)
         {
@@ -199,13 +199,13 @@ class L8Ctl
         }
         return Std.parseInt (args.shift ());
     }
-    private function parseBool (args : Array<String>, defaultValue : Bool) : Bool
+    private function consumeArgBool (args : Array<String>, defaultValue : Bool) : Bool
     {
         if (args.length <= 0)
         {
             return defaultValue;
         }
-        return  (args.shift ().toLowerCase () == "true");
+        return (args.shift ().toLowerCase () == "true");
     }
     private function waitForAnswer (serial : Serial, tries : Int) : Void
     {
