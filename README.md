@@ -48,6 +48,29 @@ RGB|RRGGBB - values in hex, either 3 or 6 digits, LEDs only support 4-bits per c
 default interface: /dev/ttyACM0
 
 (for Mac it is something like /dev/tty.usbmodem641)
+(for Windows it is something like COM3)
+
+Samples
+-------
+(on Windows using COM3)
+
+L8Ctl interface COM3 super f00
+- sets super led to red
+
+L8Ctl interface COM3 super fff matrixuni f00
+- sets super led to white and matrix to all red
+
+L8Ctl interface COM3 matrixfile icon.png 50 50
+- sets matrix to contents of icon.png at offset 50×50
+
+L8Ctl interface COM3 text 00f “this is a test” 20 true
+- starts text scroller in blue with speed 20 and loop = true (notice: L8 does not use speed parameter)
+
+L8Ctl interface COM3 dice fff
+- starts dice app in white
+
+L8Ctl interface COM3 appstop
+- stops current app
 
 
 Caution
@@ -56,6 +79,6 @@ Use at your own risk!
 
 The MacOSX binaries are unstable, they only work approx 10% of the time.
 
-Windows32 binary was tested on Windows XP and seems to work.
-
+Windows32 binary was tested on Windows XP.
+Java binary was tested on Linux.
 
