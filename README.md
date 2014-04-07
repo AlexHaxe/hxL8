@@ -16,9 +16,9 @@ Features
 
 Requirements
 ------------
-hxcpp
-hxSerial
-hxlode
+* hxcpp
+* hxSerial
+* hxlode
 
 
 
