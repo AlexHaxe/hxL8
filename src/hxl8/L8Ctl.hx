@@ -228,7 +228,11 @@ class L8Ctl
     
     public static function showHelp () : Void
     {
+#if cpp        
         Sys.println ("L8Ctl <command> [<parameter(s)>]");
+#elseif java
+        Sys.println ("java -jar L8Ctl.jar <command> [<parameter(s)>]");
+#end
         Sys.println ("");
         Sys.println ("Commands (case insensitive):");
         Sys.println ("AppStop - stop current app");
