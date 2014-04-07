@@ -83,8 +83,11 @@ class L8Ctl
 	        {
 	            case "appstop", "stop":
 	                commands.push (new L8CmdAppStop ());
-	            case "batchg":
+	            case "batchg", "bat":
 	                commands.push (new L8CmdQueryBatChg ());
+	            case "brightness", "bright":
+                    var brightness : Bool = consumeArgBool (args, false);
+                    commands.push (new L8CmdSetBrightness (brightness));
 	            case "colorchange":
                     commands.push (new L8CmdAppStop ());
 	                var color : Int = consumeArgInt (args, 0);
@@ -99,6 +102,12 @@ class L8Ctl
 	                commands.push (new L8CmdEnableAllNotifications (enable));
 	            case "getmatrix":
 	                commands.push (new L8CmdGetCurrentMatrix ());
+                case "getnotifyapp":
+                    var index : Int = consumeArgInt (args, 0);
+                    var extended : Bool = consumeArgBool (args, true);
+                    commands.push (new L8CmdGetNotifyApp (index, extended));
+                case "getnumnotifyapps", "numnotifyapps", "numnotify":
+                    commands.push (new L8CmdGetNumNotifyApps ());
 	            case "init", "initstatus", "status":
 	                commands.push (new L8CmdQueryInitStatus ());
                 case "interface":
@@ -107,6 +116,11 @@ class L8Ctl
 	                commands.push (new L8CmdPowerOff ());
 	            case "notificationssilent":
 	                commands.push (new L8CmdQueryNotificationsSilent ());
+	            case "party":
+                    commands.push (new L8CmdAppStop ());                    
+                    commands.push (new L8CmdAppRunParty ());
+                case "ping":
+                    commands.push (new L8CmdSendPing ());
 	            case "reset":
 	                commands.push (new L8CmdReset ());
 	            case "setmatrixledfile", "matrixledfile", "matrixfile":
@@ -117,9 +131,15 @@ class L8Ctl
 	            case "setmatrixleduni", "matrixleduni", "matrixuni":
 	                var rgb : L8RGB = consumeArgColor (args, "000");
 	                commands.push (new L8CmdSetMatrixLEDUni (rgb));
+                case "setnotificationsilence", "silence", "silent":
+                    var silence : Bool = consumeArgBool (args, false);
+                    commands.push (new L8CmdSetNotificationsSilence (silence));            
 	            case "setsuperled", "superled", "super":
 	                var rgb : L8RGB = consumeArgColor (args, "000");
 	                commands.push (new L8CmdSetSuperLED (rgb));
+	            case "statusleds", "statusled":
+                    var enable : Bool = consumeArgBool (args, false);
+                    commands.push (new L8CmdEnableStatusLEDs (enable));
 	            case "text":
 //                    commands.push (new L8CmdAppStop ());
                     var rgb : L8RGB = consumeArgColor (args, "F00");
@@ -134,6 +154,12 @@ class L8Ctl
 	            default:
 	                continue; 
 	        }
+        }
+        if (commands.length <= 0)
+        {
+            showHelp ();
+            Sys.exit (0);
+            return;
         }
         var needResponse : Bool = false;
         for (command in commands)
@@ -205,7 +231,8 @@ class L8Ctl
         {
             return defaultValue;
         }
-        return (args.shift ().toLowerCase () == "true");
+        var value : String = args.shift ().toLowerCase ();
+        return ((value == "true") || (value == "1"));
     }
     private function waitForAnswer (serial : Serial, tries : Int) : Void
     {
@@ -237,13 +264,14 @@ class L8Ctl
         Sys.println ("Commands (case insensitive):");
         Sys.println ("AppStop - stop current app");
         Sys.println ("BatChg - battery charge status");
+        Sys.println ("Brightness true|false - set low brightness of LEDs (matrix and super) true = high, false = low, default: false");
         Sys.println ("ColorChange 1|2|3|4 speed - Start color changer app");
         Sys.println ("Dice RGB|RRGGBB - Start dice app with optional color, default: F00");
         Sys.println ("EnableAllNotifcations true|false - enable/disable all notifications, default: true");
         Sys.println ("GetMatrix - get current Matrix LED (experimental)");
         Sys.println ("Init - get trace info");
         Sys.println ("Interface devicename - sets COM-port to use, default: /dev/ttyACM0");
-        
+        Sys.println ("Party - run party app");
         Sys.println ("Poweroff - poweroff");
         Sys.println ("Reset - reset");
 #if cpp
@@ -251,10 +279,10 @@ class L8Ctl
 #end
         Sys.println ("MatrixLEDUni RGB|RRGGBB - set matrix to one color, default: 000 = off");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
-        Sys.println ("Text RGB|RRGGBB text speed true|false - scrolling text with speed (not working) and true|false for loop, Default: color=F00, loop=true");
+        Sys.println ("StatusLED true|false - turn status LEDs on or off, default: false = off");
+        Sys.println ("Text RGB|RRGGBB text speed true|false - scrolling text with speed (not working) and true|false for loop, Default: color = F00, loop = true");
         Sys.println ("UID - query device UID - decoder misssing");
         Sys.println ("Versions - query device versions - decoder misssing");
-        
         Sys.println ("");
         Sys.println ("RGB|RRGGBB - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel");
         Sys.println ("");

@@ -108,6 +108,8 @@ class L8Receiver
         {
             case 0: // OK
                 response = new L8ResponseOK ();
+            case 2: // Pong
+                response = new L8ResponsePong ();
             case 71: // Voltage
                 response = new L8ResponseVoltage ();
             case 79: // UID
@@ -120,8 +122,12 @@ class L8Receiver
                 response = new L8ResponseBatchG ();
             case 132: // trace msg
                 response = new L8ResponseTraceMsg ();
-            case 139: // trace msg
+            case 139: // orientation
                 response = new L8ResponseOrientation ();
+            case 150: // notifcationsilence
+                response = new L8ResponseNumNotifyApps ();
+            case 167: // notifcationsilence
+                response = new L8ResponseNotificationSilence ();
             case 255: // Error
                 response = new L8ResponseErr ();
             default:

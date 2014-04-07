@@ -10,10 +10,6 @@ class L8CmdAppRunParty extends L8CmdAppRun
     {
         super ();
     }
-    override public function getLength () : Int
-    {
-        return 2;
-    }
     override public function getBytes () : BytesBuffer
     {
         var buffer : BytesBuffer = super.getBytes ();
