@@ -112,7 +112,7 @@ class L8Ctl
 	                commands.push (new L8CmdQueryInitStatus ());
                 case "interface":
                     comPort = args.shift ();
-	            case "poweroff":
+	            case "poweroff", "off":
 	                commands.push (new L8CmdPowerOff ());
 	            case "notificationssilent":
 	                commands.push (new L8CmdQueryNotificationsSilent ());
