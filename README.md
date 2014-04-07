@@ -21,7 +21,6 @@ Requirements
 * hxlode
 
 
-
 Usage
 -----
 L8Ctl \<command\> \[\<parameter(s)\>\]
@@ -47,3 +46,16 @@ Commands (case insensitive):
 RGB|RRGGBB - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel
 
 default interface: /dev/ttyACM0
+
+(for Mac it is something like /dev/tty.usbmodem641)
+
+
+Caution
+-------
+Use at your own risk!
+
+The MacOSX binaries are unstable, they only work approx 10% of the time.
+
+
+
+

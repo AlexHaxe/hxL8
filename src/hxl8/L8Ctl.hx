@@ -63,7 +63,7 @@ class L8Ctl
     public function run () : Void
     {
         var args : Array<String> = Sys.args();
-        if (args.length < 0)
+        if (args.length <= 0)
         {
             showHelp ();
             Sys.exit (0);
@@ -231,6 +231,7 @@ class L8Ctl
         Sys.println ("Commands (case insensitive):");
         Sys.println ("AppStop - stop current app");
         Sys.println ("BatChg - battery charge status");
+        Sys.println ("ColorChange 1|2|3|4 speed - Start color changer app");
         Sys.println ("Dice RGB|RRGGBB - Start dice app with optional color, default: F00");
         Sys.println ("EnableAllNotifcations true|false - enable/disable all notifications, default: true");
         Sys.println ("GetMatrix - get current Matrix LED (experimental)");
