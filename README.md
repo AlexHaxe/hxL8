@@ -56,6 +56,6 @@ Use at your own risk!
 
 The MacOSX binaries are unstable, they only work approx 10% of the time.
 
-
+Windows32 binary was tested on Windows XP and seems to work.
 
 
