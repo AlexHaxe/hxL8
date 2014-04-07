@@ -20,57 +20,73 @@ Requirements
 * hxSerial
 * hxlode
 
+* hxjava
+* JDK 
+
+* XCode on MacOSX
+* Visual Studio on Windows
+* gcc/g++ on Linux
+
+
+Compile
+-------
+Just call `haxe build.hxml`
+it should generate out, out32 and outJava folders containing a 64bit, a 32bit and a Java version.
+The Java version is platform independent, the 64/32bit binaries are platform specific. 
+If your compiler / system does not support 64bit (or 32bit) compiles, just comment out the section in build.hxml
+Same goes for Java target.
+
 
 Usage
 -----
-L8Ctl \<command\> \[\<parameter(s)\>\]
+`L8Ctl \<command\> \[\<parameter(s)\>\]`
 
 Commands (case insensitive):
-* AppStop - stop current app
-* BatChg - battery charge status
-* ColorChange 1|2|3|4 speed - Start color changer app
-* Dice RGB|RRGGBB - Start dice app with optional color, default: F00
-* EnableAllNotifcations true|false - enable/disable all notifications, default: true
-* GetMatrix - get current Matrix LED (experimental)
-* Init - get trace info
-* Interface devicename - sets COM-port to use, default: /dev/ttyACM0
-* Poweroff - poweroff
-* Reset - reset
-* MatrixLEDFile Filename.png offsetX offsetY - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!
-* MatrixLEDUni RGB|RRGGBB - set matrix to one color, default: 000 = off
-* SuperLED RGB|RRGGBB - set superled to color, default: 000 = off
-* Text RGB|RRGGBB text speed true|false - scrolling text with speed (not working) and true|false for loop, Default: color=F00, loop=true
-* UID - query device UID - decoder misssing
-* Versions - query device versions - decoder misssing
+* `AppStop` - stop current app
+* `BatChg` - battery charge status
+* `ColorChange 1|2|3|4 speed` - Start color changer app
+* `Dice RGB|RRGGBB` - Start dice app with optional color, default: F00
+* `EnableAllNotifcations true|false` - enable/disable all notifications, default: true
+* `GetMatrix` - get current Matrix LED (experimental)
+* `Init` - get trace info
+* `Interface devicename` - sets COM-port to use, default: /dev/ttyACM0
+* `Poweroff` - poweroff
+* `Reset` - reset
+* `MatrixLEDFile Filename.png offsetX offsetY` - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!
+* `MatrixLEDUni RGB|RRGGBB` - set matrix to one color, default: 000 = off
+* `SuperLED RGB|RRGGBB` - set superled to color, default: 000 = off
+* `Text RGB|RRGGBB text speed true|false` - scrolling text with speed (not working) and true|false for loop, Default: color=F00, loop=true
+* `UID` - query device UID - decoder misssing
+* `Versions` - query device versions - decoder misssing
 
 RGB|RRGGBB - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel
 
 default interface: /dev/ttyACM0
 
-(for Mac it is something like /dev/tty.usbmodem641)
-(for Windows it is something like COM3)
+(for Mac it is something like `/dev/tty.usbmodem641`)
+(for Windows it is something like `COM3`)
 
 Samples
 -------
 (on Windows using COM3)
 
-L8Ctl interface COM3 super f00
-- sets super led to red
+`L8Ctl interface COM3 super f00`
+sets super led to red
 
-L8Ctl interface COM3 super fff matrixuni f00
-- sets super led to white and matrix to all red
+`L8Ctl interface COM3 super fff matrixuni f00`
+sets super led to white and matrix to all red
 
-L8Ctl interface COM3 matrixfile icon.png 50 50
-- sets matrix to contents of icon.png at offset 50×50
+`L8Ctl interface COM3 matrixfile icon.png 50 50`
+sets matrix to contents of icon.png at offset 50×50
 
-L8Ctl interface COM3 text 00f “this is a test” 20 true
-- starts text scroller in blue with speed 20 and loop = true (notice: L8 does not use speed parameter)
+`L8Ctl interface COM3 text 00f “this is a test” 20 true`
+starts text scroller in blue with speed 20 and loop = true (notice: L8 does not use speed parameter)
 
-L8Ctl interface COM3 dice fff
-- starts dice app in white
+`L8Ctl interface COM3 dice fff`
+starts dice app in white
 
-L8Ctl interface COM3 appstop
-- stops current app
+`L8Ctl interface COM3 appstop`
+stops current app
 
 
 Caution
