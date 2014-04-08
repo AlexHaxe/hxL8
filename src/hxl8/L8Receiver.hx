@@ -124,8 +124,12 @@ class L8Receiver
                 response = new L8ResponseTraceMsg ();
             case 139: // orientation
                 response = new L8ResponseOrientation ();
+            case 148:
+                response = new L8ResponseNotifyApp ();
             case 150: // notifcationsilence
                 response = new L8ResponseNumNotifyApps ();
+            case 156: // notifcationsilence
+                response = new L8ResponseFrameGrab ();
             case 167: // notifcationsilence
                 response = new L8ResponseNotificationSilence ();
             case 255: // Error

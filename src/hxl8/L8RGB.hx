@@ -8,10 +8,13 @@ class L8RGB
     private var m_g : Int = 0;
     private var m_b : Int = 0;
     
-    public function new (rgb : String)
+    public function new (rgb : String, ?r : Null<Int>, ?g : Null<Int>, ?b : Null<Int>)
     {
         if (rgb == null)
         {
+            m_r = r;
+            m_g = g;
+            m_b = b;
             return;
         }        
         if (rgb.length == 3)
@@ -78,5 +81,9 @@ class L8RGB
             default:
                 return 0;
         }
+    }
+    public function toString () : String
+    {
+        return StringTools.hex (m_r, 1) + StringTools.hex (m_g, 1) + StringTools.hex (m_b, 1); 
     }
 }

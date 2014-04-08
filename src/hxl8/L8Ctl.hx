@@ -118,7 +118,6 @@ class L8Ctl
 				    commands.push (new L8CmdQueryNotificationsSilent ());
 				case "notification", "notify":
 				    var app : String = args.shift ();
-				//                    var eventType : Int = consumeArgInt (args, 0);
 				    var eventType : String = args.shift ();
 				    var category : Int = consumeArgInt (args, 0);
 				    commands.push (new L8CmdSetNotification (app, eventType, category));
@@ -147,7 +146,6 @@ class L8Ctl
 				    var enable : Bool = consumeArgBool (args, false);
 				    commands.push (new L8CmdEnableStatusLEDs (enable));
 				case "text":
-				//                    commands.push (new L8CmdAppStop ());
 				    var rgb : L8RGB = consumeArgColor (args, "F00");
 				    var text : String = args.shift ();
 				    var speed : Int = consumeArgInt (args, 0);

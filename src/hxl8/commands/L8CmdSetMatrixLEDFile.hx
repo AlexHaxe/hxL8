@@ -67,7 +67,7 @@ class L8CmdSetMatrixLEDFile extends L8CmdBase
 				var g : Int = (bytes.get (index + 1) & 240) >> 4; 
 				var b : Int = (bytes.get (index + 2) & 240) >> 4;
 	           
-                buffer.addByte (g & 15);
+                buffer.addByte (b & 15);
 	            buffer.addByte (((g << 4) & 240) | (r & 15));
 	        }
         }

@@ -21,9 +21,9 @@ class L8CmdSetNotification extends L8CmdBase
 	    switch (m_category)
 	    {
 	        case 0, 255:
-	           m_app = "Phone";
+	           m_app = "Phone Call";
             case 1:
-               m_app = "Call";
+               m_app = "Phone Call";
             case 2:
                m_app = "WhatsApp";
             case 3:
