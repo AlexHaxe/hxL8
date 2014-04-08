@@ -12,6 +12,7 @@ Features
 * color changer app
 * dice app
 * poweroff
+* displaying notifications
 
 
 Requirements
@@ -54,12 +55,18 @@ Commands (case insensitive):
 * `Reset` - reset
 * `MatrixLEDFile Filename.png offsetX offsetY` - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!
 * `MatrixLEDUni RGB|RRGGBB` - set matrix to one color, default: 000 = off
+* `notify text on|mod|off category#` - display notification, text is ignored for standard notfication categories, see below
 * `SuperLED RGB|RRGGBB` - set superled to color, default: 000 = off
 * `Text RGB|RRGGBB text speed true|false` - scrolling text with speed (not working) and true|false for loop, Default: color=F00, loop=true
 * `UID` - query device UID - decoder misssing
 * `Versions` - query device versions - decoder misssing
 
-RGB|RRGGBB - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel
+`RGB|RRGGBB` - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel
+
+Notifications
+`category#` - notification category number (0 = Phone (not working)|1 = Call|2 = WhatsApp|3 = Facebook|4 = GMail|5 = MobileMail|6 = Tweet|7 = SMS|8 = Line|9 = Instagram|10 = Hangout|11 = GooglePlus)
+`on`|`mod`|`off` - allows to activate / show, modify and deactivate / remove a notification (only category 1 = Call accepts mod and off)
+
 
 default interface: /dev/ttyACM0
 
