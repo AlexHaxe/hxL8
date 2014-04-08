@@ -16,10 +16,16 @@ class L8CmdSetText extends L8CmdBase
     public function new (speed : Int, loop : Bool, rgb : L8RGB, text : String)
     {
         super (131);
-        m_speed = speed;
+        switch (speed)
+        {
+            case 0, 1, 2:            
+                m_speed = speed;
+            default:
+                m_speed = 1;
+        }
         m_loop = loop;
         m_rgb = rgb;
-        m_text = text;
+        m_text = text.substr (0, 240);
     }
     override public function getBytes () : BytesBuffer
     {

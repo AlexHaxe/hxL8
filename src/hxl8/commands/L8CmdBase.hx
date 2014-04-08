@@ -57,7 +57,7 @@ fail unsupported
 #end
         if (written != sendBytes.length)
         {
-            throw new L8SendException (1, "length mismatch");
+            throw new L8SendException (1, "length mismatch: " + written + " != " + sendBytes.length);
         }
         serial.flush (true, true);
     }

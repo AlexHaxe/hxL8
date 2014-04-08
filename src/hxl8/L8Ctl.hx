@@ -255,7 +255,7 @@ class L8Ctl
             {
                 return;
             }
-            Sys.sleep (0.001);
+            Sys.sleep (0.005);
         }
     }     
     
@@ -287,7 +287,7 @@ class L8Ctl
         Sys.println ("Reset - reset");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
         Sys.println ("StatusLED true|false - turn status LEDs on or off, default: false = off");
-        Sys.println ("Text RGB|RRGGBB text speed true|false - scrolling text with speed (not working) and true|false for loop, Default: color = F00, loop = true");
+        Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medim, 2 = slow and true|false for loop, Default: loop = true");
         Sys.println ("UID - query device UID - decoder misssing");
         Sys.println ("Versions - query device versions - decoder misssing");
         Sys.println ("");
