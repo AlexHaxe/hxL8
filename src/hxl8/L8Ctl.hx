@@ -81,84 +81,84 @@ class L8Ctl
             var command : String = args.shift ();            
 	        switch (command.toLowerCase ())
 	        {
-	            case "appstop", "stop":
-	                commands.push (new L8CmdAppStop ());
-	            case "batchg", "bat":
-	                commands.push (new L8CmdQueryBatChg ());
-	            case "brightness", "bright":
-                    var brightness : Bool = consumeArgBool (args, false);
-                    commands.push (new L8CmdSetBrightness (brightness));
-	            case "colorchange":
-                    commands.push (new L8CmdAppStop ());
-	                var color : Int = consumeArgInt (args, 0);
-	                var speed : Int = consumeArgInt (args, 64);
-	                commands.push (new L8CmdAppRunColorChanger (color, speed, false));
-	            case "dice":
-                    commands.push (new L8CmdAppStop ());	                
-	                var rgb : L8RGB = consumeArgColor (args, "F00");
-	                commands.push (new L8CmdAppRunDice (rgb));
-	            case "enableallnotifcations":
-	                var enable : Bool = consumeArgBool (args, true);
-	                commands.push (new L8CmdEnableAllNotifications (enable));
-	            case "getmatrix":
-	                commands.push (new L8CmdGetCurrentMatrix ());
-                case "getnotifyapp":
-                    var index : Int = consumeArgInt (args, 0);
-                    var extended : Bool = consumeArgBool (args, true);
-                    commands.push (new L8CmdGetNotifyApp (index, extended));
-                case "getnumnotifyapps", "numnotifyapps", "numnotify":
-                    commands.push (new L8CmdGetNumNotifyApps ());
-	            case "init", "initstatus", "status":
-	                commands.push (new L8CmdQueryInitStatus ());
-                case "interface":
-                    comPort = args.shift ();
-	            case "poweroff", "off":
-	                commands.push (new L8CmdPowerOff ());
-	            case "notificationssilent":
-	                commands.push (new L8CmdQueryNotificationsSilent ());
-	            case "notification", "notify":
-                    var app : String = args.shift ();
-//                    var eventType : Int = consumeArgInt (args, 0);
-                    var eventType : String = args.shift ();
-                    var category : Int = consumeArgInt (args, 0);
-                    commands.push (new L8CmdSetNotification (app, eventType, category));
-	            case "party":
-                    commands.push (new L8CmdAppStop ());                    
-                    commands.push (new L8CmdAppRunParty ());
-                case "ping":
-                    commands.push (new L8CmdSendPing ());
-	            case "reset":
-	                commands.push (new L8CmdReset ());
-	            case "setmatrixledfile", "matrixledfile", "matrixfile":
-	                var fileName : String = args.shift ();
-	                var offsetX : Int = consumeArgInt (args, 0);
-	                var offsetY : Int = consumeArgInt (args, 0);
-	                commands.push (new L8CmdSetMatrixLEDFile (fileName, offsetX, offsetY));
-	            case "setmatrixleduni", "matrixleduni", "matrixuni":
-	                var rgb : L8RGB = consumeArgColor (args, "000");
-	                commands.push (new L8CmdSetMatrixLEDUni (rgb));
-                case "setnotificationsilence", "silence", "silent":
-                    var silence : Bool = consumeArgBool (args, false);
-                    commands.push (new L8CmdSetNotificationsSilence (silence));            
-	            case "setsuperled", "superled", "super":
-	                var rgb : L8RGB = consumeArgColor (args, "000");
-	                commands.push (new L8CmdSetSuperLED (rgb));
-	            case "statusleds", "statusled":
-                    var enable : Bool = consumeArgBool (args, false);
-                    commands.push (new L8CmdEnableStatusLEDs (enable));
-	            case "text":
-//                    commands.push (new L8CmdAppStop ());
-                    var rgb : L8RGB = consumeArgColor (args, "F00");
-                    var text : String = args.shift ();
-	                var speed : Int = consumeArgInt (args, 0);
-	                var loop : Bool = consumeArgBool (args, true);
-	                commands.push (new L8CmdSetText (speed, loop, rgb, text));
-	            case "uid":
-	                commands.push (new L8CmdQueryMCUID ());
-	            case "version", "versions", "ver", "v":
-	                commands.push (new L8CmdQueryVersions ());
-	            default:
-	                continue; 
+				case "appstop", "stop":
+				    commands.push (new L8CmdAppStop ());
+				case "batchg", "bat":
+				    commands.push (new L8CmdQueryBatChg ());
+				case "brightness", "bright":
+				    var brightness : Bool = consumeArgBool (args, false);
+				    commands.push (new L8CmdSetBrightness (brightness));
+				case "colorchange":
+				    commands.push (new L8CmdAppStop ());
+				    var color : Int = consumeArgInt (args, 0);
+				    var speed : Int = consumeArgInt (args, 64);
+				    commands.push (new L8CmdAppRunColorChanger (color, speed, false));
+				case "dice":
+				    commands.push (new L8CmdAppStop ());	                
+				    var rgb : L8RGB = consumeArgColor (args, "F00");
+				    commands.push (new L8CmdAppRunDice (rgb));
+				case "enableallnotifcations":
+				    var enable : Bool = consumeArgBool (args, true);
+				    commands.push (new L8CmdEnableAllNotifications (enable));
+				case "getmatrix":
+				    commands.push (new L8CmdGetCurrentMatrix ());
+				case "getnotifyapp":
+				    var index : Int = consumeArgInt (args, 0);
+				    var extended : Bool = consumeArgBool (args, true);
+				    commands.push (new L8CmdGetNotifyApp (index, extended));
+				case "getnumnotifyapps", "numnotifyapps", "numnotify":
+				    commands.push (new L8CmdGetNumNotifyApps ());
+				case "init", "initstatus", "status":
+				    commands.push (new L8CmdQueryInitStatus ());
+				case "interface":
+				    comPort = args.shift ();
+				case "poweroff", "off":
+				    commands.push (new L8CmdPowerOff ());
+				case "notificationssilent":
+				    commands.push (new L8CmdQueryNotificationsSilent ());
+				case "notification", "notify":
+				    var app : String = args.shift ();
+				//                    var eventType : Int = consumeArgInt (args, 0);
+				    var eventType : String = args.shift ();
+				    var category : Int = consumeArgInt (args, 0);
+				    commands.push (new L8CmdSetNotification (app, eventType, category));
+				case "party":
+				    commands.push (new L8CmdAppStop ());                    
+				    commands.push (new L8CmdAppRunParty ());
+				case "ping":
+				    commands.push (new L8CmdSendPing ());
+				case "reset":
+				    commands.push (new L8CmdReset ());
+				case "setmatrixledfile", "matrixledfile", "matrixfile":
+				    var fileName : String = args.shift ();
+				    var offsetX : Int = consumeArgInt (args, 0);
+				    var offsetY : Int = consumeArgInt (args, 0);
+				    commands.push (new L8CmdSetMatrixLEDFile (fileName, offsetX, offsetY));
+				case "setmatrixleduni", "matrixleduni", "matrixuni":
+				    var rgb : L8RGB = consumeArgColor (args, "000");
+				    commands.push (new L8CmdSetMatrixLEDUni (rgb));
+				case "setnotificationsilence", "silence", "silent":
+				    var silence : Bool = consumeArgBool (args, false);
+				    commands.push (new L8CmdSetNotificationsSilence (silence));            
+				case "setsuperled", "superled", "super":
+				    var rgb : L8RGB = consumeArgColor (args, "000");
+				    commands.push (new L8CmdSetSuperLED (rgb));
+				case "statusleds", "statusled":
+				    var enable : Bool = consumeArgBool (args, false);
+				    commands.push (new L8CmdEnableStatusLEDs (enable));
+				case "text":
+				//                    commands.push (new L8CmdAppStop ());
+				    var rgb : L8RGB = consumeArgColor (args, "F00");
+				    var text : String = args.shift ();
+				    var speed : Int = consumeArgInt (args, 0);
+				    var loop : Bool = consumeArgBool (args, true);
+				    commands.push (new L8CmdSetText (speed, loop, rgb, text));
+				case "uid":
+				    commands.push (new L8CmdQueryMCUID ());
+				case "version", "versions", "ver", "v":
+				    commands.push (new L8CmdQueryVersions ());
+				default:
+				    continue; 
 	        }
         }
         if (commands.length <= 0)
