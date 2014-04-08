@@ -116,6 +116,12 @@ class L8Ctl
 	                commands.push (new L8CmdPowerOff ());
 	            case "notificationssilent":
 	                commands.push (new L8CmdQueryNotificationsSilent ());
+	            case "notification", "notify":
+                    var app : String = args.shift ();
+//                    var eventType : Int = consumeArgInt (args, 0);
+                    var eventType : String = args.shift ();
+                    var category : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdSetNotification (app, eventType, category));
 	            case "party":
                     commands.push (new L8CmdAppStop ());                    
                     commands.push (new L8CmdAppRunParty ());
@@ -271,13 +277,14 @@ class L8Ctl
         Sys.println ("GetMatrix - get current Matrix LED (experimental)");
         Sys.println ("Init - get trace info");
         Sys.println ("Interface devicename - sets COM-port to use, default: /dev/ttyACM0");
-        Sys.println ("Party - run party app");
-        Sys.println ("Poweroff - poweroff");
-        Sys.println ("Reset - reset");
 #if cpp
         Sys.println ("MatrixLEDFile Filename.png offsetX offsetY - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!");
 #end
         Sys.println ("MatrixLEDUni RGB|RRGGBB - set matrix to one color, default: 000 = off");
+        Sys.println ("notify text on|mod|off category# - display notification, text is ignored for standard notfication categories, see below");
+        Sys.println ("Party - run party app");
+        Sys.println ("Poweroff - poweroff");
+        Sys.println ("Reset - reset");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
         Sys.println ("StatusLED true|false - turn status LEDs on or off, default: false = off");
         Sys.println ("Text RGB|RRGGBB text speed true|false - scrolling text with speed (not working) and true|false for loop, Default: color = F00, loop = true");
@@ -285,6 +292,9 @@ class L8Ctl
         Sys.println ("Versions - query device versions - decoder misssing");
         Sys.println ("");
         Sys.println ("RGB|RRGGBB - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel");
+        Sys.println ("");
+        Sys.println ("category# - notification category number (0 = Phone (not working)|1 = Call|2 = WhatsApp|3 = Facebook|4 = GMail|5 = MobileMail|6 = Tweet|7 = SMS|8 = Line|9 = Instagram|10 = Hangout|11 = GooglePlus)");
+        Sys.println ("on|mod|off - allows to activate / show, modify and deactivate / remove a notification (only category 1 = Call accepts mod and off)");
         Sys.println ("");
         Sys.println ("default interface: /dev/ttyACM0");
     }

@@ -27,12 +27,20 @@ class L8ResponseOrientation extends L8ResponseBase
     }
     override public function toString () : String
     {
-        var msg : String = "";
+        var msg : String = "---";
         // TODO convert m_orient to text
         switch (m_orient)
         {
+            case 1:
+                msg = "Up";
+            case 2:
+                msg = "Down";
+            case 5:
+                msg = "Right";
+            case 6:
+                msg = "Left";
             default:
         }
-        return 'Orientation change: $m_orient';
+        return 'Orientation change: $msg';
     }
 }

@@ -30,7 +30,7 @@ class L8ResponseBatchG extends L8ResponseBase
         switch (m_charge)
         {
             case 6, 7, 15:
-                msg = " ";
+                msg = "Stand-by (not charging)";
             case 8, 9, 11, 13:
                 msg = "";
             case 10:
