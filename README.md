@@ -13,7 +13,9 @@ Features
 * dice app
 * poweroff
 * displaying notifications
-
+* L8y support
+* Frame support
+* Animation support
 
 Requirements
 ------------
@@ -44,28 +46,45 @@ Usage
 
 Commands (case insensitive):
 * `AppStop` - stop current app
+* `AutoRotate true|false` - enable / disable autorotate
 * `BatChg` - battery charge status
 * `Brightness true|false` - set low brightness of LEDs (matrix and super) true = high, false = low, default: false
 * `ColorChange 1|2|3|4 speed` - Start color changer app
+* `DeleteAnim anim#` - Delete Animation by number (between 0 and GetNumAnims)
+* `DeleteFrame frame#` - Delete Frame by number (between 0 and GetNumFrames)
+* `DeleteL8y l8y#` - Delete L8y by number (between 0 and GetNumL8ies)
 * `Dice RGB|RRGGBB` - Start dice app with optional color, default: F00
 * `EnableAllNotifcations true|false` - enable/disable all notifications, default: true
 * `GetMatrix` - get current Matrix LED
 * `GetNotifyApp app#` - get Name, Matrix colors, Super LED color and Enabled flag of app number (0-255)
+* `GetNumAnims` - get the number of anims in User space
+* `GetNumFrames` - get the number of Frames in User space
+* `GetNumL8ies` - get the number of L8ies in User space
 * `GetNumNotifyApps` - get the number of notification apps
 * `Init` - get trace info
 * `Interface devicename` - sets COM-port to use, default: /dev/ttyACM0
+* `L8y l8y#` - Show L8y (between 0 and GetNumL8ies)
 * `MatrixLEDFile Filename.png offsetX offsetY` - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!
+* `MatrixLEDString 64*(RGB|RRGGBB)` - set matrix to colorlist
 * `MatrixLEDUni RGB|RRGGBB` - set matrix to one color, default: 000 = off
 * `Notify "Phone Call"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom on|mod|off category#` - display notification, parameters see below
 * `Poweroff` - poweroff
+* `ReadAnim anim#` - gets frame and duration for animation from User Space (anim# between 0 and GetNumAnims)
+* `ReadFrame frame#` - gets frame from User Space (frame# between 0 and GetNumFrames)
+* `ReadL8y l8y#` - get matrix colors for L8y (l8y# between 0 and GetNumL8ies)
 * `Reset` - reset
 * `SuperLED RGB|RRGGBB` - set superled to color, default: 000 = off
 * `StatusLED true|false` - turn status LEDs on or off, default: false = off
+* `StopAnim` - stops current animation
+* `StoreAnim frame#,duration,frame#,duration,...` - stores a new animation in userspace (returns new index of anim)
+* `StoreFrame 64*(RGB|RRGGBB)` - stores a new frame in userspace (returns new index of frame)
+* `StoreL8y 64*(RGB|RRGGBB)` - stores a L8y (returns new index of L8y)
 * `Text RGB|RRGGBB text 0|1|2 true|false` - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true
 * `UID` - query device UID - decoder misssing
 * `Versions` - query device versions - decoder misssing
 
 `RGB|RRGGBB` - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel
+`64*(RGB|RRGGBB)` - values in hex should be: RGBRGBRGB... (= 192 chars) or RRGGBBRRGGBBRRGGBB... (= 384 chars)
 
 Notifications
 `"Phone Call"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom` - name of notifcation to display, Custom =  use your own notification
@@ -99,6 +118,12 @@ starts dice app in white
 
 `L8Ctl interface COM3 appstop`
 stops current app
+
+
+`L8Ctl interface COM3 storeframe f00f70ff00f000f40880f storeframe f70ff00f000f40880ff00 storeframe ff00f000f40880ff00f70 storeframe 0f000f40880ff00f70ff0 storeframe 00f40880ff00f70ff00f0 storeframe 40880ff00f70ff00f000f storeframe 80ff00f70ff00f000f408
+L8Ctl interface COM3 storeanim 15,1,16,1,17,1,18,1,19,1,20,1,21,1
+L8Ctl interface COM3 playanim 11`
+rainbow animation (please adjust numbers for storeanim and playanim to match your L8 - storeframe and storeanim will return the actual numbers)
 
 
 Caution
