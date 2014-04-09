@@ -99,6 +99,12 @@ class L8Ctl
 			    case "deletel8y":
                     var l8y : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdDeleteL8y (l8y));
+                case "deleteanim":
+                    var anim : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdDeleteAnim (anim));
+                case "deleteframe":
+                    var frame : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdDeleteFrame (frame));
 				case "dice":
 				    commands.push (new L8CmdAppStop ());	                
 				    var rgb : L8RGB = consumeArgColor (args, "F00");
@@ -136,8 +142,15 @@ class L8Ctl
 				case "party":
 				    commands.push (new L8CmdAppStop ());                    
 				    commands.push (new L8CmdAppRunParty ());
+                case "playanim", "play":
+                    var anim : Int = consumeArgInt (args, 0);
+                    var loop : Bool = consumeArgBool (args, true);
+                    commands.push (new L8CmdPlayAnim (anim, loop));
 				case "ping":
 				    commands.push (new L8CmdSendPing ());
+			    case "readanim":
+                    var anim : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdReadAnim (anim));
                 case "readframe":
                     var frame : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdReadFrame (frame));
@@ -169,9 +182,17 @@ class L8Ctl
 				case "statusleds", "statusled":
 				    var enable : Bool = consumeArgBool (args, false);
 				    commands.push (new L8CmdEnableStatusLEDs (enable));
+                case "stopanim":
+                    commands.push (new L8CmdStopAnim ());
+                case "storeanim":
+                    var anim : String = args.shift ();
+                    commands.push (new L8CmdStoreAnim (anim));
                 case "storel8y":
                     var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
                     commands.push (new L8CmdStoreL8y (rgb));
+                case "storeframe":
+                    var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
+                    commands.push (new L8CmdStoreFrame (rgb));
 				case "text":
 				    var rgb : L8RGB = consumeArgColor (args, "F00");
 				    var text : String = args.shift ();
@@ -341,6 +362,8 @@ class L8Ctl
         Sys.println ("BatChg - battery charge status");
         Sys.println ("Brightness true|false - set low brightness of LEDs (matrix and super) true = high, false = low, default: false");
         Sys.println ("ColorChange 1|2|3|4 speed - Start color changer app");
+        Sys.println ("DeleteAnim anim# - Delete Animation by number (between 0 and GetNumAnims)");        
+        Sys.println ("DeleteFrame frame# - Delete Frame by number (between 0 and GetNumFrames)");        
         Sys.println ("DeleteL8y l8y# - Delete L8y by number (between 0 and GetNumL8ies)");        
         Sys.println ("Dice RGB|RRGGBB - Start dice app with optional color, default: F00");
         Sys.println ("EnableAllNotifcations true|false - enable/disable all notifications, default: true");
@@ -360,13 +383,18 @@ class L8Ctl
         Sys.println ("MatrixLEDString 64*(RGB|RRGGBB) - set matrix to colorlist");
         Sys.println ("Notify \"Phone Call\"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom on|mod|off category# - display notification, parameters see below");
         Sys.println ("Party - run party app");
+        Sys.println ("PlayAnim anim# true|false - plays animation # as loop = true or once = false; default: loop=true");
         Sys.println ("Poweroff - poweroff");
-        Sys.println ("ReadFrame frame# - gets frame from User Space (number should be between 0 and GetNumFrames)");
-        Sys.println ("ReadL8y l8y# - get matrix colors for L8y (between 0 and GetNumL8ies)");        
+        Sys.println ("ReadAnim anim# - gets frame and duration for animation from User Space (anim# between 0 and GetNumAnims)");
+        Sys.println ("ReadFrame frame# - gets frame from User Space (frame# between 0 and GetNumFrames)");
+        Sys.println ("ReadL8y l8y# - get matrix colors for L8y (l8y# between 0 and GetNumL8ies)");        
         Sys.println ("Reset - reset");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
         Sys.println ("StatusLED true|false - turn status LEDs on or off, default: false = off");
-        Sys.println ("StoreL8y 64*(RGB|RRGGBB) - set matrix to colorlist (returns new index of L8y)");        
+        Sys.println ("StopAnim - stops current animation");        
+        Sys.println ("StoreAnim frame#,duration,frame#,duration,... - stores a new animation in userspace (returns new index of anim)");        
+        Sys.println ("StoreFrame 64*(RGB|RRGGBB) - stores a new frame in userspace (returns new index of frame)");        
+        Sys.println ("StoreL8y 64*(RGB|RRGGBB) - stores a L8y (returns new index of L8y)");        
         Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true");
         Sys.println ("UID - query device UID - decoder misssing");
         Sys.println ("Versions - query device versions - decoder misssing");

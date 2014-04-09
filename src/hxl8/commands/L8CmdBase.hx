@@ -47,7 +47,7 @@ class L8CmdBase
         
         var sendBytes : Bytes = toSendBuf.getBytes ();
         
-//        trace (sendBytes.toHex ());
+        trace (sendBytes.toHex ());
 #if cpp
         var written : Int = serial.writeBytes (sendBytes.toString ());
 #elseif java

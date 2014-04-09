@@ -122,10 +122,16 @@ class L8Receiver
                 response = new L8ResponseStoreL8y ();
             case 109: 
                 response = new L8ResponseFrameGrab ();
+            case 113:
+                response = new L8ResponseStoreFrame ();
             case 115: 
                 response = new L8ResponseFrameGrab ();
-            case 118:
+            case 118: // 0x76
                 response = new L8ResponseBatchG ();
+            case 120: // 0x78
+                response = new L8ResponseStoreAnim ();
+            case 122: 
+                response = new L8ResponseReadAnim ();
             case 132: // trace msg
                 response = new L8ResponseTraceMsg ();
             case 139: // orientation
