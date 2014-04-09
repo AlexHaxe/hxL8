@@ -279,7 +279,7 @@ class L8Ctl
         Sys.println ("MatrixLEDFile Filename.png offsetX offsetY - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!");
 #end
         Sys.println ("MatrixLEDUni RGB|RRGGBB - set matrix to one color, default: 000 = off");
-        Sys.println ("notify text on|mod|off category# - display notification, text is ignored for standard notfication categories, see below");
+        Sys.println ("Notify \"Phone Call\"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom on|mod|off category# - display notification, parameters see below");
         Sys.println ("Party - run party app");
         Sys.println ("Poweroff - poweroff");
         Sys.println ("Reset - reset");
@@ -291,8 +291,10 @@ class L8Ctl
         Sys.println ("");
         Sys.println ("RGB|RRGGBB - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel");
         Sys.println ("");
-        Sys.println ("category# - notification category number (0 = Phone (not working)|1 = Call|2 = WhatsApp|3 = Facebook|4 = GMail|5 = MobileMail|6 = Tweet|7 = SMS|8 = Line|9 = Instagram|10 = Hangout|11 = GooglePlus)");
-        Sys.println ("on|mod|off - allows to activate / show, modify and deactivate / remove a notification (only category 1 = Call accepts mod and off)");
+        Sys.println ("Notifications");
+        Sys.println ("\"Phone Call\"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom - name of notifcation to display, Custom =  use your own notification");
+        Sys.println ("on|mod|off - allows to activate / show, modify and deactivate / remove a notification (only Incoming Call can be turned off)");
+        Sys.println ("category# - notification category number (0 = Other|1 = Incoming Call|2 = MIssed Call|3 = Voice Mail|4 = Social|5 = Schedule|6 = E-Mail|7 = News|8 = Health/Fitness|9 = Business/Finance|10 = Location|11 = Entertainment|255 = Unknown)");
         Sys.println ("");
         Sys.println ("default interface: /dev/ttyACM0");
     }
