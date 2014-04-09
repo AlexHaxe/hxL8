@@ -45,33 +45,38 @@ Usage
 Commands (case insensitive):
 * `AppStop` - stop current app
 * `BatChg` - battery charge status
+* `Brightness true|false` - set low brightness of LEDs (matrix and super) true = high, false = low, default: false
 * `ColorChange 1|2|3|4 speed` - Start color changer app
 * `Dice RGB|RRGGBB` - Start dice app with optional color, default: F00
 * `EnableAllNotifcations true|false` - enable/disable all notifications, default: true
-* `GetMatrix` - get current Matrix LED (experimental)
+* `GetMatrix` - get current Matrix LED
+* `GetNotifyApp app#` - get Name, Matrix colors, Super LED color and Enabled flag of app number (0-255)
+* `GetNumNotifyApps` - get the number of notification apps
 * `Init` - get trace info
 * `Interface devicename` - sets COM-port to use, default: /dev/ttyACM0
-* `Poweroff` - poweroff
-* `Reset` - reset
 * `MatrixLEDFile Filename.png offsetX offsetY` - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!
 * `MatrixLEDUni RGB|RRGGBB` - set matrix to one color, default: 000 = off
-* `notify text on|mod|off category#` - display notification, text is ignored for standard notfication categories, see below
+* `Notify "Phone Call"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom on|mod|off category#` - display notification, parameters see below
+* `Poweroff` - poweroff
+* `Reset` - reset
 * `SuperLED RGB|RRGGBB` - set superled to color, default: 000 = off
-* `Text RGB|RRGGBB text speed true|false` - scrolling text with speed (not working) and true|false for loop, Default: color=F00, loop=true
+* `StatusLED true|false` - turn status LEDs on or off, default: false = off
+* `Text RGB|RRGGBB text 0|1|2 true|false` - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true
 * `UID` - query device UID - decoder misssing
 * `Versions` - query device versions - decoder misssing
 
 `RGB|RRGGBB` - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel
 
 Notifications
-`category#` - notification category number (0 = Phone (not working)|1 = Call|2 = WhatsApp|3 = Facebook|4 = GMail|5 = MobileMail|6 = Tweet|7 = SMS|8 = Line|9 = Instagram|10 = Hangout|11 = GooglePlus)
-`on`|`mod`|`off` - allows to activate / show, modify and deactivate / remove a notification (only category 1 = Call accepts mod and off)
+`"Phone Call"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom` - name of notifcation to display, Custom =  use your own notification
+`on|mod|off` - allows to activate / show, modify and deactivate / remove a notification (only Incoming Call can be turned off)
+`category#` - notification category number (0 = Other|1 = Incoming Call|2 = MIssed Call|3 = Voice Mail|4 = Social|5 = Schedule|6 = E-Mail|7 = News|8 = Health/Fitness|9 = Business/Finance|10 = Location|11 = Entertainment|255 = Unknown)
 
 
 default interface: /dev/ttyACM0
 
-(for Mac it is something like `/dev/tty.usbmodem641`)
-(for Windows it is something like `COM3`)
+(for Mac it is something like `/dev/tty.usbmodem641` for USB and `/dev/tty.L8-SerialPortServerPort1` for Bluetooth)
+(for Windows it is something like `COM3` or `COM4` )
 
 Samples
 -------

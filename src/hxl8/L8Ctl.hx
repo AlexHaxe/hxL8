@@ -273,6 +273,8 @@ class L8Ctl
         Sys.println ("Dice RGB|RRGGBB - Start dice app with optional color, default: F00");
         Sys.println ("EnableAllNotifcations true|false - enable/disable all notifications, default: true");
         Sys.println ("GetMatrix - get current Matrix LED (experimental)");
+        Sys.println ("GetNotifyApp app# - get Name, Matrix colors, Super LED color and Enabled flag of app number (0-255)");
+        Sys.println ("GetNumNotifyApps - get the number of notification apps");
         Sys.println ("Init - get trace info");
         Sys.println ("Interface devicename - sets COM-port to use, default: /dev/ttyACM0");
 #if cpp
@@ -285,7 +287,7 @@ class L8Ctl
         Sys.println ("Reset - reset");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
         Sys.println ("StatusLED true|false - turn status LEDs on or off, default: false = off");
-        Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medim, 2 = slow and true|false for loop, Default: loop = true");
+        Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true");
         Sys.println ("UID - query device UID - decoder misssing");
         Sys.println ("Versions - query device versions - decoder misssing");
         Sys.println ("");
