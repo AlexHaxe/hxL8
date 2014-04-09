@@ -118,12 +118,24 @@ class L8Receiver
                 response = new L8ResponseVersions ();
 //            case 116: // delete frame
 //                return;
+            case 107: 
+                response = new L8ResponseStoreL8y ();
+            case 109: 
+                response = new L8ResponseFrameGrab ();
+            case 115: 
+                response = new L8ResponseFrameGrab ();
             case 118:
                 response = new L8ResponseBatchG ();
             case 132: // trace msg
                 response = new L8ResponseTraceMsg ();
             case 139: // orientation
                 response = new L8ResponseOrientation ();
+            case 141: // NumL8ies
+                response = new L8ResponseNumL8ies ();
+            case 143: // NumAnims
+                response = new L8ResponseNumAnims ();
+            case 145: // NumFrames
+                response = new L8ResponseNumFrames ();
             case 148:
                 response = new L8ResponseNotifyApp ();
             case 150: // notifcationsilence

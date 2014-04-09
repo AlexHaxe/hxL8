@@ -17,13 +17,13 @@ import hxl8.L8RGB;
 
 import hxl8.exceptions.L8SendException;
 
-class L8CmdSetMatrixLEDArray extends L8CmdBase
+class L8CmdStoreL8y extends L8CmdBase
 {
     private var m_rgbs : Array<L8RGB>;
     
     public function new (rgbs : Array<L8RGB>)
     {
-        super (68);
+        super (106);
         m_rgbs = rgbs;
     }
     override public function getBytes () : BytesBuffer

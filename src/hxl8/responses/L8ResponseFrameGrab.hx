@@ -41,11 +41,13 @@ class L8ResponseFrameGrab extends L8ResponseBase
     override public function toString () : String
     {
         var buffer : StringBuf = new StringBuf ();
+        var buffer2 : StringBuf = new StringBuf ();
         
         var index : Int = 0;
         for (rgb in m_rgbs)
         {
             buffer.add (rgb.toString ());
+            buffer2.add (rgb.toString ());
             buffer.add (" ");
             index++;
             if (index % 8 == 0)
@@ -53,6 +55,8 @@ class L8ResponseFrameGrab extends L8ResponseBase
                 buffer.add ("\n");
             }
         }
+        buffer.add ("\n");
+        buffer.add (buffer2.toString ());
         return buffer.toString ();
     }
 }

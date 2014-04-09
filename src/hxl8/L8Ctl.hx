@@ -83,6 +83,9 @@ class L8Ctl
 	        {
 				case "appstop", "stop":
 				    commands.push (new L8CmdAppStop ());
+				case "autorotate":
+                    var enable : Bool = consumeArgBool (args, true);
+                    commands.push (new L8CmdEnableAutoRotate (enable));
 				case "batchg", "bat":
 				    commands.push (new L8CmdQueryBatChg ());
 				case "brightness", "bright":
@@ -93,6 +96,9 @@ class L8Ctl
 				    var color : Int = consumeArgInt (args, 0);
 				    var speed : Int = consumeArgInt (args, 64);
 				    commands.push (new L8CmdAppRunColorChanger (color, speed, false));
+			    case "deletel8y":
+                    var l8y : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdDeleteL8y (l8y));
 				case "dice":
 				    commands.push (new L8CmdAppStop ());	                
 				    var rgb : L8RGB = consumeArgColor (args, "F00");
@@ -108,6 +114,12 @@ class L8Ctl
 				    commands.push (new L8CmdGetNotifyApp (index, extended));
 				case "getnumnotifyapps", "numnotifyapps", "numnotify":
 				    commands.push (new L8CmdGetNumNotifyApps ());
+                case "getnumanims", "numanims":
+                    commands.push (new L8CmdQueryNumAnims ());
+                case "getnumframes", "numframes", "numframe":
+                    commands.push (new L8CmdQueryNumFrames ());
+				case "getnuml8ies", "getnuml8y", "numl8ies", "numl8y":
+				    commands.push (new L8CmdQueryNumL8ies ());
 				case "init", "initstatus", "status":
 				    commands.push (new L8CmdQueryInitStatus ());
 				case "interface":
@@ -126,6 +138,12 @@ class L8Ctl
 				    commands.push (new L8CmdAppRunParty ());
 				case "ping":
 				    commands.push (new L8CmdSendPing ());
+                case "readframe":
+                    var frame : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdReadFrame (frame));
+                case "readl8y":
+                    var l8y : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdReadL8y (l8y));
 				case "reset":
 				    commands.push (new L8CmdReset ());
 				case "setmatrixledfile", "matrixledfile", "matrixfile":
@@ -133,9 +151,15 @@ class L8Ctl
 				    var offsetX : Int = consumeArgInt (args, 0);
 				    var offsetY : Int = consumeArgInt (args, 0);
 				    commands.push (new L8CmdSetMatrixLEDFile (fileName, offsetX, offsetY));
+                case "setl8y", "l8y":
+                    var index : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdSetStoredL8y (index));
 				case "setmatrixleduni", "matrixleduni", "matrixuni":
 				    var rgb : L8RGB = consumeArgColor (args, "000");
 				    commands.push (new L8CmdSetMatrixLEDUni (rgb));
+				case "setmatrixledstring", "matrixledstring", "matrixstring":
+                    var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
+                    commands.push (new L8CmdSetMatrixLEDArray (rgb));
 				case "setnotificationsilence", "silence", "silent":
 				    var silence : Bool = consumeArgBool (args, false);
 				    commands.push (new L8CmdSetNotificationsSilence (silence));            
@@ -145,6 +169,9 @@ class L8Ctl
 				case "statusleds", "statusled":
 				    var enable : Bool = consumeArgBool (args, false);
 				    commands.push (new L8CmdEnableStatusLEDs (enable));
+                case "storel8y":
+                    var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
+                    commands.push (new L8CmdStoreL8y (rgb));
 				case "text":
 				    var rgb : L8RGB = consumeArgColor (args, "F00");
 				    var text : String = args.shift ();
@@ -221,6 +248,36 @@ class L8Ctl
         }
         return new L8RGB (args.shift ());
     }
+    
+    private function consumeArgColorArray (args : Array<String>, defaultRGB : String) : Array<L8RGB>
+    {
+        var result : Array<L8RGB> = new Array<L8RGB> (); 
+        if (args.length >= 0)
+        {
+            var values : String = args.shift ();
+	        if (values.length == 192)
+	        {
+	            for (index in 0...64)
+	            {
+                    result.push (new L8RGB (values.substr (index * 3, 3)));
+	            }
+	            return result;
+	        }
+	        if (values.length == 384)
+	        {
+                for (index in 0...64)
+                {
+                    result.push (new L8RGB (values.substr (index * 6, 6)));
+                }
+                return result;
+	        }
+        }
+        for (index in 0...64)
+        {
+            result.push (new L8RGB (defaultRGB));
+        }
+        return result;
+    }
     private function consumeArgInt (args : Array<String>, defaultValue : Int) : Int
     {
         if (args.length <= 0)
@@ -267,31 +324,42 @@ class L8Ctl
         Sys.println ("");
         Sys.println ("Commands (case insensitive):");
         Sys.println ("AppStop - stop current app");
+        Sys.println ("AutoRotate true|false - enable / disable autorotate");
         Sys.println ("BatChg - battery charge status");
         Sys.println ("Brightness true|false - set low brightness of LEDs (matrix and super) true = high, false = low, default: false");
         Sys.println ("ColorChange 1|2|3|4 speed - Start color changer app");
+        Sys.println ("DeleteL8y l8y# - Delete L8y by number (between 0 and GetNumL8ies)");        
         Sys.println ("Dice RGB|RRGGBB - Start dice app with optional color, default: F00");
         Sys.println ("EnableAllNotifcations true|false - enable/disable all notifications, default: true");
         Sys.println ("GetMatrix - get current Matrix LED (experimental)");
         Sys.println ("GetNotifyApp app# - get Name, Matrix colors, Super LED color and Enabled flag of app number (0-255)");
         Sys.println ("GetNumNotifyApps - get the number of notification apps");
+        Sys.println ("GetNumAnims - get the number of anims in User space");
+        Sys.println ("GetNumFrames - get the number of Frames in User space");
+        Sys.println ("GetNumL8ies - get the number of L8ies in User space");
         Sys.println ("Init - get trace info");
         Sys.println ("Interface devicename - sets COM-port to use, default: /dev/ttyACM0");
+        Sys.println ("L8y l8y# - Show L8y (between 0 and GetNumL8ies)");        
 #if cpp
         Sys.println ("MatrixLEDFile Filename.png offsetX offsetY - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!");
 #end
         Sys.println ("MatrixLEDUni RGB|RRGGBB - set matrix to one color, default: 000 = off");
+        Sys.println ("MatrixLEDString 64*(RGB|RRGGBB) - set matrix to colorlist");
         Sys.println ("Notify \"Phone Call\"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom on|mod|off category# - display notification, parameters see below");
         Sys.println ("Party - run party app");
         Sys.println ("Poweroff - poweroff");
+        Sys.println ("ReadFrame frame# - gets frame from User Space (number should be between 0 and GetNumFrames)");
+        Sys.println ("ReadL8y l8y# - get matrix colors for L8y (between 0 and GetNumL8ies)");        
         Sys.println ("Reset - reset");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
         Sys.println ("StatusLED true|false - turn status LEDs on or off, default: false = off");
+        Sys.println ("StoreL8y 64*(RGB|RRGGBB) - set matrix to colorlist (returns new index of L8y)");        
         Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true");
         Sys.println ("UID - query device UID - decoder misssing");
         Sys.println ("Versions - query device versions - decoder misssing");
         Sys.println ("");
         Sys.println ("RGB|RRGGBB - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel");
+        Sys.println ("64*(RGB|RRGGBB) - values in hex should be: RGBRGBRGB... (= 192 chars) or RRGGBBRRGGBBRRGGBB... (= 384 chars)");
         Sys.println ("");
         Sys.println ("Notifications");
         Sys.println ("\"Phone Call\"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom - name of notifcation to display, Custom =  use your own notification");

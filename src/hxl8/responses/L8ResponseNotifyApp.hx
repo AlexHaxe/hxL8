@@ -72,6 +72,7 @@ class L8ResponseNotifyApp extends L8ResponseBase
     override public function toString () : String
     {
         var buffer : StringBuf = new StringBuf ();
+        var buffer2 : StringBuf = new StringBuf ();
         
         buffer.add ('Name: $m_app\n');  
         buffer.add ('Matrix:\n');  
@@ -79,6 +80,7 @@ class L8ResponseNotifyApp extends L8ResponseBase
         for (rgb in m_rgbs)
         {
             buffer.add (rgb.toString ());
+            buffer2.add (rgb.toString ());
             buffer.add (" ");
             index++;
             if (index % 8 == 0)
@@ -86,6 +88,9 @@ class L8ResponseNotifyApp extends L8ResponseBase
                 buffer.add ("\n");
             }
         }
+        buffer.add ("\n");
+        buffer.add (buffer2.toString ());
+        buffer.add ("\n");
         buffer.add ('Super: ${m_super.toString ()}\n');  
         buffer.add ('Enabled: $m_enabled');  
         return buffer.toString ();
