@@ -87,9 +87,9 @@ Commands (case insensitive):
 `64*(RGB|RRGGBB)` - values in hex should be: RGBRGBRGB... (= 192 chars) or RRGGBBRRGGBBRRGGBB... (= 384 chars)
 
 Notifications
-`"Phone Call"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom` - name of notifcation to display, Custom =  use your own notification
-`on|mod|off` - allows to activate / show, modify and deactivate / remove a notification (only Incoming Call can be turned off)
-`category#` - notification category number (0 = Other|1 = Incoming Call|2 = MIssed Call|3 = Voice Mail|4 = Social|5 = Schedule|6 = E-Mail|7 = News|8 = Health/Fitness|9 = Business/Finance|10 = Location|11 = Entertainment|255 = Unknown)
+* `"Phone Call"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom` - name of notifcation to display, Custom =  use your own notification
+* `on|mod|off` - allows to activate / show, modify and deactivate / remove a notification (only Incoming Call can be turned off)
+* `category#` - notification category number (0 = Other|1 = Incoming Call|2 = MIssed Call|3 = Voice Mail|4 = Social|5 = Schedule|6 = E-Mail|7 = News|8 = Health/Fitness|9 = Business/Finance|10 = Location|11 = Entertainment|255 = Unknown)
 
 
 default interface: /dev/ttyACM0
@@ -101,28 +101,28 @@ Samples
 -------
 (on Windows using COM3)
 
-`L8Ctl interface COM3 super f00`
+`L8Ctl.exe interface COM3 super f00`
 sets super led to red
 
-`L8Ctl interface COM3 super fff matrixuni f00`
+`L8Ctl.exe interface COM3 super fff matrixuni f00`
 sets super led to white and matrix to all red
 
-`L8Ctl interface COM3 matrixfile icon.png 50 50`
+`L8Ctl.exe interface COM3 matrixfile icon.png 50 50`
 sets matrix to contents of icon.png at offset 50×50
 
-`L8Ctl interface COM3 text 00f “this is a test” 20 true`
+`L8Ctl.exe interface COM3 text 00f “this is a test” 20 true`
 starts text scroller in blue with speed 20 and loop = true (notice: L8 does not use speed parameter)
 
-`L8Ctl interface COM3 dice fff`
+`L8Ctl.exe interface COM3 dice fff`
 starts dice app in white
 
-`L8Ctl interface COM3 appstop`
+`L8Ctl.exe interface COM3 appstop`
 stops current app
 
 
-`L8Ctl interface COM3 storeframe f00f70ff00f000f40880f storeframe f70ff00f000f40880ff00 storeframe ff00f000f40880ff00f70 storeframe 0f000f40880ff00f70ff0 storeframe 00f40880ff00f70ff00f0 storeframe 40880ff00f70ff00f000f storeframe 80ff00f70ff00f000f408
-L8Ctl interface COM3 storeanim 15,1,16,1,17,1,18,1,19,1,20,1,21,1
-L8Ctl interface COM3 playanim 11`
+`L8Ctl.exe interface COM3 storeframe f00f70ff00f000f40880f storeframe f70ff00f000f40880ff00 storeframe ff00f000f40880ff00f70 storeframe 0f000f40880ff00f70ff0 storeframe 00f40880ff00f70ff00f0 storeframe 40880ff00f70ff00f000f storeframe 80ff00f70ff00f000f408`
+`L8Ctl.exe interface COM3 storeanim 15,1,16,1,17,1,18,1,19,1,20,1,21,1`
+`L8Ctl.exe interface COM3 playanim 11`
 rainbow animation (please adjust numbers for storeanim and playanim to match your L8 - storeframe and storeanim will return the actual numbers)
 
 
@@ -134,4 +134,6 @@ The MacOSX binaries are unstable, they only work approx 10% of the time.
 
 Windows32 binary was tested on Windows XP.
 Java binary was tested on Linux.
+
+L8Ctl works with USB and Bluetooth, you need to pair L8 with your computer first.
 
