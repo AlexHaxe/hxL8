@@ -19,27 +19,21 @@ class L8CmdStoreAnim extends L8CmdBase
     {
         super (119);
         
-        trace (anim);
         var entries : Array<String> = anim.split (",");
 
         m_animSequence = new Array<Int> ();
-trace (entries);        
         if (entries.length <= 0)
         {
-            trace ("xx");
             return;
         }
         if (entries.length % 2 != 0)
         {
-            trace ("xx2");
             entries.pop ();
         }
         for (entry in entries)
         {
             m_animSequence.push (Std.parseInt (entry));
         }
-            trace (m_animSequence);
-        
     }
     override public function getBytes () : BytesBuffer
     {
