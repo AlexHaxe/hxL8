@@ -27,6 +27,6 @@ class L8ResponseNumFrames extends L8ResponseBase
     }
     override public function toString () : String
     {
-        return 'Number of L8ies (in User Space): $m_frameCount';
+        return 'Number of Frames (in User Space): $m_frameCount';
     }
 }

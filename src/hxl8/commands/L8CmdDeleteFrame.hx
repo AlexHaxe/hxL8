@@ -10,7 +10,7 @@ class L8CmdDeleteFrame extends L8CmdBase
      
     public function new (frame : Int)
     {
-        super (117);
+        super (116);
         m_frame = frame;
     }
     override public function getBytes () : BytesBuffer
