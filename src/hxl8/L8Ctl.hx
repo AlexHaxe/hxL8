@@ -251,7 +251,8 @@ class L8Ctl
     
     private function consumeArgColorArray (args : Array<String>, defaultRGB : String) : Array<L8RGB>
     {
-        var result : Array<L8RGB> = new Array<L8RGB> (); 
+        var result : Array<L8RGB> = new Array<L8RGB> ();
+        var rgb : L8RGB; 
         if (args.length >= 0)
         {
             var values : String = args.shift ();
@@ -259,7 +260,8 @@ class L8Ctl
 	        {
 	            for (index in 0...64)
 	            {
-                    result.push (new L8RGB (values.substr (index * 3, 3)));
+	                rgb = new L8RGB (values.substr (index * 3, 3));
+                    result.push (rgb);
 	            }
 	            return result;
 	        }
@@ -267,10 +269,21 @@ class L8Ctl
 	        {
                 for (index in 0...64)
                 {
-                    result.push (new L8RGB (values.substr (index * 6, 6)));
+                    rgb = new L8RGB (values.substr (index * 6, 6));
+                    result.push (rgb);
                 }
                 return result;
 	        }
+	        if (values.length < 192)
+	        {
+	            var count : Int =  Std.int (values.length / 3);
+                for (index in 0...64)
+                {
+                    rgb = new L8RGB (values.substr ((index % count) * 3, 3));
+                    result.push (rgb);
+                }
+                return result;
+            }
         }
         for (index in 0...64)
         {
