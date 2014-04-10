@@ -96,6 +96,14 @@ class L8Ctl
 				case "brightness", "bright":
 				    var brightness : Bool = consumeArgBool (args, false);
 				    commands.push (new L8CmdSetBrightness (brightness));
+                case "box":
+                    var left : Int = consumeArgInt (args, 2);
+                    var top : Int = consumeArgInt (args, 2);
+                    var right : Int = consumeArgInt (args, 6);
+                    var bottom : Int = consumeArgInt (args, 6);
+                    var border : L8RGB = consumeArgColor (args, "F00");
+                    var fill : L8RGB = consumeArgColor (args, "F00");
+                    commands.push (new L8CmdBox (left, top, right, bottom, border, fill));
 				case "colorchange":
 				    commands.push (new L8CmdAppStop ());
 				    var color : Int = consumeArgInt (args, 0);
@@ -445,6 +453,7 @@ class L8Ctl
         Sys.println ("AutoRotate true|false - enable / disable autorotate");
         Sys.println ("BatChg - battery charge status");
         Sys.println ("Brightness true|false - set low brightness of LEDs (matrix and super) true = high, false = low, default: false");
+        Sys.println ("Box left top right bottom RGB RGB - shows a box from left/top to right/bottom with border and fill folor");
         Sys.println ("ColorChange 1|2|3|4 speed - Start color changer app");
         Sys.println ("DeleteAnim anim# - Delete Animation by number (between 0 and GetNumAnims)");        
         Sys.println ("DeleteFrame frame# - Delete Frame by number (between 0 and GetNumFrames)");        
