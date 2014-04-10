@@ -27,6 +27,8 @@ import hxl8.responses.*;
 
 class L8Receiver 
 {
+    public static var silent : Bool = false; 
+    
     public static function receiverThread () : Void
     {
         var started : Bool = false;
@@ -92,16 +94,17 @@ class L8Receiver
                     
                     var crc : Int = L8CrcCalc.calcCRC (data);
                     status = 0;
+                    var response : L8ResponseBase = null;
                     if (crc == byte)
                     {
-                        processCommand (data);
+                        response = processCommand (data);
                     }
-                    mainThread.sendMessage ("fertig");
+                    mainThread.sendMessage (response);
                     data = null;
             }
         }
     }
-    private static function processCommand (data : Bytes) : Void
+    private static function processCommand (data : Bytes) : L8ResponseBase
     {
         var response : L8ResponseBase = null;
         switch (data.get (0))
@@ -112,8 +115,16 @@ class L8Receiver
                 response = new L8ResponsePong ();
             case 71: // Voltage
                 response = new L8ResponseVoltage ();
+            case 73: // Voltage
+                response = new L8ResponseTemperature ();
+            case 77:
+                response = new L8ResponseAccelerator ();
             case 79: // UID
                 response = new L8ResponseUID ();
+            case 81:
+                response = new L8ResponseAmbientLight ();
+            case 83:
+                response = new L8ResponseProximity ();
             case 97: // Versions
                 response = new L8ResponseVersions ();
 //            case 116: // delete frame
@@ -154,9 +165,13 @@ class L8Receiver
                 response = new L8ResponseErr ();
             default:
                 Sys.println ('Unknown response: ${data.get (0)} - len: ${data.length} - ${data.toHex ()}');
-                return;
+                return null;
         }
         response.parseData (data);
-        Sys.println (response);
+        if (!silent)
+        {   
+            Sys.println (response);
+        }
+        return response;
     }
 }

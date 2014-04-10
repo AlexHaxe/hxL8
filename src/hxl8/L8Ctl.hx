@@ -46,7 +46,7 @@ class L8Ctl
 	        Sys.exit (-1);
 	        return null;
 	    }
-        var serialFile : Serial = new Serial (comPort, 9600, true);
+        var serialFile : Serial = new Serial (comPort, 19200, true);
         while (!serialFile.isSetup)
         {
             trace ("COM-Port unavailable - reconnect in 1s");
@@ -73,6 +73,11 @@ class L8Ctl
         }
         
         var commands : Array<L8CmdBase> = new Array<L8CmdBase> ();
+        
+        var repeat : Bool = false;
+        var repeatForever : Bool = false;
+        var repeatsCount : Int = 0;
+        var repeatsDelay : Int = 10;
         
         var comPort : String = "/dev/ttyACM0"; 
         var param : String;
@@ -105,6 +110,14 @@ class L8Ctl
                 case "deleteframe":
                     var frame : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdDeleteFrame (frame));
+                case "deleteusermemory", "deleteuserspace":
+                    var really : String = args.shift ();
+                    if (really != "YES")
+                    {
+                        Sys.println ('Please use: $command YES');
+                        Sys.exit (-1);
+                    }
+                    commands.push (new L8CmdDeleteUserMemory ());
 				case "dice":
 				    commands.push (new L8CmdAppStop ());	                
 				    var rgb : L8RGB = consumeArgColor (args, "F00");
@@ -112,6 +125,10 @@ class L8Ctl
 				case "enableallnotifcations":
 				    var enable : Bool = consumeArgBool (args, true);
 				    commands.push (new L8CmdEnableAllNotifications (enable));
+                case "getacc", "accelerator", "acc":
+                    commands.push (new L8CmdQueryAcc ());
+                case "getamb", "ambient", "amb":
+                    commands.push (new L8CmdQueryAmbientLight ());
 				case "getmatrix":
 				    commands.push (new L8CmdGetCurrentMatrix ());
 				case "getnotifyapp":
@@ -126,6 +143,12 @@ class L8Ctl
                     commands.push (new L8CmdQueryNumFrames ());
 				case "getnuml8ies", "getnuml8y", "numl8ies", "numl8y":
 				    commands.push (new L8CmdQueryNumL8ies ());
+                case "getprox", "proximity", "prox":
+                    commands.push (new L8CmdQueryProximity ());
+                case "gettemp", "temperature", "temp":
+                    commands.push (new L8CmdQueryTemp ());
+                case "getvoltage", "voltage":
+                    commands.push (new L8CmdQueryVoltage ());
 				case "init", "initstatus", "status":
 				    commands.push (new L8CmdQueryInitStatus ());
 				case "interface":
@@ -157,6 +180,32 @@ class L8Ctl
                 case "readl8y":
                     var l8y : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdReadL8y (l8y));
+                case "silentrepeat", "repeat", "repeatsilent":
+                    var repeatNumber : String = args.shift ();
+                    repeatsDelay = consumeArgInt (args, 10);
+                    if (repeatNumber == "forever")
+                    {
+                        repeatForever = true;
+                        repeatsCount = 0;
+                    }
+                    else
+                    {
+                        repeatForever = false;
+                        repeatsCount = Std.parseInt (repeatNumber);
+                        if (repeatsCount <= 0)
+                        {
+                            break;
+                        }
+                    }
+                    if (repeatsDelay <= 0)
+                    {
+                        repeatsDelay = 1;
+                    }
+                    repeat = true;
+                    if ((command == "repeatsilent") || (command == "silentrepeat"))
+                    {
+                        L8Receiver.silent = true;
+                    }
 				case "reset":
 				    commands.push (new L8CmdReset ());
 				case "setmatrixledfile", "matrixledfile", "matrixfile":
@@ -164,18 +213,23 @@ class L8Ctl
 				    var offsetX : Int = consumeArgInt (args, 0);
 				    var offsetY : Int = consumeArgInt (args, 0);
 				    commands.push (new L8CmdSetMatrixLEDFile (fileName, offsetX, offsetY));
+                case "setled", "led":
+                    var x : Int = consumeArgInt (args, 0);
+                    var y : Int = consumeArgInt (args, 0);
+                    var rgb : L8RGB = consumeArgColor (args, "000");
+                    commands.push (new L8CmdSetLED (x, y, rgb));
                 case "setl8y", "l8y":
                     var index : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdSetStoredL8y (index));
-				case "setmatrixleduni", "matrixleduni", "matrixuni":
-				    var rgb : L8RGB = consumeArgColor (args, "000");
-				    commands.push (new L8CmdSetMatrixLEDUni (rgb));
 				case "setmatrixledstring", "matrixledstring", "matrixstring":
                     var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
                     commands.push (new L8CmdSetMatrixLEDArray (rgb));
 				case "setnotificationsilence", "silence", "silent":
 				    var silence : Bool = consumeArgBool (args, false);
 				    commands.push (new L8CmdSetNotificationsSilence (silence));            
+                case "setmatrixleduni", "matrixleduni", "matrixuni":
+                    var rgb : L8RGB = consumeArgColor (args, "000");
+                    commands.push (new L8CmdSetMatrixLEDUni (rgb));
 				case "setsuperled", "superled", "super":
 				    var rgb : L8RGB = consumeArgColor (args, "000");
 				    commands.push (new L8CmdSetSuperLED (rgb));
@@ -228,14 +282,43 @@ class L8Ctl
             Sys.exit (-1);
             return;
         }
-        for (command in commands)
+        if (repeat)
         {
-            command.send (serial);
-            if (command.hasResponse ())
+	        while (true)
+	        {   
+	            for (command in commands)
+	            {
+	                command.send (serial);
+	                if (command.hasResponse ())
+	                {
+	                    // consume responses
+	                    Thread.readMessage (false);
+	                }
+                    Sys.sleep (repeatsDelay / 100);
+	            }
+	            if (repeatForever)
+	            {
+	                continue;
+	            }
+	            repeatsCount--;
+	            if (repeatsCount <= 0)
+	            {
+	                break;
+	            }
+	        }
+        }
+        else
+        {
+            for (command in commands)
             {
-                waitForAnswer (serial, 1000);
+                command.send (serial);
+                if (command.hasResponse ())
+                {
+                    waitForAnswer (serial, 1000);
+                }
             }
         }
+        
         closeConnection (serial);
     }   
 
@@ -329,7 +412,7 @@ class L8Ctl
         var value : String = args.shift ().toLowerCase ();
         return ((value == "true") || (value == "1"));
     }
-    private function waitForAnswer (serial : Serial, tries : Int) : Void
+    private function waitForAnswer (serial : Serial, tries : Int) : L8ResponseBase
     {
         while (true)
         {
@@ -337,15 +420,16 @@ class L8Ctl
             if (tries <= 0)
             {
                 trace ("timeout waiting for response");
-                return;
+                return null;
             }
-            var msg : String = Thread.readMessage (false);
-            if (msg != null)
+            var response : L8ResponseBase = Thread.readMessage (false);
+            if (response != null)
             {
-                return;
+                return response;
             }
             Sys.sleep (0.005);
         }
+        return null;
     }     
     
     public static function showHelp () : Void
@@ -365,17 +449,24 @@ class L8Ctl
         Sys.println ("DeleteAnim anim# - Delete Animation by number (between 0 and GetNumAnims)");        
         Sys.println ("DeleteFrame frame# - Delete Frame by number (between 0 and GetNumFrames)");        
         Sys.println ("DeleteL8y l8y# - Delete L8y by number (between 0 and GetNumL8ies)");        
+        Sys.println ("DeleteUserSpace - Delete userspace");        
         Sys.println ("Dice RGB|RRGGBB - Start dice app with optional color, default: F00");
         Sys.println ("EnableAllNotifcations true|false - enable/disable all notifications, default: true");
+        Sys.println ("GetAcc - get values of accelerometer");
+        Sys.println ("GetAmb - get values of ambient sensor");
         Sys.println ("GetMatrix - get current Matrix LED (experimental)");
         Sys.println ("GetNotifyApp app# - get Name, Matrix colors, Super LED color and Enabled flag of app number (0-255)");
         Sys.println ("GetNumNotifyApps - get the number of notification apps");
         Sys.println ("GetNumAnims - get the number of anims in User space");
         Sys.println ("GetNumFrames - get the number of Frames in User space");
         Sys.println ("GetNumL8ies - get the number of L8ies in User space");
+        Sys.println ("GetProx - get value of proximity sensor");
+        Sys.println ("GetTemp - get value of temperature sensor");
+        Sys.println ("GetVoltage - get the voltage of L8 battery");
         Sys.println ("Init - get trace info");
         Sys.println ("Interface devicename - sets COM-port to use, default: /dev/ttyACM0");
-        Sys.println ("L8y l8y# - Show L8y (between 0 and GetNumL8ies)");        
+        Sys.println ("L8y l8y# - show L8y (between 0 and GetNumL8ies)");        
+        Sys.println ("Led x y RGB|RRGGBB - set a single LED pixel");        
 #if cpp
         Sys.println ("MatrixLEDFile Filename.png offsetX offsetY - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!");
 #end
@@ -389,6 +480,8 @@ class L8Ctl
         Sys.println ("ReadFrame frame# - gets frame from User Space (frame# between 0 and GetNumFrames)");
         Sys.println ("ReadL8y l8y# - get matrix colors for L8y (l8y# between 0 and GetNumL8ies)");        
         Sys.println ("Reset - reset");
+        Sys.println ("Repeat #|forever delay - repeats all commands forever or number of times with delay (100th of a second) between commands");
+        Sys.println ("RepeatSilent #|forever delay - repeats all commands forever or number of times with delay (100th of a second) between commands without printing responses from L8");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
         Sys.println ("StatusLED true|false - turn status LEDs on or off, default: false = off");
         Sys.println ("StopAnim - stops current animation");        
@@ -407,6 +500,9 @@ class L8Ctl
         Sys.println ("on|mod|off - allows to activate / show, modify and deactivate / remove a notification (only Incoming Call can be turned off)");
         Sys.println ("category# - notification category number (0 = Other|1 = Incoming Call|2 = MIssed Call|3 = Voice Mail|4 = Social|5 = Schedule|6 = E-Mail|7 = News|8 = Health/Fitness|9 = Business/Finance|10 = Location|11 = Entertainment|255 = Unknown)");
         Sys.println ("");
+        Sys.println ("Repeat is not a real command of L8, it is implemented in L8Ctl and requires a constant connection.");
+        Sys.println ("");
+        Sys.println ("Interface allows you to change the default interface to match your system");
         Sys.println ("default interface: /dev/ttyACM0");
     }
     
