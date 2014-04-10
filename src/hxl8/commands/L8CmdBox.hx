@@ -21,7 +21,7 @@ import hxl8.commands.L8CmdSetMatrixLEDArray;
 
 class L8CmdBox extends L8CmdSetMatrixLEDArray
 {
-    public function new (left : Int, top : Int, right : Int, bottom : Int, border : L8RGB, fill : L8RGB)
+    public function new (left : Int, top : Int, right : Int, bottom : Int, border : L8RGB, fill : L8RGB, outer : L8RGB)
     {
         var rgbs : Array<L8RGB> = new Array<L8RGB> ();
         
@@ -64,7 +64,7 @@ class L8CmdBox extends L8CmdSetMatrixLEDArray
                     continue;                    
                 }
             }
-            rgbs.push (new L8RGB ("000"));  
+            rgbs.push (outer);  
         }
          
         super (rgbs);
