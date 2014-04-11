@@ -10,13 +10,20 @@ class L8CmdAppRunColorChanger extends L8CmdAppRun
     private var m_speed : Int;
     private var m_invertSuperLED : Bool;
     
-    public function new (colors : Int, speed : Int, invertSuperLED : Bool)
+    public function new (colors : String, speed : Int, invertSuperLED : Bool)
     {
         super ();
-        switch (colors)
+        
+        switch (colors.toLowerCase ())
         {
-            case 1, 2, 3, 4:
-                m_colors = colors;
+            case "multicolor", "multi", "m":
+                m_colors = 1;
+            case "tropical", "trop", "t":
+                m_colors = 2;
+            case "galaxy", "gala", "g":
+                m_colors = 3;
+            case "aurora", "aur", "a":
+                m_colors = 4;
             default:
                 m_colors = 1;
         }

@@ -5,12 +5,6 @@ import sys.FileSystem;
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
-#if cpp
-import hxlode.PicoPNG;
-#elseif neko
-import hxlode.PicoPNG;
-#end
-
 import hxl8.commands.L8CmdBase;
 
 import hxl8.L8RGB;
@@ -23,7 +17,7 @@ class L8CmdSetMatrixLEDArray extends L8CmdBase
     
     public function new (rgbs : Array<L8RGB>)
     {
-        super (68);
+        super (0x44);
         m_rgbs = rgbs;
     }
     override public function getBytes () : BytesBuffer

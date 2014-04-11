@@ -8,6 +8,6 @@ class L8CmdQueryVBUSVoltage extends L8CmdBase
 {
     public function new ()
     {
-        super (117);
+        super (0x66);
     }
 }

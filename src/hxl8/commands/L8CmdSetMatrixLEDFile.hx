@@ -25,7 +25,7 @@ class L8CmdSetMatrixLEDFile extends L8CmdBase
     
     public function new (fileName : String, offsetX : Int = 0, offsetY : Int = 0)
     {
-        super (68);
+        super (0x44);
         m_fileName = fileName;
         m_offsetX = offsetX;
         m_offsetY = offsetY;

@@ -88,11 +88,35 @@ class L8Ctl
 	        {
 				case "appstop", "stop":
 				    commands.push (new L8CmdAppStop ());
+                case "appambient":
+                    commands.push (new L8CmdAppStop ());                    
+                    var matrixRGB : L8RGB = consumeArgColor (args, "F00");
+                    var superRGB : L8RGB = consumeArgColor (args, "F00");
+                    var threshold : Int = consumeArgInt (args, 50);
+                    commands.push (new L8CmdAppRunAmbient (matrixRGB, superRGB, threshold));
+                case "appdice", "dice":
+                    commands.push (new L8CmdAppStop ());                    
+                    var rgb : L8RGB = consumeArgColor (args, "F00");
+                    commands.push (new L8CmdAppRunDice (rgb));
+                case "applight", "appcolorchange", "colorchange":
+                    commands.push (new L8CmdAppStop ());
+                    var color : String = args.shift ();
+                    var speed : Int = consumeArgInt (args, 64);
+                    var inverted : Bool = consumeArgBool (args, false);
+                    commands.push (new L8CmdAppRunColorChanger (color, speed, inverted));
+                case "appproximity", "appprox":
+                    commands.push (new L8CmdAppStop ());                    
+                    var matrixRGB : L8RGB = consumeArgColor (args, "F00");
+                    var superRGB : L8RGB = consumeArgColor (args, "F00");
+                    var threshold : Int = consumeArgInt (args, 50);
+                    commands.push (new L8CmdAppRunProximity (matrixRGB, superRGB, threshold));
 				case "autorotate":
                     var enable : Bool = consumeArgBool (args, true);
                     commands.push (new L8CmdEnableAutoRotate (enable));
-				case "batchg", "bat":
-				    commands.push (new L8CmdQueryBatChg ());
+				case "bootloader", "dfu":
+				    commands.push (new L8CmdBootloader ());
+                case "batchg", "bat":
+                    commands.push (new L8CmdQueryBatChg ());
 				case "brightness", "bright":
 				    var brightness : Bool = consumeArgBool (args, false);
 				    commands.push (new L8CmdSetBrightness (brightness));
@@ -105,11 +129,8 @@ class L8Ctl
                     var fill : L8RGB = consumeArgColor (args, "00F");
                     var outer : L8RGB = consumeArgColor (args, "000");
                     commands.push (new L8CmdBox (left, top, right, bottom, border, fill, outer));
-				case "colorchange":
-				    commands.push (new L8CmdAppStop ());
-				    var color : Int = consumeArgInt (args, 0);
-				    var speed : Int = consumeArgInt (args, 64);
-				    commands.push (new L8CmdAppRunColorChanger (color, speed, false));
+                case "button":
+                    commands.push (new L8CmdQueryButton ());
 			    case "deletel8y":
                     var l8y : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdDeleteL8y (l8y));
@@ -127,20 +148,29 @@ class L8Ctl
                         Sys.exit (-1);
                     }
                     commands.push (new L8CmdDeleteUserMemory ());
-				case "dice":
-				    commands.push (new L8CmdAppStop ());	                
-				    var rgb : L8RGB = consumeArgColor (args, "F00");
-				    commands.push (new L8CmdAppRunDice (rgb));
+                case "displaychar", "char":
+                    var char : String = args.shift ();
+                    var direction : String = args.shift ();
+                    var offset : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdDisplayChar (char, direction, offset));
 				case "enableallnotifcations":
 				    var enable : Bool = consumeArgBool (args, true);
 				    commands.push (new L8CmdEnableAllNotifications (enable));
+                case "enablenotifcation", "enablenotify", "notifyenable":
+                    var index : Int = consumeArgInt (args, 0);
+                    var enable : Bool = consumeArgBool (args, true);
+                    commands.push (new L8CmdEnableNotification (index, enable));
                 case "getacc", "accelerator", "acc":
                     commands.push (new L8CmdQueryAcc ());
                 case "getamb", "ambient", "amb":
                     commands.push (new L8CmdQueryAmbientLight ());
 				case "getmatrix":
 				    commands.push (new L8CmdGetCurrentMatrix ());
-				case "getnotifyapp":
+                case "getmcutemp", "mcutemperature", "mcutemp":
+                    commands.push (new L8CmdQueryMCUTemp ());
+                case "getmic", "microphone", "mic", "noise", "getnoise":
+                    commands.push (new L8CmdQueryNoise ());
+				case "getnotifyapp", "readnotifyapp", "getnotify", "readnotify":
 				    var index : Int = consumeArgInt (args, 0);
 				    var extended : Bool = consumeArgBool (args, true);
 				    commands.push (new L8CmdGetNotifyApp (index, extended));
@@ -154,14 +184,20 @@ class L8Ctl
 				    commands.push (new L8CmdQueryNumL8ies ());
                 case "getprox", "proximity", "prox":
                     commands.push (new L8CmdQueryProximity ());
+                case "getthreshold", "sensorthresholds", "thresholds", "threshold":
+                    commands.push (new L8CmdQuerySensorThresholds ());
                 case "gettemp", "temperature", "temp":
                     commands.push (new L8CmdQueryTemp ());
                 case "getvoltage", "voltage":
                     commands.push (new L8CmdQueryVoltage ());
+                case "getvbus", "vbus":
+                    commands.push (new L8CmdQueryVBUSVoltage ());
 				case "init", "initstatus", "status":
 				    commands.push (new L8CmdQueryInitStatus ());
 				case "interface":
 				    comPort = args.shift ();
+                case "matrixoff", "matrixclear", "clear":
+                    commands.push (new L8CmdMatrixOff ());
 				case "poweroff", "off":
 				    commands.push (new L8CmdPowerOff ());
 				case "notificationssilent":
@@ -242,6 +278,21 @@ class L8Ctl
 				case "setsuperled", "superled", "super":
 				    var rgb : L8RGB = consumeArgColor (args, "000");
 				    commands.push (new L8CmdSetSuperLED (rgb));
+                case "setorientation", "orientation", "orient":
+                    var orient : String = args.shift ();
+                    commands.push (new L8CmdSetOrientation (orient));
+                case "setambthreshold", "ambthreshold":
+                    var min : Int = consumeArgInt (args, 0);
+                    var max : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdSetAmbThreshold (min, max));
+                case "setnoisethreshold", "noisethreshold":
+                    var min : Int = consumeArgInt (args, 0);
+                    var max : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdSetNoiseThreshold (min, max));
+                case "setproxthreshold", "proxthreshold":
+                    var min : Int = consumeArgInt (args, 0);
+                    var max : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdSetProxThreshold (min, max));
 				case "statusleds", "statusled":
 				    var enable : Bool = consumeArgBool (args, false);
 				    commands.push (new L8CmdEnableStatusLEDs (enable));
@@ -256,6 +307,12 @@ class L8Ctl
                 case "storeframe":
                     var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
                     commands.push (new L8CmdStoreFrame (rgb));
+                case "storenotification", "storenotify", "setnotify", "setnotification":
+                    var app : String = args.shift ();
+                    var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
+                    var superLED : L8RGB = consumeArgColor (args, "000");
+                    var enable : Bool = consumeArgBool (args, false);
+                    commands.push (new L8CmdStoreNotification (app, rgb, superLED, enable));
 				case "text":
 				    var rgb : L8RGB = consumeArgColor (args, "F00");
 				    var text : String = args.shift ();
@@ -451,20 +508,29 @@ class L8Ctl
         Sys.println ("");
         Sys.println ("Commands (case insensitive):");
         Sys.println ("AppStop - stop current app");
+        Sys.println ("AppAmbient RGB RGB threshold - start ambient light app with matrix color, superled color and threshold");
+        Sys.println ("AppColorChange Multicolor|Tropical|Galaxy|Aurora speed true|false - Start color changer app with speed in SuperLED invert(= true), default: false");
+        Sys.println ("AppDice RGB|RRGGBB - Start dice app with optional color, default: F00");
+        Sys.println ("AppProximity RGB RGB threshold - start proximity app with matrix color, superled color and threshold");
+        
         Sys.println ("AutoRotate true|false - enable / disable autorotate");
         Sys.println ("BatChg - battery charge status");
+        Sys.println ("Bootloader - switch to DFU mode");
         Sys.println ("Brightness true|false - set low brightness of LEDs (matrix and super) true = high, false = low, default: false");
         Sys.println ("Box left top right bottom RGB RGB RGB - shows a box from left/top to right/bottom with border, fill and outside color");
-        Sys.println ("ColorChange 1|2|3|4 speed - Start color changer app");
+        Sys.println ("Button - read button status");
         Sys.println ("DeleteAnim anim# - Delete Animation by number (between 0 and GetNumAnims)");        
         Sys.println ("DeleteFrame frame# - Delete Frame by number (between 0 and GetNumFrames)");        
         Sys.println ("DeleteL8y l8y# - Delete L8y by number (between 0 and GetNumL8ies)");        
         Sys.println ("DeleteUserSpace - Delete userspace");        
-        Sys.println ("Dice RGB|RRGGBB - Start dice app with optional color, default: F00");
+        Sys.println ("DisplayChar char top|bottom|left|right offset - displays char with offset in pixels from top|bottom|left|right");        
         Sys.println ("EnableAllNotifcations true|false - enable/disable all notifications, default: true");
+        Sys.println ("EnableNotifcation notifcation# true|false - enable/disable notification, default: true");
         Sys.println ("GetAcc - get values of accelerometer");
         Sys.println ("GetAmb - get values of ambient sensor");
-        Sys.println ("GetMatrix - get current Matrix LED (experimental)");
+        Sys.println ("GetMatrix - get current Matrix LED");
+        Sys.println ("GetMCUTemp - get current MCU temperature");
+        Sys.println ("GetMic - get current noise sensor value");
         Sys.println ("GetNotifyApp app# - get Name, Matrix colors, Super LED color and Enabled flag of app number (0-255)");
         Sys.println ("GetNumNotifyApps - get the number of notification apps");
         Sys.println ("GetNumAnims - get the number of anims in User space");
@@ -472,7 +538,9 @@ class L8Ctl
         Sys.println ("GetNumL8ies - get the number of L8ies in User space");
         Sys.println ("GetProx - get value of proximity sensor");
         Sys.println ("GetTemp - get value of temperature sensor");
+        Sys.println ("GetThreshold - get current ambient, noise and proximity thresholds");
         Sys.println ("GetVoltage - get the voltage of L8 battery");
+        Sys.println ("GetVBUS - get the voltage of USB connection");
         Sys.println ("Init - get trace info");
         Sys.println ("Interface devicename - sets COM-port to use, default: /dev/ttyACM0");
         Sys.println ("L8y l8y# - show L8y (between 0 and GetNumL8ies)");        
@@ -482,6 +550,7 @@ class L8Ctl
 #end
         Sys.println ("MatrixLEDUni RGB|RRGGBB - set matrix to one color, default: 000 = off");
         Sys.println ("MatrixLEDString 64*(RGB|RRGGBB) - set matrix to colorlist");
+        Sys.println ("MatrixOff - clear matrix");
         Sys.println ("Notify \"Phone Call\"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom on|mod|off category# - display notification, parameters see below");
         Sys.println ("Party - run party app");
         Sys.println ("PlayAnim anim# true|false - plays animation # as loop = true or once = false; default: loop=true");
@@ -492,11 +561,16 @@ class L8Ctl
         Sys.println ("Reset - reset");
         Sys.println ("Repeat #|forever delay - repeats all commands forever or number of times with delay (100th of a second) between commands");
         Sys.println ("RepeatSilent #|forever delay - repeats all commands forever or number of times with delay (100th of a second) between commands without printing responses from L8");
+        Sys.println ("SetOrientation top|bottom|left|right - sets orientation");
+        Sys.println ("SetAmbThreshold min max - sets min max values of ambient threshold");
+        Sys.println ("SetNoiseThreshold min max - sets min max values of noise threshold");
+        Sys.println ("SetProxThreshold min max - sets min max values of proximity threshold");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
         Sys.println ("StatusLED true|false - turn status LEDs on or off, default: false = off");
         Sys.println ("StopAnim - stops current animation");        
         Sys.println ("StoreAnim frame#,duration,frame#,duration,... - stores a new animation in userspace (returns new index of anim)");        
         Sys.println ("StoreFrame 64*(RGB|RRGGBB) - stores a new frame in userspace (returns new index of frame)");        
+        Sys.println ("StoreNotification appbundle 64*(RGB|RRGGBB) RGB true|false - creates a new ntofication for app-bundlename with color-matrix and SuperLED color and initial enabled status");        
         Sys.println ("StoreL8y 64*(RGB|RRGGBB) - stores a L8y (returns new index of L8y)");        
         Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true");
         Sys.println ("UID - query device UID - decoder misssing");

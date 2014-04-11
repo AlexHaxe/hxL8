@@ -5,12 +5,6 @@ import sys.FileSystem;
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
-#if cpp
-import hxlode.PicoPNG;
-#elseif neko
-import hxlode.PicoPNG;
-#end
-
 import hxl8.commands.L8CmdBase;
 
 import hxl8.L8RGB;

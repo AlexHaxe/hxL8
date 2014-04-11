@@ -99,7 +99,14 @@ class L8Receiver
                     {
                         response = processCommand (data);
                     }
-                    mainThread.sendMessage (response);
+                    if (response != null)
+                    {
+                        mainThread.sendMessage (response);
+                    }
+                    else
+                    {
+                        mainThread.sendMessage ("unknown");
+                    }
                     data = null;
             }
         }
@@ -127,6 +134,14 @@ class L8Receiver
                 response = new L8ResponseProximity ();
             case 97: // Versions
                 response = new L8ResponseVersions ();
+            case 0x63: 
+                response = new L8ResponseButton ();
+            case 0x65: // 101
+                response = new L8ResponseNoise ();
+            case 0x67: // 103
+                response = new L8ResponseVBUS ();
+            case 0x69: // 105
+                response = new L8ResponseMCUTemp ();
 //            case 116: // delete frame
 //                return;
             case 107: 
@@ -159,6 +174,8 @@ class L8Receiver
                 response = new L8ResponseNumNotifyApps ();
             case 156: // notifcationsilence
                 response = new L8ResponseFrameGrab ();
+            case 0xA3:
+                response = new L8ResponseSensorThresholds ();
             case 167: // notifcationsilence
                 response = new L8ResponseNotificationSilence ();
             case 255: // Error

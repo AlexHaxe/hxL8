@@ -8,6 +8,6 @@ class L8CmdQueryAcc extends L8CmdBase
 {
     public function new ()
     {
-        super (76);
+        super (0x4C);
     }
 }

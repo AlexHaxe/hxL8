@@ -12,7 +12,7 @@ class L8CmdSetSuperLED extends L8CmdBase
     
     public function new (rgb : L8RGB)
     {
-        super (75);
+        super (0x4B);
         m_rgb = rgb;
     }
     override public function getBytes () : BytesBuffer

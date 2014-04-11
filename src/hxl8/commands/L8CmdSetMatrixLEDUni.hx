@@ -12,7 +12,7 @@ class L8CmdSetMatrixLEDUni extends L8CmdBase
     
     public function new (rgb : L8RGB)
     {
-        super (68);
+        super (0x44);
         m_rgb = rgb;
     }
     override public function getBytes () : BytesBuffer
