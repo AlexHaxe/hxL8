@@ -110,8 +110,8 @@ sets super led to white and matrix to all red
 `L8Ctl.exe interface COM3 matrixfile icon.png 50 50`
 sets matrix to contents of icon.png at offset 50×50
 
-`L8Ctl.exe interface COM3 text 00f “this is a test” 20 true`
-starts text scroller in blue with speed 20 and loop = true (notice: L8 does not use speed parameter)
+`L8Ctl.exe interface COM3 text 00f “this is a test” 1 true`
+starts text scroller in blue with medium speed (= 1) and loop = true 
 
 `L8Ctl.exe interface COM3 dice fff`
 starts dice app in white

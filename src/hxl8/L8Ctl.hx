@@ -30,38 +30,13 @@ import hxl8.commands.*;
 import hxl8.exceptions.*;
 import hxl8.responses.*;
 
-class L8Ctl 
+class L8Ctl extends L8CommBase
 {
-    private var m_thread : Thread;
-    
     public function new ()
     {
+        super ();
     }
 
-    public function setup (comPort : String, startThread : Bool = false) : Serial
-    {
-	    if (!FileSystem.exists (comPort))
-	    {
-	        trace ("COM-Port does not exist " + comPort);
-	        Sys.exit (-1);
-	        return null;
-	    }
-        var serialFile : Serial = new Serial (comPort, 19200, true);
-        while (!serialFile.isSetup)
-        {
-            trace ("COM-Port unavailable - reconnect in 1s");
-            Sys.sleep (1);
-            serialFile.setup ();
-        }        
-        
-        if (startThread)
-        {
-	        m_thread = Thread.create (L8Receiver.receiverThread);
-	        m_thread.sendMessage (Thread.current ());
-	        m_thread.sendMessage (serialFile);
-        }
-        return serialFile;
-    }
     public function run () : Void
     {
         var args : Array<String> = Sys.args();
@@ -388,28 +363,6 @@ class L8Ctl
         closeConnection (serial);
     }   
 
-    private function closeConnection (serial : Serial) : Void
-    {
-        if (m_thread != null)
-        {
-	        while (true)
-	        {
-		        var bye : String = Thread.readMessage (false);
-	            m_thread.sendMessage ("close");
-		        
-		        if (bye == null)
-		        {
-		            continue;
-	            }
-	            if (bye == "bye")
-	            {
-	                break;
-	            }
-	        }   
-        }
-
-        serial.close ();
-    }
     private function consumeArgColor (args : Array<String>, defaultRGB : String) : L8RGB
     {
         if (args.length <= 0)
@@ -478,25 +431,6 @@ class L8Ctl
         var value : String = args.shift ().toLowerCase ();
         return ((value == "true") || (value == "1"));
     }
-    private function waitForAnswer (serial : Serial, tries : Int) : L8ResponseBase
-    {
-        while (true)
-        {
-            tries -= 1;
-            if (tries <= 0)
-            {
-                trace ("timeout waiting for response");
-                return null;
-            }
-            var response : L8ResponseBase = Thread.readMessage (false);
-            if (response != null)
-            {
-                return response;
-            }
-            Sys.sleep (0.005);
-        }
-        return null;
-    }     
     
     public static function showHelp () : Void
     {
