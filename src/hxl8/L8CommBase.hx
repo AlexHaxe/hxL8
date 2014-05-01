@@ -36,18 +36,49 @@ class L8CommBase
 
     public function setup (comPort : String, startThread : Bool = false) : Serial
     {
-	    if (!FileSystem.exists (comPort))
-	    {
-	        trace ("COM-Port does not exist " + comPort);
-	        Sys.exit (-1);
-	        return null;
-	    }
-        var serialFile : Serial = new Serial (comPort, 19200, true);
-        while (!serialFile.isSetup)
+//	    if (!FileSystem.exists (comPort))
+//	    {
+//	        trace ("COM-Port does not exist " + comPort);
+//	        Sys.exit (-1);
+//	        return null;
+//	    }
+        
+        if (comPort == null)
         {
-            trace ("COM-Port unavailable - reconnect in 1s");
-            Sys.sleep (1);
-            serialFile.setup ();
+            Sys.println ("no COM-port specified");
+			Sys.exit (-1);
+			return null;
+        }
+        if (StringTools.startsWith (comPort.toUpperCase (), "COM"))
+        {
+            comPort = "\\\\.\\" + comPort;
+        }
+        
+        var found : Bool = false;
+        var devices : Array<String> = Serial.getDeviceList ();
+        for (device in devices)
+        {
+            if (comPort == device)
+            {
+                found = true;
+                break;
+            }
+        }
+			
+        var serialFile : Serial = new Serial (comPort, 19200, true);
+        if (!serialFile.isSetup)
+        {
+            Sys.println ('cannot open COM-Port $comPort');
+	        if (!found)
+	        {
+	            Sys.println ('\navailable COM-Ports:');    
+		        for (device in devices)
+		        {
+                    Sys.println ('\t$device');
+		        }                	            
+	        }
+            Sys.exit (-1);
+            return null;
         }        
         
         if (startThread)

@@ -35,3 +35,13 @@
 
 -main hxl8.L8Ctl
 
+# --next
+# 
+# -cp src
+# -js ourJS/l8ctl.js
+# 
+# # -lib hxSerial
+# # -lib hxlode
+# 
+# -main hxl8.L8Ctl
+
