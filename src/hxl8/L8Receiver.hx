@@ -48,16 +48,16 @@ class L8Receiver
                 Sys.sleep (0.3);
                 if (serial.available () <= 0)
                 {
-	                var close : String = Thread.readMessage (false);
-	                
-	                if (close != null)
-	                {
-	                    if (close == "close")
-	                    {
-	                        mainThread.sendMessage ("bye");
-	                        return;
-	                    }
-	                }
+                    var close : String = Thread.readMessage (false);
+                    
+                    if (close != null)
+                    {
+                        if (close == "close")
+                        {
+                            mainThread.sendMessage ("bye");
+                            return;
+                        }
+                    }
                 }   
                 continue;
             }

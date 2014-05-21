@@ -59,10 +59,10 @@ class L8Ctl extends L8CommBase
         while (args.length > 0)
         {
             var command : String = args.shift ();            
-	        switch (command.toLowerCase ())
-	        {
-				case "appstop", "stop":
-				    commands.push (new L8CmdAppStop ());
+            switch (command.toLowerCase ())
+            {
+                case "appstop", "stop":
+                    commands.push (new L8CmdAppStop ());
                 case "appambient":
                     commands.push (new L8CmdAppStop ());                    
                     var matrixRGB : L8RGB = consumeArgColor (args, "F00");
@@ -85,16 +85,16 @@ class L8Ctl extends L8CommBase
                     var superRGB : L8RGB = consumeArgColor (args, "F00");
                     var threshold : Int = consumeArgInt (args, 50);
                     commands.push (new L8CmdAppRunProximity (matrixRGB, superRGB, threshold));
-				case "autorotate":
+                case "autorotate":
                     var enable : Bool = consumeArgBool (args, true);
                     commands.push (new L8CmdEnableAutoRotate (enable));
-				case "bootloader", "dfu":
-				    commands.push (new L8CmdBootloader ());
+                case "bootloader", "dfu":
+                    commands.push (new L8CmdBootloader ());
                 case "batchg", "bat":
                     commands.push (new L8CmdQueryBatChg ());
-				case "brightness", "bright":
-				    var brightness : Bool = consumeArgBool (args, false);
-				    commands.push (new L8CmdSetBrightness (brightness));
+                case "brightness", "bright":
+                    var brightness : Bool = consumeArgBool (args, false);
+                    commands.push (new L8CmdSetBrightness (brightness));
                 case "box":
                     var left : Int = consumeArgInt (args, 2);
                     var top : Int = consumeArgInt (args, 2);
@@ -106,7 +106,7 @@ class L8Ctl extends L8CommBase
                     commands.push (new L8CmdBox (left, top, right, bottom, border, fill, outer));
                 case "button":
                     commands.push (new L8CmdQueryButton ());
-			    case "deletel8y":
+                case "deletel8y":
                     var l8y : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdDeleteL8y (l8y));
                 case "deleteanim":
@@ -128,9 +128,9 @@ class L8Ctl extends L8CommBase
                     var direction : String = args.shift ();
                     var offset : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdDisplayChar (char, direction, offset));
-				case "enableallnotifcations":
-				    var enable : Bool = consumeArgBool (args, true);
-				    commands.push (new L8CmdEnableAllNotifications (enable));
+                case "enableallnotifcations":
+                    var enable : Bool = consumeArgBool (args, true);
+                    commands.push (new L8CmdEnableAllNotifications (enable));
                 case "enablenotifcation", "enablenotify", "notifyenable":
                     var index : Int = consumeArgInt (args, 0);
                     var enable : Bool = consumeArgBool (args, true);
@@ -139,24 +139,24 @@ class L8Ctl extends L8CommBase
                     commands.push (new L8CmdQueryAcc ());
                 case "getamb", "ambient", "amb":
                     commands.push (new L8CmdQueryAmbientLight ());
-				case "getmatrix":
-				    commands.push (new L8CmdGetCurrentMatrix ());
+                case "getmatrix":
+                    commands.push (new L8CmdGetCurrentMatrix ());
                 case "getmcutemp", "mcutemperature", "mcutemp":
                     commands.push (new L8CmdQueryMCUTemp ());
                 case "getmic", "microphone", "mic", "noise", "getnoise":
                     commands.push (new L8CmdQueryNoise ());
-				case "getnotifyapp", "readnotifyapp", "getnotify", "readnotify":
-				    var index : Int = consumeArgInt (args, 0);
-				    var extended : Bool = consumeArgBool (args, true);
-				    commands.push (new L8CmdGetNotifyApp (index, extended));
-				case "getnumnotifyapps", "numnotifyapps", "numnotify":
-				    commands.push (new L8CmdGetNumNotifyApps ());
+                case "getnotifyapp", "readnotifyapp", "getnotify", "readnotify":
+                    var index : Int = consumeArgInt (args, 0);
+                    var extended : Bool = consumeArgBool (args, true);
+                    commands.push (new L8CmdGetNotifyApp (index, extended));
+                case "getnumnotifyapps", "numnotifyapps", "numnotify":
+                    commands.push (new L8CmdGetNumNotifyApps ());
                 case "getnumanims", "numanims":
                     commands.push (new L8CmdQueryNumAnims ());
                 case "getnumframes", "numframes", "numframe":
                     commands.push (new L8CmdQueryNumFrames ());
-				case "getnuml8ies", "getnuml8y", "numl8ies", "numl8y":
-				    commands.push (new L8CmdQueryNumL8ies ());
+                case "getnuml8ies", "getnuml8y", "numl8ies", "numl8y":
+                    commands.push (new L8CmdQueryNumL8ies ());
                 case "getprox", "proximity", "prox":
                     commands.push (new L8CmdQueryProximity ());
                 case "getthreshold", "sensorthresholds", "thresholds", "threshold":
@@ -167,31 +167,31 @@ class L8Ctl extends L8CommBase
                     commands.push (new L8CmdQueryVoltage ());
                 case "getvbus", "vbus":
                     commands.push (new L8CmdQueryVBUSVoltage ());
-				case "init", "initstatus", "status":
-				    commands.push (new L8CmdQueryInitStatus ());
-				case "interface":
-				    comPort = args.shift ();
+                case "init", "initstatus", "status":
+                    commands.push (new L8CmdQueryInitStatus ());
+                case "interface":
+                    comPort = args.shift ();
                 case "matrixoff", "matrixclear", "clear":
                     commands.push (new L8CmdMatrixOff ());
-				case "poweroff", "off":
-				    commands.push (new L8CmdPowerOff ());
-				case "notificationssilent":
-				    commands.push (new L8CmdQueryNotificationsSilent ());
-				case "notification", "notify":
-				    var app : String = args.shift ();
-				    var eventType : String = args.shift ();
-				    var category : Int = consumeArgInt (args, 0);
-				    commands.push (new L8CmdSetNotification (app, eventType, category));
-				case "party":
-				    commands.push (new L8CmdAppStop ());                    
-				    commands.push (new L8CmdAppRunParty ());
+                case "poweroff", "off":
+                    commands.push (new L8CmdPowerOff ());
+                case "notificationssilent":
+                    commands.push (new L8CmdQueryNotificationsSilent ());
+                case "notification", "notify":
+                    var app : String = args.shift ();
+                    var eventType : String = args.shift ();
+                    var category : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdSetNotification (app, eventType, category));
+                case "party":
+                    commands.push (new L8CmdAppStop ());                    
+                    commands.push (new L8CmdAppRunParty ());
                 case "playanim", "play":
                     var anim : Int = consumeArgInt (args, 0);
                     var loop : Bool = consumeArgBool (args, true);
                     commands.push (new L8CmdPlayAnim (anim, loop));
-				case "ping":
-				    commands.push (new L8CmdSendPing ());
-			    case "readanim":
+                case "ping":
+                    commands.push (new L8CmdSendPing ());
+                case "readanim":
                     var anim : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdReadAnim (anim));
                 case "readframe":
@@ -226,13 +226,13 @@ class L8Ctl extends L8CommBase
                     {
                         L8Receiver.silent = true;
                     }
-				case "reset":
-				    commands.push (new L8CmdReset ());
-				case "setmatrixledfile", "matrixledfile", "matrixfile":
-				    var fileName : String = args.shift ();
-				    var offsetX : Int = consumeArgInt (args, 0);
-				    var offsetY : Int = consumeArgInt (args, 0);
-				    commands.push (new L8CmdSetMatrixLEDFile (fileName, offsetX, offsetY));
+                case "reset":
+                    commands.push (new L8CmdReset ());
+                case "setmatrixledfile", "matrixledfile", "matrixfile":
+                    var fileName : String = args.shift ();
+                    var offsetX : Int = consumeArgInt (args, 0);
+                    var offsetY : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdSetMatrixLEDFile (fileName, offsetX, offsetY));
                 case "setled", "led":
                     var x : Int = consumeArgInt (args, 0);
                     var y : Int = consumeArgInt (args, 0);
@@ -241,18 +241,18 @@ class L8Ctl extends L8CommBase
                 case "setl8y", "l8y":
                     var index : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdSetStoredL8y (index));
-				case "setmatrixledstring", "matrixledstring", "matrixstring":
+                case "setmatrixledstring", "matrixledstring", "matrixstring":
                     var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
                     commands.push (new L8CmdSetMatrixLEDArray (rgb));
-				case "setnotificationsilence", "silence", "silent":
-				    var silence : Bool = consumeArgBool (args, false);
-				    commands.push (new L8CmdSetNotificationsSilence (silence));            
+                case "setnotificationsilence", "silence", "silent":
+                    var silence : Bool = consumeArgBool (args, false);
+                    commands.push (new L8CmdSetNotificationsSilence (silence));            
                 case "setmatrixleduni", "matrixleduni", "matrixuni":
                     var rgb : L8RGB = consumeArgColor (args, "000");
                     commands.push (new L8CmdSetMatrixLEDUni (rgb));
-				case "setsuperled", "superled", "super":
-				    var rgb : L8RGB = consumeArgColor (args, "000");
-				    commands.push (new L8CmdSetSuperLED (rgb));
+                case "setsuperled", "superled", "super":
+                    var rgb : L8RGB = consumeArgColor (args, "000");
+                    commands.push (new L8CmdSetSuperLED (rgb));
                 case "setorientation", "orientation", "orient":
                     var orient : String = args.shift ();
                     commands.push (new L8CmdSetOrientation (orient));
@@ -268,9 +268,9 @@ class L8Ctl extends L8CommBase
                     var min : Int = consumeArgInt (args, 0);
                     var max : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdSetProxThreshold (min, max));
-				case "statusleds", "statusled":
-				    var enable : Bool = consumeArgBool (args, false);
-				    commands.push (new L8CmdEnableStatusLEDs (enable));
+                case "statusleds", "statusled":
+                    var enable : Bool = consumeArgBool (args, false);
+                    commands.push (new L8CmdEnableStatusLEDs (enable));
                 case "stopanim":
                     commands.push (new L8CmdStopAnim ());
                 case "storeanim":
@@ -288,19 +288,19 @@ class L8Ctl extends L8CommBase
                     var superLED : L8RGB = consumeArgColor (args, "000");
                     var enable : Bool = consumeArgBool (args, false);
                     commands.push (new L8CmdStoreNotification (app, rgb, superLED, enable));
-				case "text":
-				    var rgb : L8RGB = consumeArgColor (args, "F00");
-				    var text : String = args.shift ();
-				    var speed : Int = consumeArgInt (args, 0);
-				    var loop : Bool = consumeArgBool (args, true);
-				    commands.push (new L8CmdSetText (speed, loop, rgb, text));
-				case "uid":
-				    commands.push (new L8CmdQueryMCUID ());
-				case "version", "versions", "ver", "v":
-				    commands.push (new L8CmdQueryVersions ());
-				default:
-				    continue; 
-	        }
+                case "text":
+                    var rgb : L8RGB = consumeArgColor (args, "F00");
+                    var text : String = args.shift ();
+                    var speed : Int = consumeArgInt (args, 0);
+                    var loop : Bool = consumeArgBool (args, true);
+                    commands.push (new L8CmdSetText (speed, loop, rgb, text));
+                case "uid":
+                    commands.push (new L8CmdQueryMCUID ());
+                case "version", "versions", "ver", "v":
+                    commands.push (new L8CmdQueryVersions ());
+                default:
+                    continue; 
+            }
         }
         if (commands.length <= 0)
         {
@@ -325,28 +325,28 @@ class L8Ctl extends L8CommBase
         }
         if (repeat)
         {
-	        while (true)
-	        {   
-	            for (command in commands)
-	            {
-	                command.send (serial);
-	                if (command.hasResponse ())
-	                {
-	                    // consume responses
-	                    Thread.readMessage (false);
-	                }
+            while (true)
+            {   
+                for (command in commands)
+                {
+                    command.send (serial);
+                    if (command.hasResponse ())
+                    {
+                        // consume responses
+                        Thread.readMessage (false);
+                    }
                     Sys.sleep (repeatsDelay / 100);
-	            }
-	            if (repeatForever)
-	            {
-	                continue;
-	            }
-	            repeatsCount--;
-	            if (repeatsCount <= 0)
-	            {
-	                break;
-	            }
-	        }
+                }
+                if (repeatForever)
+                {
+                    continue;
+                }
+                repeatsCount--;
+                if (repeatsCount <= 0)
+                {
+                    break;
+                }
+            }
         }
         else
         {
@@ -379,27 +379,27 @@ class L8Ctl extends L8CommBase
         if (args.length >= 0)
         {
             var values : String = args.shift ();
-	        if (values.length == 192)
-	        {
-	            for (index in 0...64)
-	            {
-	                rgb = new L8RGB (values.substr (index * 3, 3));
+            if (values.length == 192)
+            {
+                for (index in 0...64)
+                {
+                    rgb = new L8RGB (values.substr (index * 3, 3));
                     result.push (rgb);
-	            }
-	            return result;
-	        }
-	        if (values.length == 384)
-	        {
+                }
+                return result;
+            }
+            if (values.length == 384)
+            {
                 for (index in 0...64)
                 {
                     rgb = new L8RGB (values.substr (index * 6, 6));
                     result.push (rgb);
                 }
                 return result;
-	        }
-	        if (values.length < 192)
-	        {
-	            var count : Int =  Std.int (values.length / 3);
+            }
+            if (values.length < 192)
+            {
+                var count : Int =  Std.int (values.length / 3);
                 for (index in 0...64)
                 {
                     rgb = new L8RGB (values.substr ((index % count) * 3, 3));
@@ -528,8 +528,8 @@ class L8Ctl extends L8CommBase
     {
         try
         {
-	        var reader : L8Ctl = new L8Ctl ();    
-	        reader.run ();
+            var reader : L8Ctl = new L8Ctl ();    
+            reader.run ();
         }
         catch (e : L8Exception)
         {

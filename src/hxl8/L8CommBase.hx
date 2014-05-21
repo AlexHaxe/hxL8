@@ -36,18 +36,18 @@ class L8CommBase
 
     public function setup (comPort : String, startThread : Bool = false) : Serial
     {
-//	    if (!FileSystem.exists (comPort))
-//	    {
-//	        trace ("COM-Port does not exist " + comPort);
-//	        Sys.exit (-1);
-//	        return null;
-//	    }
+//      if (!FileSystem.exists (comPort))
+//      {
+//          trace ("COM-Port does not exist " + comPort);
+//          Sys.exit (-1);
+//          return null;
+//      }
         
         if (comPort == null)
         {
             Sys.println ("no COM-port specified");
-			Sys.exit (-1);
-			return null;
+            Sys.exit (-1);
+            return null;
         }
         if (StringTools.startsWith (comPort.toUpperCase (), "COM"))
         {
@@ -64,28 +64,28 @@ class L8CommBase
                 break;
             }
         }
-			
+            
         var serialFile : Serial = new Serial (comPort, 19200, true);
         if (!serialFile.isSetup)
         {
             Sys.println ('cannot open COM-Port $comPort');
-	        if (!found)
-	        {
-	            Sys.println ('\navailable COM-Ports:');    
-		        for (device in devices)
-		        {
+            if (!found)
+            {
+                Sys.println ('\navailable COM-Ports:');    
+                for (device in devices)
+                {
                     Sys.println ('\t$device');
-		        }                	            
-	        }
+                }                               
+            }
             Sys.exit (-1);
             return null;
         }        
         
         if (startThread)
         {
-	        m_thread = Thread.create (L8Receiver.receiverThread);
-	        m_thread.sendMessage (Thread.current ());
-	        m_thread.sendMessage (serialFile);
+            m_thread = Thread.create (L8Receiver.receiverThread);
+            m_thread.sendMessage (Thread.current ());
+            m_thread.sendMessage (serialFile);
         }
         return serialFile;
     }
@@ -93,20 +93,20 @@ class L8CommBase
     {
         if (m_thread != null)
         {
-	        while (true)
-	        {
-		        var bye : String = Thread.readMessage (false);
-	            m_thread.sendMessage ("close");
-		        
-		        if (bye == null)
-		        {
-		            continue;
-	            }
-	            if (bye == "bye")
-	            {
-	                break;
-	            }
-	        }   
+            while (true)
+            {
+                var bye : String = Thread.readMessage (false);
+                m_thread.sendMessage ("close");
+                
+                if (bye == null)
+                {
+                    continue;
+                }
+                if (bye == "bye")
+                {
+                    break;
+                }
+            }   
         }
 
         serial.close ();
