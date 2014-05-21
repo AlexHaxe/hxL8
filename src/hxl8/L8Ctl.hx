@@ -58,19 +58,19 @@ class L8Ctl extends L8CommBase
         var param : String;
         while (args.length > 0)
         {
-            var command : String = args.shift ();            
+            var command : String = args.shift ();
             switch (command.toLowerCase ())
             {
                 case "appstop", "stop":
                     commands.push (new L8CmdAppStop ());
                 case "appambient":
-                    commands.push (new L8CmdAppStop ());                    
+                    commands.push (new L8CmdAppStop ());
                     var matrixRGB : L8RGB = consumeArgColor (args, "F00");
                     var superRGB : L8RGB = consumeArgColor (args, "F00");
                     var threshold : Int = consumeArgInt (args, 50);
                     commands.push (new L8CmdAppRunAmbient (matrixRGB, superRGB, threshold));
                 case "appdice", "dice":
-                    commands.push (new L8CmdAppStop ());                    
+                    commands.push (new L8CmdAppStop ());
                     var rgb : L8RGB = consumeArgColor (args, "F00");
                     commands.push (new L8CmdAppRunDice (rgb));
                 case "applight", "appcolorchange", "colorchange":
@@ -80,7 +80,7 @@ class L8Ctl extends L8CommBase
                     var inverted : Bool = consumeArgBool (args, false);
                     commands.push (new L8CmdAppRunColorChanger (color, speed, inverted));
                 case "appproximity", "appprox":
-                    commands.push (new L8CmdAppStop ());                    
+                    commands.push (new L8CmdAppStop ());
                     var matrixRGB : L8RGB = consumeArgColor (args, "F00");
                     var superRGB : L8RGB = consumeArgColor (args, "F00");
                     var threshold : Int = consumeArgInt (args, 50);
@@ -128,10 +128,10 @@ class L8Ctl extends L8CommBase
                     var direction : String = args.shift ();
                     var offset : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdDisplayChar (char, direction, offset));
-                case "enableallnotifcations":
+                case "enableallnotifications", "enableallnotify":
                     var enable : Bool = consumeArgBool (args, true);
                     commands.push (new L8CmdEnableAllNotifications (enable));
-                case "enablenotifcation", "enablenotify", "notifyenable":
+                case "enablenotification", "enablenotify", "notifyenable":
                     var index : Int = consumeArgInt (args, 0);
                     var enable : Bool = consumeArgBool (args, true);
                     commands.push (new L8CmdEnableNotification (index, enable));
@@ -183,7 +183,7 @@ class L8Ctl extends L8CommBase
                     var category : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdSetNotification (app, eventType, category));
                 case "party":
-                    commands.push (new L8CmdAppStop ());                    
+                    commands.push (new L8CmdAppStop ());
                     commands.push (new L8CmdAppRunParty ());
                 case "playanim", "play":
                     var anim : Int = consumeArgInt (args, 0);
@@ -246,7 +246,7 @@ class L8Ctl extends L8CommBase
                     commands.push (new L8CmdSetMatrixLEDArray (rgb));
                 case "setnotificationsilence", "silence", "silent":
                     var silence : Bool = consumeArgBool (args, false);
-                    commands.push (new L8CmdSetNotificationsSilence (silence));            
+                    commands.push (new L8CmdSetNotificationsSilence (silence));
                 case "setmatrixleduni", "matrixleduni", "matrixuni":
                     var rgb : L8RGB = consumeArgColor (args, "000");
                     commands.push (new L8CmdSetMatrixLEDUni (rgb));
@@ -326,7 +326,7 @@ class L8Ctl extends L8CommBase
         if (repeat)
         {
             while (true)
-            {   
+            {
                 for (command in commands)
                 {
                     command.send (serial);
@@ -361,7 +361,7 @@ class L8Ctl extends L8CommBase
         }
         
         closeConnection (serial);
-    }   
+    }
 
     private function consumeArgColor (args : Array<String>, defaultRGB : String) : L8RGB
     {
@@ -434,7 +434,7 @@ class L8Ctl extends L8CommBase
     
     public static function showHelp () : Void
     {
-#if cpp        
+#if cpp
         Sys.println ("L8Ctl <command> [<parameter(s)>]");
 #elseif java
         Sys.println ("java -jar L8Ctl.jar <command> [<parameter(s)>]");
@@ -453,13 +453,13 @@ class L8Ctl extends L8CommBase
         Sys.println ("Brightness true|false - set low brightness of LEDs (matrix and super) true = high, false = low, default: false");
         Sys.println ("Box left top right bottom RGB RGB RGB - shows a box from left/top to right/bottom with border, fill and outside color");
         Sys.println ("Button - read button status");
-        Sys.println ("DeleteAnim anim# - Delete Animation by number (between 0 and GetNumAnims)");        
-        Sys.println ("DeleteFrame frame# - Delete Frame by number (between 0 and GetNumFrames)");        
-        Sys.println ("DeleteL8y l8y# - Delete L8y by number (between 0 and GetNumL8ies)");        
-        Sys.println ("DeleteUserSpace - Delete userspace");        
-        Sys.println ("DisplayChar char top|bottom|left|right offset - displays char with offset in pixels from top|bottom|left|right");        
-        Sys.println ("EnableAllNotifcations true|false - enable/disable all notifications, default: true");
-        Sys.println ("EnableNotifcation notifcation# true|false - enable/disable notification, default: true");
+        Sys.println ("DeleteAnim anim# - Delete Animation by number (between 0 and GetNumAnims)");
+        Sys.println ("DeleteFrame frame# - Delete Frame by number (between 0 and GetNumFrames)");
+        Sys.println ("DeleteL8y l8y# - Delete L8y by number (between 0 and GetNumL8ies)");
+        Sys.println ("DeleteUserSpace - Delete userspace");
+        Sys.println ("DisplayChar char top|bottom|left|right offset - displays char with offset in pixels from top|bottom|left|right");
+        Sys.println ("EnableAllNotifications true|false - enable/disable all notifications, default: true");
+        Sys.println ("EnableNotification notification# true|false - enable/disable notification, default: true");
         Sys.println ("GetAcc - get values of accelerometer");
         Sys.println ("GetAmb - get values of ambient sensor");
         Sys.println ("GetMatrix - get current Matrix LED");
@@ -477,8 +477,8 @@ class L8Ctl extends L8CommBase
         Sys.println ("GetVBUS - get the voltage of USB connection");
         Sys.println ("Init - get trace info");
         Sys.println ("Interface devicename - sets COM-port to use, default: /dev/ttyACM0");
-        Sys.println ("L8y l8y# - show L8y (between 0 and GetNumL8ies)");        
-        Sys.println ("Led x y RGB|RRGGBB - set a single LED pixel");        
+        Sys.println ("L8y l8y# - show L8y (between 0 and GetNumL8ies)");
+        Sys.println ("Led x y RGB|RRGGBB - set a single LED pixel");
 #if cpp
         Sys.println ("MatrixLEDFile Filename.png offsetX offsetY - set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!");
 #end
@@ -491,7 +491,7 @@ class L8Ctl extends L8CommBase
         Sys.println ("Poweroff - poweroff");
         Sys.println ("ReadAnim anim# - gets frame and duration for animation from User Space (anim# between 0 and GetNumAnims)");
         Sys.println ("ReadFrame frame# - gets frame from User Space (frame# between 0 and GetNumFrames)");
-        Sys.println ("ReadL8y l8y# - get matrix colors for L8y (l8y# between 0 and GetNumL8ies)");        
+        Sys.println ("ReadL8y l8y# - get matrix colors for L8y (l8y# between 0 and GetNumL8ies)");
         Sys.println ("Reset - reset");
         Sys.println ("Repeat #|forever delay - repeats all commands forever or number of times with delay (100th of a second) between commands");
         Sys.println ("RepeatSilent #|forever delay - repeats all commands forever or number of times with delay (100th of a second) between commands without printing responses from L8");
@@ -501,11 +501,11 @@ class L8Ctl extends L8CommBase
         Sys.println ("SetProxThreshold min max - sets min max values of proximity threshold");
         Sys.println ("SuperLED RGB|RRGGBB - set superled to color, default: 000 = off");
         Sys.println ("StatusLED true|false - turn status LEDs on or off, default: false = off");
-        Sys.println ("StopAnim - stops current animation");        
-        Sys.println ("StoreAnim frame#,duration,frame#,duration,... - stores a new animation in userspace (returns new index of anim)");        
-        Sys.println ("StoreFrame 64*(RGB|RRGGBB) - stores a new frame in userspace (returns new index of frame)");        
+        Sys.println ("StopAnim - stops current animation");
+        Sys.println ("StoreAnim frame#,duration,frame#,duration,... - stores a new animation in userspace (returns new index of anim)");
+        Sys.println ("StoreFrame 64*(RGB|RRGGBB) - stores a new frame in userspace (returns new index of frame)");
         Sys.println ("StoreNotification appbundle 64*(RGB|RRGGBB) RGB true|false - creates a new ntofication for app-bundlename with color-matrix and SuperLED color and initial enabled status");        
-        Sys.println ("StoreL8y 64*(RGB|RRGGBB) - stores a L8y (returns new index of L8y)");        
+        Sys.println ("StoreL8y 64*(RGB|RRGGBB) - stores a L8y (returns new index of L8y)");
         Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true");
         Sys.println ("UID - query device UID - decoder misssing");
         Sys.println ("Versions - query device versions - decoder misssing");
@@ -528,7 +528,7 @@ class L8Ctl extends L8CommBase
     {
         try
         {
-            var reader : L8Ctl = new L8Ctl ();    
+            var reader : L8Ctl = new L8Ctl ();
             reader.run ();
         }
         catch (e : L8Exception)
