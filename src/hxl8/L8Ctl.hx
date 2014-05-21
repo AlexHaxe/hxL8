@@ -128,10 +128,10 @@ class L8Ctl extends L8CommBase
                     var direction : String = args.shift ();
                     var offset : Int = consumeArgInt (args, 0);
                     commands.push (new L8CmdDisplayChar (char, direction, offset));
-				case "enableallnotifcations":
+				case "enableallnotifications", "enableallnotify":
 				    var enable : Bool = consumeArgBool (args, true);
 				    commands.push (new L8CmdEnableAllNotifications (enable));
-                case "enablenotifcation", "enablenotify", "notifyenable":
+                case "enablenotification", "enablenotify", "notifyenable":
                     var index : Int = consumeArgInt (args, 0);
                     var enable : Bool = consumeArgBool (args, true);
                     commands.push (new L8CmdEnableNotification (index, enable));
@@ -458,8 +458,8 @@ class L8Ctl extends L8CommBase
         Sys.println ("DeleteL8y l8y# - Delete L8y by number (between 0 and GetNumL8ies)");        
         Sys.println ("DeleteUserSpace - Delete userspace");        
         Sys.println ("DisplayChar char top|bottom|left|right offset - displays char with offset in pixels from top|bottom|left|right");        
-        Sys.println ("EnableAllNotifcations true|false - enable/disable all notifications, default: true");
-        Sys.println ("EnableNotifcation notifcation# true|false - enable/disable notification, default: true");
+        Sys.println ("EnableAllNotifications true|false - enable/disable all notifications, default: true");
+        Sys.println ("EnableNotification notification# true|false - enable/disable notification, default: true");
         Sys.println ("GetAcc - get values of accelerometer");
         Sys.println ("GetAmb - get values of ambient sensor");
         Sys.println ("GetMatrix - get current Matrix LED");
