@@ -45,3 +45,15 @@
 # 
 # -main hxl8.L8Ctl
 
+--next
+
+# 64bit Version
+-cp src
+-cpp outJson
+
+-lib hxcpp
+-D HXCPP_M64
+-D static
+
+-main hxl8.L8tiesParser
+
