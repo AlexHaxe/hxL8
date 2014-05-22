@@ -202,7 +202,7 @@ class L8Ctl extends L8CommBase
                     commands.push (new L8CmdReadL8y (l8y));
                 case "silentrepeat", "repeat", "repeatsilent":
                     var repeatNumber : String = args.shift ();
-                    repeatsDelay = consumeArgInt (args, 10);
+                    repeatsDelay = consumeArgInt (args, 50);
                     if (repeatNumber == "forever")
                     {
                         repeatForever = true;
@@ -219,7 +219,7 @@ class L8Ctl extends L8CommBase
                     }
                     if (repeatsDelay <= 0)
                     {
-                        repeatsDelay = 1;
+                        repeatsDelay = 50;
                     }
                     repeat = true;
                     if ((command == "repeatsilent") || (command == "silentrepeat"))
