@@ -46,15 +46,15 @@ class L8Ctl extends L8CommBase
             Sys.exit (0);
             return;
         }
-        
+
         var commands : Array<L8CmdBase> = new Array<L8CmdBase> ();
-        
+
         var repeat : Bool = false;
         var repeatForever : Bool = false;
         var repeatsCount : Int = 0;
         var repeatsDelay : Int = 10;
-        
-        var comPort : String = "/dev/ttyACM0"; 
+
+        var comPort : String = "/dev/ttyACM0";
         var param : String;
         while (args.length > 0)
         {
@@ -299,7 +299,7 @@ class L8Ctl extends L8CommBase
                 case "version", "versions", "ver", "v":
                     commands.push (new L8CmdQueryVersions ());
                 default:
-                    continue; 
+                    continue;
             }
         }
         if (commands.length <= 0)
@@ -359,7 +359,7 @@ class L8Ctl extends L8CommBase
                 }
             }
         }
-        
+
         closeConnection (serial);
     }
 
@@ -371,11 +371,11 @@ class L8Ctl extends L8CommBase
         }
         return new L8RGB (args.shift ());
     }
-    
+
     private function consumeArgColorArray (args : Array<String>, defaultRGB : String) : Array<L8RGB>
     {
         var result : Array<L8RGB> = new Array<L8RGB> ();
-        var rgb : L8RGB; 
+        var rgb : L8RGB;
         if (args.length >= 0)
         {
             var values : String = args.shift ();
@@ -431,7 +431,7 @@ class L8Ctl extends L8CommBase
         var value : String = args.shift ().toLowerCase ();
         return ((value == "true") || (value == "1"));
     }
-    
+
     public static function showHelp () : Void
     {
 #if cpp
@@ -446,7 +446,7 @@ class L8Ctl extends L8CommBase
         Sys.println ("AppColorChange Multicolor|Tropical|Galaxy|Aurora speed true|false - Start color changer app with speed in SuperLED invert(= true), default: false");
         Sys.println ("AppDice RGB|RRGGBB - Start dice app with optional color, default: F00");
         Sys.println ("AppProximity RGB RGB threshold - start proximity app with matrix color, superled color and threshold");
-        
+
         Sys.println ("AutoRotate true|false - enable / disable autorotate");
         Sys.println ("BatChg - battery charge status");
         Sys.println ("Bootloader - switch to DFU mode");
@@ -504,7 +504,7 @@ class L8Ctl extends L8CommBase
         Sys.println ("StopAnim - stops current animation");
         Sys.println ("StoreAnim frame#,duration,frame#,duration,... - stores a new animation in userspace (returns new index of anim)");
         Sys.println ("StoreFrame 64*(RGB|RRGGBB) - stores a new frame in userspace (returns new index of frame)");
-        Sys.println ("StoreNotification appbundle 64*(RGB|RRGGBB) RGB true|false - creates a new notification for app-bundlename with color-matrix and SuperLED color and initial enabled status");        
+        Sys.println ("StoreNotification appbundle 64*(RGB|RRGGBB) RGB true|false - creates a new notification for app-bundlename with color-matrix and SuperLED color and initial enabled status");
         Sys.println ("StoreL8y 64*(RGB|RRGGBB) - stores a L8y (returns new index of L8y)");
         Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true");
         Sys.println ("UID - query device UID - decoder missing");
@@ -518,21 +518,21 @@ class L8Ctl extends L8CommBase
         Sys.println ("on|mod|off - allows to activate / show, modify and deactivate / remove a notification (only Incoming Call can be turned off)");
         Sys.println ("category# - notification category number (0 = Other|1 = Incoming Call|2 = MIssed Call|3 = Voice Mail|4 = Social|5 = Schedule|6 = E-Mail|7 = News|8 = Health/Fitness|9 = Business/Finance|10 = Location|11 = Entertainment|255 = Unknown)");
         Sys.println ("");
-        Sys.println ("Repeat is implemented in L8Ctl and requires a constant connection, it not a native capability of the L8.");
+        Sys.println ("Repeat is implemented in L8Ctl and requires a constant connection, it is not a native capability of the L8.");
         Sys.println ("");
         Sys.println ("Interface allows you to change the default interface to match your system");
         Sys.println ("default interface: /dev/ttyACM0");
 // Space for example commands...
-//        Sys.println ("");
-//        Sys.println ("");
-//        Sys.println ("Example");
-//if cpp
-//        Sys.println ("L8Ctl interface COM1 [<parameter(s)>]");
-//elseif java
-//        Sys.println ("java -jar L8Ctl.jar interface COM1 [<parameter(s)>]");
-//end
+        Sys.println ("");
+        Sys.println ("");
+        Sys.println ("Example (Windows)");
+#if cpp
+        Sys.println ("L8Ctl interface COM3 [<parameter(s)>]");
+#elseif java
+        Sys.println ("java -jar L8Ctl.jar interface COM3 [<parameter(s)>]");
+#end
     }
-    
+
     public static function main () : Void
     {
         try
@@ -544,6 +544,6 @@ class L8Ctl extends L8CommBase
         {
             Sys.println ("fatal error");
             Sys.println (e.toString ());
-        }   
+        }
     }
 }
