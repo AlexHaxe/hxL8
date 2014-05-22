@@ -169,7 +169,7 @@ class L8Ctl extends L8CommBase
                     commands.push (new L8CmdQueryVBUSVoltage ());
                 case "init", "initstatus", "status":
                     commands.push (new L8CmdQueryInitStatus ());
-                case "interface":
+                case "interface", "int", "if":
                     comPort = args.shift ();
                 case "matrixoff", "matrixclear", "clear":
                     commands.push (new L8CmdMatrixOff ());
@@ -493,8 +493,8 @@ class L8Ctl extends L8CommBase
         Sys.println ("ReadFrame frame# - gets frame from User Space (frame# between 0 and GetNumFrames)");
         Sys.println ("ReadL8y l8y# - get matrix colors for L8y (l8y# between 0 and GetNumL8ies)");
         Sys.println ("Reset - reset");
-        Sys.println ("Repeat #|forever delay - repeats all commands forever or number of times with delay (100th of a second) between commands");
-        Sys.println ("RepeatSilent #|forever delay - repeats all commands forever or number of times with delay (100th of a second) between commands without printing responses from L8");
+        Sys.println ("Repeat #|forever delay - repeats all commands number of times specified or forever with optional delay (specified in 100th of a second) between commands");
+        Sys.println ("RepeatSilent #|forever delay - repeats all commands number of times specified or forever with optional delay (specified in 100th of a second) between commands without printing responses from L8");
         Sys.println ("SetOrientation top|bottom|left|right - sets orientation");
         Sys.println ("SetAmbThreshold min max - sets min max values of ambient threshold");
         Sys.println ("SetNoiseThreshold min max - sets min max values of noise threshold");
@@ -504,24 +504,33 @@ class L8Ctl extends L8CommBase
         Sys.println ("StopAnim - stops current animation");
         Sys.println ("StoreAnim frame#,duration,frame#,duration,... - stores a new animation in userspace (returns new index of anim)");
         Sys.println ("StoreFrame 64*(RGB|RRGGBB) - stores a new frame in userspace (returns new index of frame)");
-        Sys.println ("StoreNotification appbundle 64*(RGB|RRGGBB) RGB true|false - creates a new ntofication for app-bundlename with color-matrix and SuperLED color and initial enabled status");        
+        Sys.println ("StoreNotification appbundle 64*(RGB|RRGGBB) RGB true|false - creates a new notification for app-bundlename with color-matrix and SuperLED color and initial enabled status");        
         Sys.println ("StoreL8y 64*(RGB|RRGGBB) - stores a L8y (returns new index of L8y)");
         Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true");
-        Sys.println ("UID - query device UID - decoder misssing");
-        Sys.println ("Versions - query device versions - decoder misssing");
+        Sys.println ("UID - query device UID - decoder missing");
+        Sys.println ("Version - query device versions - decoder missing");
         Sys.println ("");
         Sys.println ("RGB|RRGGBB - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel");
         Sys.println ("64*(RGB|RRGGBB) - values in hex should be: RGBRGBRGB... (= 192 chars) or RRGGBBRRGGBBRRGGBB... (= 384 chars)");
         Sys.println ("");
         Sys.println ("Notifications");
-        Sys.println ("\"Phone Call\"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom - name of notifcation to display, Custom =  use your own notification");
+        Sys.println ("\"Phone Call\"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom - name of notification to display, Custom = use your own notification");
         Sys.println ("on|mod|off - allows to activate / show, modify and deactivate / remove a notification (only Incoming Call can be turned off)");
         Sys.println ("category# - notification category number (0 = Other|1 = Incoming Call|2 = MIssed Call|3 = Voice Mail|4 = Social|5 = Schedule|6 = E-Mail|7 = News|8 = Health/Fitness|9 = Business/Finance|10 = Location|11 = Entertainment|255 = Unknown)");
         Sys.println ("");
-        Sys.println ("Repeat is not a real command of L8, it is implemented in L8Ctl and requires a constant connection.");
+        Sys.println ("Repeat is implemented in L8Ctl and requires a constant connection, it not a native capability of the L8.");
         Sys.println ("");
         Sys.println ("Interface allows you to change the default interface to match your system");
         Sys.println ("default interface: /dev/ttyACM0");
+// Space for example commands...
+//        Sys.println ("");
+//        Sys.println ("");
+//        Sys.println ("Example");
+//if cpp
+//        Sys.println ("L8Ctl interface COM1 [<parameter(s)>]");
+//elseif java
+//        Sys.println ("java -jar L8Ctl.jar interface COM1 [<parameter(s)>]");
+//end
     }
     
     public static function main () : Void
