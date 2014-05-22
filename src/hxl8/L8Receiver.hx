@@ -25,22 +25,22 @@ import hxl8.commands.L8CrcCalc;
 
 import hxl8.responses.*;
 
-class L8Receiver 
+class L8Receiver
 {
-    public static var silent : Bool = false; 
-    
+    public static var silent : Bool = false;
+
     public static function receiverThread () : Void
     {
         var started : Bool = false;
-        
+
         var status : Int = 0;
         var len : UInt = 0;
         var readIndex : Int = 0;
-        
+
         var dataBuffer : BytesBuffer = null;
-        
-        var mainThread : Thread = Thread.readMessage (true); 
-        var serial : Serial = Thread.readMessage (true); 
+
+        var mainThread : Thread = Thread.readMessage (true);
+        var serial : Serial = Thread.readMessage (true);
         while (true)
         {
             if (serial.available () <= 0)
@@ -49,7 +49,7 @@ class L8Receiver
                 if (serial.available () <= 0)
                 {
                     var close : String = Thread.readMessage (false);
-                    
+
                     if (close != null)
                     {
                         if (close == "close")
@@ -58,7 +58,7 @@ class L8Receiver
                             return;
                         }
                     }
-                }   
+                }
                 continue;
             }
             var rawbyte : UInt = serial.readByte ();
@@ -91,7 +91,7 @@ class L8Receiver
                     }
                 case 4:
                     var data : Bytes = dataBuffer.getBytes ();
-                    
+
                     var crc : Int = L8CrcCalc.calcCRC (data);
                     status = 0;
                     var response : L8ResponseBase = null;
@@ -134,7 +134,7 @@ class L8Receiver
                 response = new L8ResponseProximity ();
             case 97: // Versions
                 response = new L8ResponseVersions ();
-            case 0x63: 
+            case 0x63:
                 response = new L8ResponseButton ();
             case 0x65: // 101
                 response = new L8ResponseNoise ();
@@ -144,19 +144,19 @@ class L8Receiver
                 response = new L8ResponseMCUTemp ();
 //            case 116: // delete frame
 //                return;
-            case 107: 
+            case 107:
                 response = new L8ResponseStoreL8y ();
-            case 109: 
+            case 109:
                 response = new L8ResponseFrameGrab ();
             case 113:
                 response = new L8ResponseStoreFrame ();
-            case 115: 
+            case 115:
                 response = new L8ResponseFrameGrab ();
             case 118: // 0x76
                 response = new L8ResponseBatchG ();
             case 120: // 0x78
                 response = new L8ResponseStoreAnim ();
-            case 122: 
+            case 122:
                 response = new L8ResponseReadAnim ();
             case 132: // trace msg
                 response = new L8ResponseTraceMsg ();
@@ -170,13 +170,13 @@ class L8Receiver
                 response = new L8ResponseNumFrames ();
             case 148:
                 response = new L8ResponseNotifyApp ();
-            case 150: // notifcationsilence
+            case 150:
                 response = new L8ResponseNumNotifyApps ();
-            case 156: // notifcationsilence
+            case 156:
                 response = new L8ResponseFrameGrab ();
             case 0xA3:
                 response = new L8ResponseSensorThresholds ();
-            case 167: // notifcationsilence
+            case 167: // notificationsilence
                 response = new L8ResponseNotificationSilence ();
             case 255: // Error
                 response = new L8ResponseErr ();
@@ -186,7 +186,7 @@ class L8Receiver
         }
         response.parseData (data);
         if (!silent)
-        {   
+        {
             Sys.println (response);
         }
         return response;
