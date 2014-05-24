@@ -14,20 +14,20 @@ class L8tiesParser
     public function new ()
     {
     }
-    
+
     public function run (fileName : String) : Void
     {
-        var data : String = File.getContent (fileName); 
+        var data : String = File.getContent (fileName);
         var jsonData : Array<Dynamic> = Json.parse (data);
-       
+
         for (entry in jsonData)
         {
             Sys.println (entry.title);
-           
-            var commandLine : StringBuf = new StringBuf (); 
+
+            var commandLine : StringBuf = new StringBuf ();
 
             var frames : Array<Dynamic> = entry.frames;
-            
+
             if (frames.length == 1)
             {
                 commandLine.add ("L8Ctl ");
@@ -45,7 +45,7 @@ class L8tiesParser
             Sys.println ("");
         }
     }
-    
+
     private function parseImage (imageData : String) : String
     {
         var colors : Array<String> = imageData.split ("-");
@@ -55,32 +55,31 @@ class L8tiesParser
         }
         var matrix : String = "";
         var superled : String = "";
-        
+
         var singleColor : String = colors.pop ().substr (-6);
-        superled = singleColor.charAt (0) + singleColor.charAt (2) + singleColor.charAt (4); 
-        
+        superled = singleColor.charAt (0) + singleColor.charAt (2) + singleColor.charAt (4);
+
         for (color in colors)
         {
             singleColor = color.substr (-6);
-            matrix += singleColor.charAt (0) + singleColor.charAt (2) + singleColor.charAt (4); 
+            matrix += singleColor.charAt (0) + singleColor.charAt (2) + singleColor.charAt (4);
         }
-        return 'matrixstring $matrix super $superled'; 
+        return 'matrixstring $matrix super $superled';
     }
 
     public static function main () : Void
     {
-        
         var args : Array<String> = Sys.args();
-        var fileName : String;    
+        var fileName : String;
         if (args.length <= 0)
         {
             Sys.exit (0);
             return;
         }
         fileName = args.shift ();
-        
+
         var reader : L8tiesParser = new L8tiesParser ();
-        
+
         reader.run (fileName);
     }
 }

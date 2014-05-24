@@ -29,20 +29,13 @@ import hxl8.responses.L8ResponseBase;
 class L8CommBase
 {
     private var m_thread : Thread;
-    
+
     public function new ()
     {
     }
 
     public function setup (comPort : String, startThread : Bool = false) : Serial
     {
-//      if (!FileSystem.exists (comPort))
-//      {
-//          trace ("COM-Port does not exist " + comPort);
-//          Sys.exit (-1);
-//          return null;
-//      }
-        
         if (comPort == null)
         {
             Sys.println ("no COM-port specified");
@@ -53,7 +46,7 @@ class L8CommBase
         {
             comPort = "\\\\.\\" + comPort;
         }
-        
+
         var found : Bool = false;
         var devices : Array<String> = Serial.getDeviceList ();
         for (device in devices)
@@ -64,23 +57,23 @@ class L8CommBase
                 break;
             }
         }
-            
+
         var serialFile : Serial = new Serial (comPort, 19200, true);
         if (!serialFile.isSetup)
         {
             Sys.println ('cannot open COM-Port $comPort');
             if (!found)
             {
-                Sys.println ('\navailable COM-Ports:');    
+                Sys.println ('\navailable COM-Ports:');
                 for (device in devices)
                 {
                     Sys.println ('\t$device');
-                }                               
+                }
             }
             Sys.exit (-1);
             return null;
-        }        
-        
+        }
+
         if (startThread)
         {
             m_thread = Thread.create (L8Receiver.receiverThread);
@@ -97,7 +90,7 @@ class L8CommBase
             {
                 var bye : String = Thread.readMessage (false);
                 m_thread.sendMessage ("close");
-                
+
                 if (bye == null)
                 {
                     continue;
@@ -106,7 +99,7 @@ class L8CommBase
                 {
                     break;
                 }
-            }   
+            }
         }
 
         serial.close ();
@@ -129,5 +122,5 @@ class L8CommBase
             Sys.sleep (0.005);
         }
         return null;
-    }     
+    }
 }

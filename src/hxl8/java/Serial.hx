@@ -10,27 +10,27 @@ import haxe.io.BytesData;
 class Serial
 {
     private var m_serialPort : SerialPort;
-    
+
     public var portName (default,null) : String;
     public var baud (default,null) : Int;
     public var isSetup (get,null) : Bool;
-    
+
     public function new (portName : String, ?baud : Int = 9600, ?setupImmediately : Bool = false)
     {
         m_serialPort = new SerialPort (portName);
-        
+
         this.isSetup = false;
-        
+
         this.portName = portName;
         this.baud = baud;
 
-        if (setupImmediately) 
+        if (setupImmediately)
         {
             setup();
         }
     }
 
-    static public function getDeviceList () : Array<String> 
+    static public function getDeviceList () : Array<String>
     {
         return [];
     }
@@ -39,18 +39,18 @@ class Serial
     {
         try
         {
-	        if (m_serialPort == null)
-	        {
-	            return false;
-	        }
-	        return m_serialPort.isOpened ();
+            if (m_serialPort == null)
+            {
+                return false;
+            }
+            return m_serialPort.isOpened ();
         }
         catch (e : SerialPortException)
         {
-            return false; 
+            return false;
         }
     }
-    public function setup () : Bool 
+    public function setup () : Bool
     {
         try
         {
@@ -58,19 +58,19 @@ class Serial
             {
                 return false;
             }
-	        if (!m_serialPort.setParams (baud, 8, 1, 0))
+            if (!m_serialPort.setParams (baud, 8, 1, 0))
             {
                 return false;
             }
-	        isSetup = m_serialPort.isOpened ();
-	        return isSetup;
+            isSetup = m_serialPort.isOpened ();
+            return isSetup;
         }
         catch (e : SerialPortException)
         {
             return false;
-        } 
+        }
     }
-    public function writeBytes (buffer : BytesData) : Int 
+    public function writeBytes (buffer : BytesData) : Int
     {
         try
         {
@@ -80,14 +80,14 @@ class Serial
             }
             return buffer.length;
         }
-        
+
         catch (e : SerialPortException)
         {
             return 0;
-        } 
+        }
     }
 
-    public function readBytes (length : Int) : BytesData 
+    public function readBytes (length : Int) : BytesData
     {
         try
         {
@@ -96,15 +96,15 @@ class Serial
         catch (e : SerialPortException)
         {
             return null;
-        } 
+        }
     }
 
-    public function writeByte (byte : Int) : Bool 
+    public function writeByte (byte : Int) : Bool
     {
         return false;
     }
 
-    public function readByte () : Int 
+    public function readByte () : Int
     {
         try
         {
@@ -113,11 +113,11 @@ class Serial
         }
         catch (e : SerialPortException)
         {
-        } 
+        }
         return 0;
     }
 
-    public function flush (?flushIn : Bool = false, ?flushOut = false) : Void 
+    public function flush (?flushIn : Bool = false, ?flushOut = false) : Void
     {
         var flags : Int = 0;
         if (flushIn)
@@ -134,10 +134,10 @@ class Serial
         }
         catch (e : SerialPortException)
         {
-        } 
+        }
     }
 
-    public function available () : Int 
+    public function available () : Int
     {
         try
         {
@@ -146,21 +146,21 @@ class Serial
         catch (e : SerialPortException)
         {
             return 0;
-        } 
+        }
     }
 
-    public function close () : Int 
+    public function close () : Int
     {
         try
         {
-		    if (m_serialPort.closePort ())
-		    {
-		        return 1;
-		    }
+            if (m_serialPort.closePort ())
+            {
+                return 1;
+            }
         }
         catch (e : SerialPortException)
         {
-        } 
+        }
         return 0;
     }
-}   
+}

@@ -17,11 +17,11 @@ class L8CmdStoreNotification extends L8CmdBase
     private var m_rgbs : Array<L8RGB>;
     private var m_super : L8RGB;
     private var m_enabled : Bool;
-    
+
     public function new (app : String, rgbs : Array<L8RGB>, superLED : L8RGB, enable : Bool)
     {
         super (0x92);
-        
+
         m_rgbs = rgbs;
         m_app = app.substr (0, 32);
         m_super = superLED;
@@ -30,7 +30,7 @@ class L8CmdStoreNotification extends L8CmdBase
     override public function getBytes () : BytesBuffer
     {
         var buffer : BytesBuffer = super.getBytes ();
-        
+
         buffer.addByte (m_app.length);
         for (index in 0...m_app.length)
         {
@@ -52,6 +52,6 @@ class L8CmdStoreNotification extends L8CmdBase
         {
             buffer.addByte (0);
         }
-        return buffer;  
+        return buffer;
     }
 }

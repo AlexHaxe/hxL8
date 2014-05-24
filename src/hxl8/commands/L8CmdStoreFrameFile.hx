@@ -17,7 +17,7 @@ import hxl8.L8RGB;
 
 import hxl8.exceptions.L8SendException;
 
-class L8CmdSetMatrixLEDFile extends L8CmdBase
+class L8CmdStoreFrameFile extends L8CmdBase
 {
     private var m_fileName : String = "";
     private var m_offsetX : Int = 0;
@@ -25,7 +25,7 @@ class L8CmdSetMatrixLEDFile extends L8CmdBase
 
     public function new (fileName : String, offsetX : Int = 0, offsetY : Int = 0)
     {
-        super (0x44);
+        super (112);
         m_fileName = fileName;
         m_offsetX = offsetX;
         m_offsetY = offsetY;

@@ -279,9 +279,19 @@ class L8Ctl extends L8CommBase
                 case "storel8y":
                     var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
                     commands.push (new L8CmdStoreL8y (rgb));
+                case "storel8yfile":
+                    var fileName : String = args.shift ();
+                    var offsetX : Int = consumeArgInt (args, 0);
+                    var offsetY : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdStoreL8yFile (fileName, offsetX, offsetY));
                 case "storeframe":
                     var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
                     commands.push (new L8CmdStoreFrame (rgb));
+                case "storeframefile":
+                    var fileName : String = args.shift ();
+                    var offsetX : Int = consumeArgInt (args, 0);
+                    var offsetY : Int = consumeArgInt (args, 0);
+                    commands.push (new L8CmdStoreFrameFile (fileName, offsetX, offsetY));
                 case "storenotification", "storenotify", "setnotify", "setnotification":
                     var app : String = args.shift ();
                     var rgb : Array<L8RGB> = consumeArgColorArray (args, "000");
@@ -414,6 +424,7 @@ class L8Ctl extends L8CommBase
         }
         return result;
     }
+
     private function consumeArgInt (args : Array<String>, defaultValue : Int) : Int
     {
         if (args.length <= 0)
@@ -504,8 +515,14 @@ class L8Ctl extends L8CommBase
         Sys.println ("StopAnim - stops current animation");
         Sys.println ("StoreAnim frame#,duration,frame#,duration,... - stores a new animation in userspace (returns new index of anim)");
         Sys.println ("StoreFrame 64*(RGB|RRGGBB) - stores a new frame in userspace (returns new index of frame)");
+#if cpp
+        Sys.println ("StoreFrameFile Filename.png offsetX offsetY - stores a new frame in userspace from PNG file at offsetX/offsetY (returns new index of frame)");
+#end
         Sys.println ("StoreNotification appbundle 64*(RGB|RRGGBB) RGB true|false - creates a new notification for app-bundlename with color-matrix and SuperLED color and initial enabled status");
         Sys.println ("StoreL8y 64*(RGB|RRGGBB) - stores a L8y (returns new index of L8y)");
+#if cpp
+        Sys.println ("StoreL8yFile Filename.png offsetX offsetY - stores a L8y from PNG file at offsetX/offsetY (returns new index of L8y)");
+#end
         Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true");
         Sys.println ("UID - query device UID - decoder missing");
         Sys.println ("Version - query device versions - decoder missing");
