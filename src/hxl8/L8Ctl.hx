@@ -32,6 +32,28 @@ import hxl8.responses.*;
 
 class L8Ctl extends L8CommBase
 {
+    private static var m_commands : Array<String> = ["appstop", "stop", "appambient", "appdice", "dice", "applight", 
+            "appcolorchange", "colorchange", "appproximity", "appprox", "autorotate", "bootloader", "dfu", 
+            "batchg", "bat", "brightness", "bright", "box", "button", "deletel8y", "deleteanim", "deleteframe", 
+            "deleteusermemory", "deleteuserspace", "displaychar", "char", "enableallnotifications", 
+            "enableallnotify", "enablenotification", "enablenotify", "notifyenable", "getacc", "accelerator", 
+            "acc", "getamb", "ambient", "amb", "getmatrix", "getmcutemp", "mcutemperature", "mcutemp", "getmic", 
+            "microphone", "mic", "noise", "getnoise", "getnotifyapp", "readnotifyapp", "getnotify", "readnotify", 
+            "getnumnotifyapps", "numnotifyapps", "numnotify", "getnumanims", "numanims", "getnumframes", 
+            "numframes", "numframe", "getnuml8ies", "getnuml8y", "numl8ies", "numl8y", "getprox", "proximity", 
+            "prox", "getthreshold", "sensorthresholds", "thresholds", "threshold", "gettemp", "temperature", 
+            "temp", "getvoltage", "voltage", "getvbus", "vbus", "init", "initstatus", "status", "interface", 
+            "int", "if", "matrixoff", "matrixclear", "clear", "poweroff", "off", "notificationssilent", 
+            "notification", "notify", "party", "playanim", "play", "ping", "readanim", "readframe", "readl8y", 
+            "silentrepeat", "repeat", "repeatsilent", "reset", "setmatrixledfile", "matrixledfile", "matrixfile", 
+            "setled", "led", "setl8y", "l8y", "setmatrixledstring", "matrixledstring", "matrixstring", 
+            "setnotificationsilence", "silence", "silent", "setmatrixleduni", "matrixleduni", "matrixuni", 
+            "setsuperled", "superled", "super", "setorientation", "orientation", "orient", "setambthreshold", 
+            "ambthreshold", "setnoisethreshold", "noisethreshold", "setproxthreshold", "proxthreshold", 
+            "statusleds", "statusled", "stopanim", "storeanim", "storel8y", "storel8yfile", "storeframe", 
+            "storeframefile", "storenotification", "storenotify", "setnotify", "setnotification", "text", 
+            "uid", "version", "versions", "ver", "v"];
+
     public function new ()
     {
         super ();
@@ -372,14 +394,37 @@ class L8Ctl extends L8CommBase
 
         closeConnection (serial);
     }
-
+    private function argIsCommand (arg : String) : Bool
+    {
+        var lowerCase : String = arg.toLowerCase();
+        for (command in m_commands)
+        {
+            if (command == lowerCase)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private function consumeArgColor (args : Array<String>, defaultRGB : String) : L8RGB
     {
         if (args.length <= 0)
         {
             return new L8RGB (defaultRGB);
         }
-        return new L8RGB (args.shift ());
+        var rawVal : String = args.shift ();
+        if (argIsCommand (rawVal))
+        {
+            args.unshift (rawVal);
+            return new L8RGB (defaultRGB);
+        }
+        var r : EReg = ~/^[0-9a-fA-F]+$/;
+        if (!r.match (rawVal))
+        {
+            args.unshift (rawVal);
+            return new L8RGB (defaultRGB);
+        }
+        return new L8RGB (rawVal);
     }
 
     private function consumeArgColorArray (args : Array<String>, defaultRGB : String) : Array<L8RGB>
@@ -389,6 +434,17 @@ class L8Ctl extends L8CommBase
         if (args.length >= 0)
         {
             var values : String = args.shift ();
+            if (argIsCommand (values))
+            {
+                args.unshift (values);
+                values = defaultRGB;
+            }
+            var r : EReg = ~/^[0-9a-fA-F]+$/;
+            if (!r.match (values))
+            {
+                args.unshift (values);
+                values = defaultRGB;
+            }
             if (values.length == 192)
             {
                 for (index in 0...64)
@@ -431,7 +487,19 @@ class L8Ctl extends L8CommBase
         {
             return defaultValue;
         }
-        return Std.parseInt (args.shift ());
+        var rawVal : String = args.shift ();
+        if (argIsCommand (rawVal))
+        {
+            args.unshift (rawVal);
+            return defaultValue;
+        }
+        var r : EReg = ~/^[0-9]+$/;
+        if (!r.match (rawVal))
+        {
+            args.unshift (rawVal);
+            return defaultValue;
+        }
+        return Std.parseInt (rawVal);
     }
     private function consumeArgBool (args : Array<String>, defaultValue : Bool) : Bool
     {
@@ -439,8 +507,22 @@ class L8Ctl extends L8CommBase
         {
             return defaultValue;
         }
-        var value : String = args.shift ().toLowerCase ();
-        return ((value == "true") || (value == "1"));
+        var rawVal : String = args.shift ();
+        if (argIsCommand (rawVal))
+        {
+            args.unshift (rawVal);
+            return defaultValue;
+        }
+        var value : String = rawVal.toLowerCase ();
+        switch (value)
+        {
+            case "true", "1", "yes", "on": 
+                return true;
+            case "false", "0", "no", "off": 
+                return false;
+        }
+        args.unshift (rawVal);
+        return defaultValue;
     }
 
     public static function showHelp () : Void

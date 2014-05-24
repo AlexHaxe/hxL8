@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseMCUTemp extends L8ResponseBase
 {
     private var m_temperature : Float;
-    
+
     public function new ()
     {
         super ();
@@ -25,7 +25,7 @@ class L8ResponseMCUTemp extends L8ResponseBase
             m_temperature = 0;
             return;
         }
-        
+
         m_temperature = (data.get (1) << 8 | data.get (2));
     }
     override public function toString () : String
