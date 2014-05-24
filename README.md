@@ -30,6 +30,21 @@ Requirements
 * Visual Studio on Windows
 * gcc/g++ on Linux
 
+Setup on Windows
+----------------
+To setup a build system you need to install:
+- haxe (you will probably need to add haxe and neko folders to your path)
+- git
+- Visual Studio C++ (Express)
+
+then run:
+- `haxelib setup` (default folder is ok)
+- `haxelib install hxcpp`
+- `haxelib install hxlode`
+- `haxelib git hxSerial https://github.com/AlexHaxe/hxSerial.git`
+
+to compile you go into the hxl8 root folder (where build.hxml is located) and compile with
+`haxe.exe -cp src -cpp out32 -lib hxSerial -lib hxlode -lib hxcpp -D static -main hxl8.L8Ctl`
 
 Compile
 -------
