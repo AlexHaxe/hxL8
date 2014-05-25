@@ -1,5 +1,6 @@
 package hxl8;
 
+import EReg;
 import sys.FileSystem;
 
 #if cpp
