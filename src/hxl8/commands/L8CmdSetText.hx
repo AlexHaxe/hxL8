@@ -39,9 +39,9 @@ class L8CmdSetText extends L8CmdBase
             buffer.addByte (0);
         }
         buffer.addByte (m_speed);
-        buffer.addByte (m_rgb.getB ());
-        buffer.addByte (m_rgb.getG ());
         buffer.addByte (m_rgb.getR ());
+        buffer.addByte (m_rgb.getG ());
+        buffer.addByte (m_rgb.getB ());
 
         for (index in 0...m_text.length)
         {
