@@ -606,7 +606,7 @@ class L8Ctl extends L8CommBase
 #if cpp
         Sys.println ("StoreL8yFile Filename.png offsetX offsetY - stores a L8y from PNG file at offsetX/offsetY (returns new index of L8y)");
 #end
-        Sys.println ("Text RGB|RRGGBB text 0|1|2 true|false - scrolling text with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true");
+        Sys.println ('Text RGB|RRGGBB text 0|1|2 true|false - scrolling text (max length: ${L8CmdSetText.MAX_LENGTH}) with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true');
         Sys.println ("UID - query device UID - decoder missing");
         Sys.println ("Version - query device versions - decoder missing");
         Sys.println ("");

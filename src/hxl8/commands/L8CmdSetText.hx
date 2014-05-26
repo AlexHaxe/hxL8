@@ -8,24 +8,26 @@ import hxl8.L8RGB;
 
 class L8CmdSetText extends L8CmdBase
 {
-    private var m_speed : Int; 
-    private var m_loop : Bool; 
+    private var m_speed : Int;
+    private var m_loop : Bool;
     private var m_rgb : L8RGB;
     private var m_text : String;
-    
+
+    public static var MAX_LENGTH : Int = 31;
+
     public function new (speed : Int, loop : Bool, rgb : L8RGB, text : String)
     {
         super (131);
         switch (speed)
         {
-            case 0, 1, 2:            
+            case 0, 1, 2:
                 m_speed = speed;
             default:
                 m_speed = 1;
         }
         m_loop = loop;
         m_rgb = rgb;
-        m_text = text.substr (0, 240);
+        m_text = text.substr (0, MAX_LENGTH);
     }
     override public function getBytes () : BytesBuffer
     {
@@ -47,7 +49,8 @@ class L8CmdSetText extends L8CmdBase
         {
             buffer.addByte (m_text.charCodeAt (index));
         }
-        return buffer;   
+        //buffer.addByte (0);
+        return buffer;
     }
     override public function hasResponse () : Bool
     {
