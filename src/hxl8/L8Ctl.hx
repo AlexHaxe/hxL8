@@ -324,6 +324,11 @@ class L8Ctl extends L8CommBase
                 case "text":
                     var rgb : L8RGB = consumeArgColor (args, "F00");
                     var text : String = args.shift ();
+                    if (text == null)
+                    {
+                        // no text - no service
+                        continue;
+                    }
                     var speed : Int = consumeArgInt (args, 0);
                     var loop : Bool = consumeArgBool (args, true);
                     commands.push (new L8CmdSetText (speed, loop, rgb, text));
@@ -421,6 +426,11 @@ class L8Ctl extends L8CommBase
         }
         var r : EReg = ~/^[0-9a-fA-F]+$/;
         if (!r.match (rawVal))
+        {
+            args.unshift (rawVal);
+            return new L8RGB (defaultRGB);
+        }
+        if ((rawVal.length != 3) && (rawVal.length != 6))
         {
             args.unshift (rawVal);
             return new L8RGB (defaultRGB);
@@ -606,7 +616,7 @@ class L8Ctl extends L8CommBase
 #if cpp
         Sys.println ("StoreL8yFile Filename.png offsetX offsetY - stores a L8y from PNG file at offsetX/offsetY (returns new index of L8y)");
 #end
-        Sys.println ('Text RGB|RRGGBB text 0|1|2 true|false - scrolling text (max length: ${L8CmdSetText.MAX_LENGTH}) with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true');
+        Sys.println ('Text RGB|RRGGBB text 0|1|2 true|false - scrolling text (max length: ${L8CmdSetText.MAX_LENGTH}, color and text are required parameter) with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true');
         Sys.println ("UID - query device UID - decoder missing");
         Sys.println ("Version - query device versions - decoder missing");
         Sys.println ("");
