@@ -29,4 +29,14 @@ class L8ResponseStoreAnim extends L8ResponseBase
     {
         return 'Animation stored as: $m_anim';
     }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;new anim number');
+        }
+        result.push ('$m_cmd;$m_anim');
+        return result;
+    }
 }

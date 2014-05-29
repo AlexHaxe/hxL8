@@ -38,4 +38,12 @@ class L8ResponseBase
     {
         return 'base $m_cmd [$m_len]';
     }
+    public function toCSV (header : Bool = false) : Array<String>
+    {
+        return new Array<String> ();
+    }
+    public function toHex () : String
+    {
+        return m_data.toHex ();
+    }
 }

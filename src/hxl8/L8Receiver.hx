@@ -28,6 +28,9 @@ import hxl8.responses.*;
 class L8Receiver
 {
     public static var silent : Bool = false;
+    public static var hex : Bool = false;
+    public static var csv : Bool = false;
+    public static var csvHeader : Bool = false;
 
     public static function receiverThread () : Void
     {
@@ -187,7 +190,25 @@ class L8Receiver
         response.parseData (data);
         if (!silent)
         {
-            Sys.println (response);
+            var output : Bool = true;
+            if (hex)
+            {
+                Sys.println (response.toHex ());
+                output = false;
+            }
+            if (csv)
+            {
+                var lines : Array<String> = response.toCSV (csvHeader);
+                for (line in lines)
+                {
+                    Sys.println (line);
+                }
+                output = false;
+            }
+            if (output)
+            {
+                Sys.println (response);
+            }
         }
         return response;
     }

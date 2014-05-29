@@ -29,4 +29,14 @@ class L8ResponseNumAnims extends L8ResponseBase
     {
         return 'Number of Anims (in User Space): $m_animCount';
     }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;number of animations');
+        }
+        result.push ('$m_cmd;$m_animCount');
+        return result;
+    }
 }

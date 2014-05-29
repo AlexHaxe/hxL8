@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseStoreFrame extends L8ResponseBase
 {
     private var m_frame : Int;
-    
+
     public function new ()
     {
         super ();
@@ -28,5 +28,15 @@ class L8ResponseStoreFrame extends L8ResponseBase
     override public function toString () : String
     {
         return 'Frame stored as: $m_frame';
+    }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;new frame number');
+        }
+        result.push ('$m_cmd;$m_frame');
+        return result;
     }
 }

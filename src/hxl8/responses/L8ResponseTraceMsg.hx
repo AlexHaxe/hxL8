@@ -13,7 +13,7 @@ class L8ResponseTraceMsg extends L8ResponseBase
 {
     private var m_type : Int;
     private var m_code : Int;
-    
+
     public function new ()
     {
         super ();
@@ -89,5 +89,15 @@ class L8ResponseTraceMsg extends L8ResponseBase
                 }
         }
         return 'TraceMsg: [$m_len/$m_type/$m_code] - $msg';
+    }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;type;code');
+        }
+        result.push ('$m_cmd;$m_type;$m_code');
+        return result;
     }
 }

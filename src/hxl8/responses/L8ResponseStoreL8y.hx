@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseStoreL8y extends L8ResponseBase
 {
     private var m_l8y : Int;
-    
+
     public function new ()
     {
         super ();
@@ -28,5 +28,15 @@ class L8ResponseStoreL8y extends L8ResponseBase
     override public function toString () : String
     {
         return 'L8y stored as: $m_l8y';
+    }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;new l8y number');
+        }
+        result.push ('$m_cmd;$m_l8y');
+        return result;
     }
 }

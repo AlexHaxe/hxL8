@@ -29,4 +29,14 @@ class L8ResponseNumNotifyApps extends L8ResponseBase
     {
         return 'Number of Notify-Apps: $m_appCount';
     }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;number of notify apps');
+        }
+        result.push ('$m_cmd;$m_appCount');
+        return result;
+    }
 }

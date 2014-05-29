@@ -53,7 +53,7 @@ class L8Ctl extends L8CommBase
             "ambthreshold", "setnoisethreshold", "noisethreshold", "setproxthreshold", "proxthreshold", 
             "statusleds", "statusled", "stopanim", "storeanim", "storel8y", "storel8yfile", "storeframe", 
             "storeframefile", "storenotification", "storenotify", "setnotify", "setnotification", "text", 
-            "uid", "version", "versions", "ver", "v"];
+            "uid", "version", "versions", "ver", "v", "hex", "csv", "csvheader", "numanim"];
 
     public function new ()
     {
@@ -174,7 +174,7 @@ class L8Ctl extends L8CommBase
                     commands.push (new L8CmdGetNotifyApp (index, extended));
                 case "getnumnotifyapps", "numnotifyapps", "numnotify":
                     commands.push (new L8CmdGetNumNotifyApps ());
-                case "getnumanims", "numanims":
+                case "getnumanims", "numanims", "numanim":
                     commands.push (new L8CmdQueryNumAnims ());
                 case "getnumframes", "numframes", "numframe":
                     commands.push (new L8CmdQueryNumFrames ());
@@ -336,6 +336,16 @@ class L8Ctl extends L8CommBase
                     commands.push (new L8CmdQueryMCUID ());
                 case "version", "versions", "ver", "v":
                     commands.push (new L8CmdQueryVersions ());
+                case "hex":
+                    L8Receiver.hex = true;
+                    L8Receiver.csv = false;
+                case "csv":
+                    L8Receiver.hex = false;
+                    L8Receiver.csv = true;
+                case "csvheader", "csvhead":
+                    L8Receiver.hex = false;
+                    L8Receiver.csv = true;
+                    L8Receiver.csvHeader = true;
                 default:
                     continue;
             }
@@ -557,6 +567,8 @@ class L8Ctl extends L8CommBase
         Sys.println ("Brightness true|false - set low brightness of LEDs (matrix and super) true = high, false = low, default: false");
         Sys.println ("Box left top right bottom RGB RGB RGB - shows a box from left/top to right/bottom with border, fill and outside color");
         Sys.println ("Button - read button status");
+        Sys.println ("CSV - print responses in CSV format");
+        Sys.println ("CSVHeader - print responses in CSV format with header");
         Sys.println ("DeleteAnim anim# - Delete Animation by number (between 0 and GetNumAnims)");
         Sys.println ("DeleteFrame frame# - Delete Frame by number (between 0 and GetNumFrames)");
         Sys.println ("DeleteL8y l8y# - Delete L8y by number (between 0 and GetNumL8ies)");
@@ -579,6 +591,7 @@ class L8Ctl extends L8CommBase
         Sys.println ("GetThreshold - get current ambient, noise and proximity thresholds");
         Sys.println ("GetVoltage - get the voltage of L8 battery");
         Sys.println ("GetVBUS - get the voltage of USB connection");
+        Sys.println ("Hex - print responses in raw hex format");
         Sys.println ("Init - get trace info");
         Sys.println ("Interface devicename - sets COM-port to use, default: /dev/ttyACM0");
         Sys.println ("L8y l8y# - show L8y (between 0 and GetNumL8ies)");

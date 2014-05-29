@@ -32,4 +32,14 @@ class L8ResponseVBUS extends L8ResponseBase
     {
         return 'USB voltage: ${m_vbusValue}mV';
     }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;usb voltage');
+        }
+        result.push ('$m_cmd;$m_vbusValue');
+        return result;
+    }
 }

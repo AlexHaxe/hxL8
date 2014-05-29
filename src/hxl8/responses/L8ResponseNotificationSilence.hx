@@ -33,4 +33,14 @@ class L8ResponseNotificationSilence extends L8ResponseBase
         }
         return 'NotificationSilence: off';
     }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;notification silence');
+        }
+        result.push ('$m_cmd;$m_code');
+        return result;
+    }
 }

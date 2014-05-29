@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseNoise extends L8ResponseBase
 {
     private var m_noiseValue : Int;
-    
+
     public function new ()
     {
         super ();
@@ -25,11 +25,21 @@ class L8ResponseNoise extends L8ResponseBase
             m_noiseValue = 0;
             return;
         }
-        
+
         m_noiseValue = data.get (1) << 8 | data.get (2);
     }
     override public function toString () : String
     {
         return 'Noise: ${m_noiseValue}';
+    }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;noise');
+        }
+        result.push ('$m_cmd;$m_noiseValue');
+        return result;
     }
 }

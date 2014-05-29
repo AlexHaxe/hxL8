@@ -42,4 +42,14 @@ class L8ResponseBatchG extends L8ResponseBase
         }
         return 'Battery Charge: $msg';
     }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;charging status');
+        }
+        result.push ('$m_cmd;$m_charge');
+        return result;
+    }
 }

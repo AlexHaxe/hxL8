@@ -42,7 +42,7 @@ class L8ResponseReadAnim extends L8ResponseBase
     {
         var buffer : StringBuf = new StringBuf ();
         var buffer2 : StringBuf = new StringBuf ();
-        
+
         var first : Bool = true;
         for (animFrame in m_frames)
         {
@@ -58,5 +58,32 @@ class L8ResponseReadAnim extends L8ResponseBase
         buffer.add ("\n");
         buffer.add (buffer2.toString ());
         return buffer.toString ();
+    }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            var headerText : StringBuf = new StringBuf ();
+            headerText.add ('response');
+            var index : Int = 0;
+            for (frame in m_frames)
+            {
+                headerText.add (';index $index;delay $index');
+                index++;
+            }
+            result.push (headerText.toString ());
+        }
+        var dataText : StringBuf = new StringBuf ();
+        dataText.add (m_cmd);
+        for (frame in m_frames)
+        {
+           dataText.add (";");
+           dataText.add (frame.frame);
+           dataText.add (";");
+           dataText.add (frame.delay);
+        }
+        result.push (dataText.toString ());
+        return result;
     }
 }

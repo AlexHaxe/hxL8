@@ -32,4 +32,14 @@ class L8ResponseTemperature extends L8ResponseBase
     {
         return 'Temperature: ${m_temperature}°C';
     }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;temperature');
+        }
+        result.push ('$m_cmd;$m_temperature');
+        return result;
+    }
 }

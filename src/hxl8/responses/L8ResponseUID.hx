@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseUID extends L8ResponseBase
 {
     private var m_UID : String;
-      
+
     public function new ()
     {
         super ();
@@ -20,7 +20,7 @@ class L8ResponseUID extends L8ResponseBase
     override public function parseData (data : Bytes) : Void
     {
         super.parseData (data);
-        
+
         if (data.length != 13)
         {
             m_UID = "???";
@@ -32,5 +32,15 @@ class L8ResponseUID extends L8ResponseBase
     override public function toString () : String
     {
         return 'UID: $m_UID';
+    }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;uid');
+        }
+        result.push ('$m_cmd;$m_UID');
+        return result;
     }
 }

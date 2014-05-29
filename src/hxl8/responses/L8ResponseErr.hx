@@ -34,4 +34,14 @@ class L8ResponseErr extends L8ResponseBase
         }
         return 'Error $m_code';
     }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;error code');
+        }
+        result.push ('$m_cmd;$m_code');
+        return result;
+    }
 }

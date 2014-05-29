@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseOrientation extends L8ResponseBase
 {
     private var m_orient : Int;
-    
+
     public function new ()
     {
         super ();
@@ -28,7 +28,6 @@ class L8ResponseOrientation extends L8ResponseBase
     override public function toString () : String
     {
         var msg : String = "---";
-        // TODO convert m_orient to text
         switch (m_orient)
         {
             case 1:
@@ -42,5 +41,15 @@ class L8ResponseOrientation extends L8ResponseBase
             default:
         }
         return 'Orientation change: $msg';
+    }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;orientation');
+        }
+        result.push ('$m_cmd;$m_orient');
+        return result;
     }
 }

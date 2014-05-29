@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseButton extends L8ResponseBase
 {
     private var m_pressed : Bool;
-    
+
     public function new ()
     {
         super ();
@@ -35,5 +35,15 @@ class L8ResponseButton extends L8ResponseBase
         {
             return 'Button not pressed';
         }
+    }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;button status');
+        }
+        result.push ('$m_cmd;$m_pressed');
+        return result;
     }
 }

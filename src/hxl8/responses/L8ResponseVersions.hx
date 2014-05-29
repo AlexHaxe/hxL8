@@ -23,12 +23,12 @@ class L8ResponseVersions extends L8ResponseBase
     override public function parseData (data : Bytes) : Void
     {
         super.parseData (data);
-        
+
         if (data.length != 10)
         {
-		    m_versionLightOS = "???";
-		    m_versionHardware = "???";
-		    m_versionBootloader = "???";
+            m_versionLightOS = "???";
+            m_versionHardware = "???";
+            m_versionBootloader = "???";
             m_versionData = "???";
             return;
         }
@@ -40,9 +40,19 @@ class L8ResponseVersions extends L8ResponseBase
     private function zeroFill (value : Int) : String
     {
         return StringTools.lpad (Std.string (value), "0", 2);
-    } 
+    }
     override public function toString () : String
     {
         return 'Versions:\nLightOS: $m_versionLightOS\nHardware: $m_versionHardware\nBooloader: $m_versionBootloader\nData: $m_versionData';
+    }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;lightos version;hardware version;bootloader version;data version');
+        }
+        result.push ('$m_cmd;$m_versionLightOS;$m_versionHardware;$m_versionBootloader;$m_versionData');
+        return result;
     }
 }

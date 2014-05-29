@@ -29,4 +29,14 @@ class L8ResponseNumFrames extends L8ResponseBase
     {
         return 'Number of Frames (in User Space): $m_frameCount';
     }
+    override public function toCSV (header : Bool = false) : Array<String>
+    {
+        var result : Array<String> = super.toCSV (header);
+        if (header)
+        {
+            result.push ('response;number of frames');
+        }
+        result.push ('$m_cmd;$m_frameCount');
+        return result;
+    }
 }
