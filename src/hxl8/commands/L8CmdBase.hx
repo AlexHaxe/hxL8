@@ -27,7 +27,7 @@ class L8CmdBase
     {
         var buffer : BytesBuffer = new BytesBuffer ();
         buffer.addByte (m_cmd);
-        return buffer;   
+        return buffer;
     }
     public function send (serial : Serial) : Void
     {
@@ -37,14 +37,14 @@ class L8CmdBase
         }
         var bytesBuf : BytesBuffer = getBytes ();
         var data : Bytes = bytesBuf.getBytes ();
-        
+
         var toSendBuf : BytesBuffer = new BytesBuffer ();
         toSendBuf.addByte (0xAA);
         toSendBuf.addByte (0x55);
         toSendBuf.addByte (data.length);
         toSendBuf.addBytes (data, 0, data.length);
         toSendBuf.addByte (L8CrcCalc.calcCRC (data));
-        
+
         var sendBytes : Bytes = toSendBuf.getBytes ();
 
 //        trace (sendBytes.toHex ());
@@ -59,7 +59,6 @@ fail unsupported
         {
             throw new L8SendException (1, "length mismatch: " + written + " != " + sendBytes.length);
         }
-        serial.flush (true, true);
     }
     public function hasResponse () : Bool
     {

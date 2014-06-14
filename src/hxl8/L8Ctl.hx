@@ -53,7 +53,7 @@ class L8Ctl extends L8CommBase
             "ambthreshold", "setnoisethreshold", "noisethreshold", "setproxthreshold", "proxthreshold", 
             "statusleds", "statusled", "stopanim", "storeanim", "storel8y", "storel8yfile", "storeframe", 
             "storeframefile", "storenotification", "storenotify", "setnotify", "setnotification", "text", 
-            "uid", "version", "versions", "ver", "v", "hex", "csv", "csvheader", "numanim"];
+            "uid", "version", "versions", "ver", "v", "hex", "csv", "csvheader", "csvhead", "numanim"];
 
     public function new ()
     {
@@ -78,6 +78,12 @@ class L8Ctl extends L8CommBase
         var repeatsDelay : Int = 10;
 
         var comPort : String = "/dev/ttyACM0";
+#if mac
+        comPort = "/dev/cu.usbmodem641";
+#end
+#if windows
+        comPort = "COM3";
+#end
         var param : String;
         while (args.length > 0)
         {
@@ -365,7 +371,8 @@ class L8Ctl extends L8CommBase
                 break;
             }
         }
-        var serial : Serial = setup (comPort, needResponse);
+//        var serial : Serial = setup (comPort, needResponse);
+        var serial : Serial = setup (comPort, false);
         if (serial == null)
         {
             Sys.exit (-1);
@@ -373,6 +380,7 @@ class L8Ctl extends L8CommBase
         }
         if (repeat)
         {
+            startThread (serial);
             while (true)
             {
                 for (command in commands)
@@ -403,7 +411,8 @@ class L8Ctl extends L8CommBase
                 command.send (serial);
                 if (command.hasResponse ())
                 {
-                    waitForAnswer (serial, 1000);
+                    waitForAnswer (serial);
+//                    waitForAnswer (serial, 1000);
                 }
             }
         }
@@ -644,7 +653,13 @@ class L8Ctl extends L8CommBase
         Sys.println ("Repeat is implemented in L8Ctl and requires a constant connection, it is not a native capability of the L8.");
         Sys.println ("");
         Sys.println ("Interface allows you to change the default interface to match your system");
+#if mac
+        Sys.println ("default interface: /dev/cu.usbmodem641");
+#elseif windows
+        Sys.println ("default interface: COM3");
+#else
         Sys.println ("default interface: /dev/ttyACM0");
+#end
 // Space for example commands...
         Sys.println ("");
         Sys.println ("");

@@ -13,7 +13,7 @@ class L8CmdSetText extends L8CmdBase
     private var m_rgb : L8RGB;
     private var m_text : String;
 
-    public static var MAX_LENGTH : Int = 31;
+    public static var MAX_LENGTH : Int = 18;
 
     public function new (speed : Int, loop : Bool, rgb : L8RGB, text : String)
     {

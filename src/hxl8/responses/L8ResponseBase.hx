@@ -15,6 +15,13 @@ import hxl8.commands.L8CrcCalc;
 
 import hxl8.exceptions.L8SendException;
 
+enum PrintFormat {
+    TEXT;
+    CSV;
+    CSV_HEADER;
+    HEX;
+}
+
 class L8ResponseBase
 {
     private var m_cmd : Int;
@@ -45,5 +52,27 @@ class L8ResponseBase
     public function toHex () : String
     {
         return m_data.toHex ();
+    }
+    public function print (format : PrintFormat) : Void
+    {
+        switch (format)
+        {
+            case TEXT:
+                Sys.println (toString ());
+            case HEX:
+                Sys.println (toHex ());
+            case CSV:
+                var lines : Array<String> = toCSV (false);
+                for (line in lines)
+                {
+                    Sys.println (line);
+                }
+            case CSV_HEADER:
+                var lines : Array<String> = toCSV (true);
+                for (line in lines)
+                {
+                    Sys.println (line);
+                }
+        }
     }
 }

@@ -76,11 +76,15 @@ class L8CommBase
 
         if (startThread)
         {
-            m_thread = Thread.create (L8Receiver.receiverThread);
-            m_thread.sendMessage (Thread.current ());
-            m_thread.sendMessage (serialFile);
+            this.startThread (serialFile);
         }
         return serialFile;
+    }
+    private function startThread (serialFile : Serial) : Void
+    {
+        m_thread = Thread.create (L8Receiver.receiverThread);
+        m_thread.sendMessage (Thread.current ());
+        m_thread.sendMessage (serialFile);
     }
     private function closeConnection (serial : Serial) : Void
     {
@@ -104,7 +108,17 @@ class L8CommBase
 
         serial.close ();
     }
-    private function waitForAnswer (serial : Serial, tries : Int) : L8ResponseBase
+    private function waitForAnswer (serial : Serial) : L8ResponseBase
+    {
+        var receiver : L8Receiver = new L8Receiver (serial, null);
+        var response : L8ResponseBase = receiver.readOneResponse ();
+        if (response != null)
+        {
+            receiver.handleResponse (response);
+        }
+        return response;
+    }
+    private function waitForAnswerDeprecated (serial : Serial, tries : Int) : L8ResponseBase
     {
         while (true)
         {
