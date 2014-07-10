@@ -1,6 +1,7 @@
 # hxL8
 
 hxL8 is a command line application to talk to the L8 smartlight via USB
+L8NodeSrv is node.js Server version of hxL8, with most of the commands the cli version offers
 
 Features
 --------
@@ -45,6 +46,27 @@ then run:
 
 to compile you go into the hxl8 root folder (where build.hxml is located) and compile with
 `haxe.exe -cp src -cpp out32 -lib hxSerial -lib hxlode -lib hxcpp -D static -main hxl8.L8Ctl`
+
+
+Setup for L8NodeSrv
+-------------------
+- you need a working node.js installation
+- download bin/L8/NodeJS/L8NodeSrv.js to a new folder
+- run `npm install serialport` in that folder
+- launch with `node L8NodeSrv.js`
+- point your browser to http://localhost:1818/
+
+You can add two parameters to the start command, a port and the default serial device:
+`node L8NodeSrv.js 8888 /dev/rfcomm0`
+
+L8NodeSrv.js has a simple Homepage that contains a few examples with direct links. You can call any command by just putting it in the address bar of your browser.
+L8NodeSrv.js accepts GET requests and works similar to the command line version, only you have to use a `/` instead of a space to set your parameters.
+
+You can also send the interface with every GET request, so if you have multiple L8s you can specify which one to use.
+
+You cann have multiple commands in one GET request, as long as you put in the required parameters (same as cli version).
+
+Not everything is working perfectly, if you specify the wrong serial device node.js might crash.
 
 Compile
 -------
