@@ -145,10 +145,8 @@ Caution
 -------
 Use at your own risk!
 
-The MacOSX binaries are unstable, they only work approx 10% of the time.
-
 Windows32 binary was tested on Windows XP.
 Java binary was tested on Linux.
 
-L8Ctl works with USB and Bluetooth, you need to pair L8 with your computer first.
+L8Ctl works with USB and Bluetooth (for Bluetooth to work you need to pair L8 with your computer first).
 
