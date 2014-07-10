@@ -18,14 +18,16 @@ Features
 * L8y support
 * Frame support
 * Animation support
+* server based using node.js
 
 Requirements
 ------------
-* hxcpp
-* hxSerial
-* hxlode
+* haxelib install hxcpp
+* haxelib install hxSerial
+* haxelib install hxlode
+* haxelib install nodejs
+* haxelib install hxjava
 
-* hxjava
 * JDK 
 
 * XCode on MacOSX
@@ -43,6 +45,8 @@ then run:
 - `haxelib setup` (default folder is ok)
 - `haxelib install hxcpp`
 - `haxelib install hxlode`
+- `haxelib install nodejs`
+- `haxelib install hxjava`
 - `haxelib git hxSerial https://github.com/AlexHaxe/hxSerial.git`
 
 to compile you go into the hxl8 root folder (where build.hxml is located) and compile with

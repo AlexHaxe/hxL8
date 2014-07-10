@@ -68,7 +68,7 @@ class L8NodeSrv
         }
         catch (e : Dynamic)
         {
-            res.end(Std.string (e));
+            res.end (Std.string (e));
             return;
         }
         serial.setOpenHandler (function () {
@@ -78,7 +78,7 @@ class L8NodeSrv
             }
             catch (e : Dynamic)
             {
-                res.end(Std.string (e));
+                res.end (Std.string (e));
             }
         });
         var output : Array<String> = new Array<String> ();
@@ -91,7 +91,7 @@ class L8NodeSrv
             }
             if (responseHandler.isFinished ())
             {
-                res.end(output.join ("\n"));
+                res.end (output.join ("\n"));
                 serial.close ();
             }
         });
