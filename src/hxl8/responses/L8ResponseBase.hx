@@ -7,8 +7,10 @@ import haxe.io.BytesBuffer;
 import hxSerial.Serial;
 #elseif java
 import hxl8.java.Serial;
+#elseif nodejs
+import hxl8.nodejs.Serial;
 #else
-fail unsupported
+fail
 #end
 
 import hxl8.commands.L8CrcCalc;
@@ -53,6 +55,7 @@ class L8ResponseBase
     {
         return m_data.toHex ();
     }
+#if (cpp || java)
     public function print (format : PrintFormat) : Void
     {
         switch (format)
@@ -75,4 +78,23 @@ class L8ResponseBase
                 }
         }
     }
+#elseif nodejs
+    public function print (format : PrintFormat) : Array<String>
+    {
+        var lines : Array<String> = new Array<String> ();
+        switch (format)
+        {
+            case TEXT:
+                lines.push (toString ());
+            case HEX:
+                lines.push (toHex ());
+            case CSV:
+                lines = toCSV (false);
+            case CSV_HEADER:
+                lines = toCSV (true);
+        }
+        return lines;
+    }
+#else
+#end
 }

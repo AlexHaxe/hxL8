@@ -4,6 +4,7 @@ package hxl8;
 import cpp.vm.Thread;
 #elseif java
 import java.vm.Thread;
+#elseif nodejs
 #else
 fail - unsupported
 #end
@@ -14,6 +15,8 @@ import sys.FileSystem;
 import hxSerial.Serial;
 #elseif java
 import hxl8.java.Serial;
+#elseif nodejs
+import hxl8.nodejs.Serial;
 #else
 fail - unsupported
 #end
@@ -43,6 +46,7 @@ class L8ReceiverBase
     {
     }
 
+#if (cpp || java)
     public function receiveResponseLoop () : Void
     {
         while (true)
@@ -63,7 +67,6 @@ class L8ReceiverBase
         var readIndex : Int = 0;
 
         var dataBuffer : BytesBuffer = null;
-
         if (serial == null)
         {
             return null;
@@ -72,7 +75,7 @@ class L8ReceiverBase
         {
             if (serial.available () <= 0)
             {
-                Sys.sleep (0.3);
+                Sys.sleep (0.003);
                 if (serial.available () <= 0)
                 {
                     if (shallClose ())
@@ -128,7 +131,8 @@ class L8ReceiverBase
             }
         }
     }
-    private function processCommand (data : Bytes) : L8ResponseBase
+#end
+    public static function processCommand (data : Bytes) : L8ResponseBase
     {
         var response : L8ResponseBase = null;
         switch (data.get (0))
@@ -198,7 +202,9 @@ class L8ReceiverBase
             case 255: // Error
                 response = new L8ResponseErr ();
             default:
+#if (cpp || java)
                 Sys.println ('Unknown response: ${data.get (0)} - len: ${data.length} - ${data.toHex ()}');
+#end
                 return null;
         }
         response.parseData (data);

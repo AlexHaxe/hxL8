@@ -7,8 +7,9 @@ import haxe.io.BytesBuffer;
 import hxSerial.Serial;
 #elseif java
 import hxl8.java.Serial;
+#elseif nodejs
+import hxl8.nodejs.Serial;
 #else
-fail unsupported
 #end
 
 import hxl8.commands.L8CrcCalc;
@@ -52,8 +53,9 @@ class L8CmdBase
         var written : Int = serial.writeBytes (sendBytes.toString ());
 #elseif java
         var written : Int = serial.writeBytes (sendBytes.getData ());
+#elseif nodejs
+        var written : Int = serial.writeBytes (sendBytes.getData ());
 #else
-fail unsupported
 #end
         if (written != sendBytes.length)
         {

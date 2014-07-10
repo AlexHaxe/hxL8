@@ -34,13 +34,15 @@ class L8Receiver extends L8ReceiverBase
     public static var hex : Bool = false;
     public static var csv : Bool = false;
     public static var csvHeader : Bool = false;
+    private var responseHandler : L8ResponseHandler;
 
     private var mainThread : Thread = null;
 
-    public function new (serial : Serial, thread : Thread)
+    public function new (serial : Serial, thread : Thread, handler : L8ResponseHandler)
     {
         super (serial);
         mainThread = thread;
+        responseHandler = handler;
     }
 
     override public function shallClose () : Bool
@@ -68,42 +70,14 @@ class L8Receiver extends L8ReceiverBase
 
         var thread : Thread = Thread.readMessage (true);
         var serial : Serial = Thread.readMessage (true);
+        var responseHandler : L8ResponseHandler = Thread.readMessage (true);
 
-        var receiver : L8Receiver = new L8Receiver (serial, thread);
+        var receiver : L8Receiver = new L8Receiver (serial, thread, responseHandler);
         receiver.receiveResponseLoop ();
     }
 
     override public function handleResponse (response : L8ResponseBase) : Void
     {
-        if (response == null)
-        {
-            return;
-        }
-        if (!silent)
-        {
-            var format : PrintFormat = TEXT;
-
-            if (hex)
-            {
-                format = HEX;
-            }
-            if (csv)
-            {
-                if (csvHeader)
-                {
-                    format = CSV_HEADER;
-                }
-                else
-                {
-                    format = CSV;
-                }
-            }
-
-            response.print (format);
-            if (mainThread != null)
-            {
-                mainThread.sendMessage (response);
-            }
-        }
+        responseHandler.handleResponse(response);
     }
 }

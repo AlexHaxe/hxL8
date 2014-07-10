@@ -34,7 +34,7 @@ class L8CommBase
     {
     }
 
-    public function setup (comPort : String, startThread : Bool = false) : Serial
+    public function setup (comPort : String, startThread : Bool = false, responseHandler : L8ResponseHandler) : Serial
     {
         if (comPort == null)
         {
@@ -76,22 +76,28 @@ class L8CommBase
 
         if (startThread)
         {
-            this.startThread (serialFile);
+            this.startThread (serialFile, responseHandler);
         }
         return serialFile;
     }
-    private function startThread (serialFile : Serial) : Void
+    private function startThread (serialFile : Serial, responseHandler : L8ResponseHandler) : Void
     {
         m_thread = Thread.create (L8Receiver.receiverThread);
         m_thread.sendMessage (Thread.current ());
         m_thread.sendMessage (serialFile);
+        m_thread.sendMessage (responseHandler);
     }
-    private function closeConnection (serial : Serial) : Void
+    private function closeConnection (serial : Serial, responseHandler : L8ResponseHandler) : Void
     {
         if (m_thread != null)
         {
             while (true)
             {
+                if (responseHandler.isPending ())
+                {
+                    Sys.sleep (0.01);
+                    continue;
+                }
                 var bye : String = Thread.readMessage (false);
                 m_thread.sendMessage ("close");
 
@@ -108,13 +114,13 @@ class L8CommBase
 
         serial.close ();
     }
-    private function waitForAnswer (serial : Serial) : L8ResponseBase
+    private function waitForAnswer (serial : Serial, responseHandler : L8ResponseHandler) : L8ResponseBase
     {
-        var receiver : L8Receiver = new L8Receiver (serial, null);
+        var receiver : L8Receiver = new L8Receiver (serial, null, null);
         var response : L8ResponseBase = receiver.readOneResponse ();
         if (response != null)
         {
-            receiver.handleResponse (response);
+            responseHandler.handleResponse (response);
         }
         return response;
     }
