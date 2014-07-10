@@ -1,6 +1,7 @@
 # hxL8
 
 hxL8 is a command line application to talk to the L8 smartlight via USB
+
 L8NodeSrv is node.js Server version of hxL8, with most of the commands the cli version offers
 
 Features
