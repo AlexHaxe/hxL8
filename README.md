@@ -97,17 +97,17 @@ Usage
 Commands (case insensitive):
 
 ### L8 applications
-`appstop`
+* `appstop`
  -> stop current app
-`appambient RGB RGB threshold`
+* `appambient RGB RGB threshold`
  -> start ambient light app with matrix color, superled color and threshold
-`appcolorchange Multicolor|Tropical|Galaxy|Aurora speed true|false`
+* `appcolorchange Multicolor|Tropical|Galaxy|Aurora speed true|false`
  -> Start color changer app with speed in SuperLED invert(= true), default: false
-`appdice RGB|RRGGBB`
+* `appdice RGB|RRGGBB`
  -> Start dice app with optional color, default: F00
-`appproximity RGB RGB threshold`
+* `appproximity RGB RGB threshold`
  -> start proximity app with matrix color, superled color and threshold
-`party`
+* `party`
  -> run party app
 
 ### L8 sensors
