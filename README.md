@@ -30,39 +30,48 @@ Features
 
 Requirements
 ------------
+* git
+* XCode on MacOSX
+* Visual Studio on Windows
+* gcc/g++ on Linux
+
+* JDK
+* haxe
+
 * `haxelib install hxcpp`
 * `haxelib git hxSerial https://github.com/AlexHaxe/hxSerial.git`
 * `haxelib install hxlode`
 * `haxelib install nodejs`
 * `haxelib install hxjava`
 
-* JDK
+Compile L8Ctl on Windows
+------------------------
+`haxe buildWin.hxml`
 
-* XCode on MacOSX
-* Visual Studio on Windows
-* gcc/g++ on Linux
+output folder out32
 
-Setup on Windows
-----------------
-To setup a build system you need to install:
-- haxe (you will probably need to add haxe and neko folders to your path)
-- git
-- Visual Studio C++ (Express)
+Compile L8Ctl on Mac
+--------------------
+`haxe buildMac.hxml`
 
-then run:
-- `haxelib setup` (default folder is ok)
-- `haxelib install hxcpp`
-- `haxelib install hxlode`
-- `haxelib install nodejs`
-- `haxelib install hxjava`
-- `haxelib git hxSerial https://github.com/AlexHaxe/hxSerial.git`
+output folders 
+* out32
+* out
+* outJava
+* outNodeJS
 
-to compile you go into the hxl8 root folder (where build.hxml is located) and compile with
-`haxe.exe -cp src -cpp out32 -lib hxSerial -lib hxlode -lib hxcpp -D static -main hxl8.L8Ctl`
+Compile L8Ctl on Linux
+----------------------
+`haxe buildMac.hxml`
 
+output folders 
+* out32
+* out
+* outJava
+* outNodeJS
 
-Setup for L8NodeSrv
--------------------
+Running L8NodeSrv
+-----------------
 - you need a working node.js installation
 - download bin/L8/NodeJS/L8NodeSrv.js to a new folder
 - run `npm install serialport` in that folder
@@ -80,15 +89,6 @@ You can also send the interface with every GET request, so if you have multiple 
 You cann have multiple commands in one GET request, as long as you put in the required parameters (same as cli version).
 
 Not everything is working perfectly, if you specify the wrong serial device node.js might crash.
-
-Compile
--------
-Just call `haxe build.hxml`
-it should generate out, out32 and outJava folders containing a 64bit, a 32bit and a Java version.
-The Java version is platform independent, the 64/32bit binaries are platform specific. 
-If your compiler / system does not support 64bit (or 32bit) compiles, just comment out the section in build.hxml
-Same goes for Java target.
-
 
 Usage
 -----
