@@ -92,7 +92,7 @@ Not everything is working perfectly, if you specify the wrong serial device node
 
 Usage
 -----
-`L8Ctl \<command\> \[\<parameter(s)\>\]`
+`L8Ctl <command> [<parameter(s)>]`
 
 Commands (case insensitive):
 
