@@ -15,7 +15,7 @@ Features
 * setting led matrix
 * framegrab
 * superled
-* text scroller 
+* text scroller
 * version and UID
 * running firmware apps (color changer, dice, etc.)
 * notifications
@@ -25,7 +25,6 @@ Features
 * read sensor data
 * boxes
 * ad-hoc animations
-
 * server based using node.js
 
 Requirements
@@ -38,6 +37,7 @@ Requirements
 * JDK
 * haxe
 
+install Haxe libraries
 * `haxelib install hxcpp`
 * `haxelib git hxSerial https://github.com/AlexHaxe/hxSerial.git`
 * `haxelib install hxlode`
@@ -54,7 +54,7 @@ Compile L8Ctl on Mac
 --------------------
 `haxe buildMac.hxml`
 
-output folders 
+output folders
 * out32
 * out
 * outJava
@@ -64,7 +64,7 @@ Compile L8Ctl on Linux
 ----------------------
 `haxe buildMac.hxml`
 
-output folders 
+output folders
 * out32
 * out
 * outJava
@@ -161,7 +161,7 @@ sets super led to white and matrix to all red
 sets matrix to contents of icon.png at offset 50×50
 
 `L8Ctl.exe interface COM3 text 00f “this is a test” 1 true`
-starts text scroller in blue with medium speed (= 1) and loop = true 
+starts text scroller in blue with medium speed (= 1) and loop = true
 
 `L8Ctl.exe interface COM3 dice fff`
 starts dice app in white
