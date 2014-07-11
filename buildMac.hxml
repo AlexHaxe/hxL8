@@ -60,3 +60,17 @@
 
 -main hxl8.L8tiesParser
 
+-cmd mkdir -p outNodeJS
+
+--next
+
+-cp src
+
+-lib nodejs
+-D nodejs
+
+-resource templates/indexCommands.html@indexCommands.html
+
+-js outNodeJS/L8NodeSrv.js
+-main hxl8.L8NodeSrv
+
