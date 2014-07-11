@@ -1,34 +1,42 @@
 # hxL8
 
-hxL8 is a command line application to talk to the L8 smartlight via USB
+hxL8 is a Haxe based communication library for L8 smartlight
 
-L8NodeSrv is node.js Server version of hxL8, with most of the commands the cli version offers
+There are currently two tools based on that library:
+* L8Ctl is a command line application for Windows, Mac OSX and Linux and enables you to send commands to your L8 - also comes as Java version
+* L8NodeSrv is a node.js Server version of L8Ctl, with most of the commands the cli version offers, it enables you to talk to your L8 over a network using simple HTTP GET Requests
+
+The `bin` folder contains binaries for all supported systems in zip/tgz format and unpacked.
+
+You can also compile it from Haxe sources (by calling `haxe build.hxml` see requirements)
 
 Features
 --------
-* set led matrix - one color or from PNG
-* read led matrix (experimental)
-* set superled
-* text scroll
+* setting led matrix
+* framegrab
+* superled
+* text scroller 
 * version and UID
-* color changer app
-* dice app
-* poweroff
-* displaying notifications
+* running firmware apps (color changer, dice, etc.)
+* notifications
 * L8y support
-* Frame support
-* Animation support
+* frame support
+* animation support
+* read sensor data
+* boxes
+* ad-hoc animations
+
 * server based using node.js
 
 Requirements
 ------------
-* haxelib install hxcpp
-* haxelib install hxSerial
-* haxelib install hxlode
-* haxelib install nodejs
-* haxelib install hxjava
+* `haxelib install hxcpp`
+* `haxelib git hxSerial https://github.com/AlexHaxe/hxSerial.git`
+* `haxelib install hxlode`
+* `haxelib install nodejs`
+* `haxelib install hxjava`
 
-* JDK 
+* JDK
 
 * XCode on MacOSX
 * Visual Studio on Windows
