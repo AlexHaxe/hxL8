@@ -111,158 +111,158 @@ Commands (case insensitive):
  -> run party app
 
 ### L8 sensors
-`AutoRotate true|false`
+* `AutoRotate true|false`
  -> enable / disable autorotate
-`BatChg`
+* `BatChg`
  -> battery charge status
-`Button`
+* `Button`
  -> read button status
-`GetAcc`
+* `GetAcc`
  -> get values of accelerometer
-`GetAmb`
+* `GetAmb`
  -> get values of ambient sensor
-`GetMCUTemp`
+* `GetMCUTemp`
  -> get current MCU temperature
-`GetMic`
+* `GetMic`
  -> get current noise sensor value
-`GetProx`
+* `GetProx`
  -> get value of proximity sensor
-`GetTemp`
+* `GetTemp`
  -> get value of temperature sensor
-`GetThreshold`
+* `GetThreshold`
  -> get current ambient, noise and proximity thresholds
-`GetVoltage`
+* `GetVoltage`
  -> get the voltage of L8 battery
-`GetVBUS`
+* `GetVBUS`
  -> get the voltage of USB connection
-`SetOrientation top|bottom|left|right`
+* `SetOrientation top|bottom|left|right`
  -> sets orientation
-`SetAmbThreshold min max`
+* `SetAmbThreshold min max`
  -> sets min max values of ambient threshold
-`SetNoiseThreshold min max`
+* `SetNoiseThreshold min max`
  -> sets min max values of noise threshold
-`SetProxThreshold min max`
+* `SetProxThreshold min max`
  -> sets min max values of proximity threshold
 
 ### L8 response output options
-`CSV`
+* `CSV`
  -> print responses in CSV format
-`CSVHeader`
+* `CSVHeader`
  -> print responses in CSV format with header
-`Hex`
+* `Hex`
  -> print responses in raw hex format
 
 ### L8y
-`DeleteL8y l8y#`
+* `DeleteL8y l8y#`
  -> Delete L8y by number (between 0 and GetNumL8ies)
-`GetNumL8ies`
+* `GetNumL8ies`
  -> get the number of L8ies in User space
-`L8y l8y#`
+* `L8y l8y#`
  -> show L8y (between 0 and GetNumL8ies)
-`ReadL8y l8y#`
+* `ReadL8y l8y#`
  -> get matrix colors for L8y (l8y# between 0 and GetNumL8ies)
-`StoreL8y 64*(RGB|RRGGBB)`
+* `StoreL8y 64*(RGB|RRGGBB)`
  -> stores a L8y (returns new index of L8y)
-`StoreL8yFile Filename.png offsetX offsetY`
+* `StoreL8yFile Filename.png offsetX offsetY`
  -> stores a L8y from PNG file at offsetX/offsetY (returns new index of L8y)
  -> not in Java or NodeJS version
 
 ### L8 notifications
-`EnableAllNotifications true|false`
+* `EnableAllNotifications true|false`
  -> enable/disable all notifications, default: true
-`EnableNotification notification# true|false`
+* `EnableNotification notification# true|false`
  -> enable/disable notification, default: true
-`GetNotifyApp app#`
+* `GetNotifyApp app#`
  -> get Name, Matrix colors, Super LED color and Enabled flag of app number (0-255)
-`GetNumNotifyApps`
+* `GetNumNotifyApps`
  -> get the number of notification apps
-`Notify "Phone Call"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom on|mod|off category#`
+* `Notify "Phone Call"|WhatsApp|Facebook|GMail|MobileMail|Tweet|SMS|Line|Instagram|Hangout|GooglePlus|Custom on|mod|off category#`
  -> display notification, parameters see below
-`StoreNotification appbundle 64*(RGB|RRGGBB) RGB true|false`
+* `StoreNotification appbundle 64*(RGB|RRGGBB) RGB true|false`
  -> creates a new notification for app-bundlename with color-matrix and SuperLED color and initial enabled status
 
 ### L8 frames
-`DeleteFrame frame#`
+* `DeleteFrame frame#`
  -> Delete Frame by number (between 0 and GetNumFrames)
-`GetNumFrames`
+* `GetNumFrames`
  -> get the number of Frames in User space
-`ReadFrame frame#`
+* `ReadFrame frame#`
  -> gets frame from User Space (frame# between 0 and GetNumFrames)
-`StoreFrame 64*(RGB|RRGGBB)`
+* `StoreFrame 64*(RGB|RRGGBB)`
  -> stores a new frame in userspace (returns new index of frame)
-`StoreFrameFile Filename.png offsetX offsetY`
+* `StoreFrameFile Filename.png offsetX offsetY`
  -> stores a new frame in userspace from PNG file at offsetX/offsetY (returns new index of frame)
  -> not in Java or NodeJS version
 
 ### L8 animations
-`DeleteAnim anim#`
+* `DeleteAnim anim#`
  -> Delete Animation by number (between 0 and GetNumAnims)
-`GetNumAnims`
+* `GetNumAnims`
  -> get the number of anims in User space
-`PlayAnim anim# true|false`
+* `PlayAnim anim# true|false`
  -> plays animation # as loop = true or once = false; default: loop=true
-`ReadAnim anim#`
+* `ReadAnim anim#`
  -> gets frame and duration for animation from User Space (anim# between 0 and GetNumAnims)
-`StopAnim`
+* `StopAnim`
  -> stops current animation
-`StoreAnim frame#,duration,frame#,duration,...`
+* `StoreAnim frame#,duration,frame#,duration,...`
  -> stores a new animation in userspace (returns new index of anim)
 
 ### L8 matrix
-`Brightness true|false`
+* `Brightness true|false`
  -> set low brightness of LEDs (matrix and super) true = high, false = low, default: false
-`Box left top right bottom RGB RGB RGB`
+* `Box left top right bottom RGB RGB RGB`
  -> shows a box from left/top to right/bottom with border, fill and outside color
-`GetMatrix`
+* `GetMatrix`
  -> get current Matrix LED
-`MatrixLEDFile Filename.png offsetX offsetY`
+* `MatrixLEDFile Filename.png offsetX offsetY`
  -> set matrix to 8x8 pixel area of Filename.png at offsetX/offsetY, default offset: 0/0 - only PNG supported!
  -> not in Java or NodeJS version
-`MatrixLEDUni RGB|RRGGBB`
+* `MatrixLEDUni RGB|RRGGBB`
  -> set matrix to one color, default: 000 = off
-`MatrixLEDString 64*(RGB|RRGGBB)`
+* `MatrixLEDString 64*(RGB|RRGGBB)`
  -> set matrix to colorlist
-`MatrixOff`
+* `MatrixOff`
  -> clear matrix
-`Led x y RGB|RRGGBB`
+* `Led x y RGB|RRGGBB`
  -> set a single LED pixel
 
 ### L8 super LED
-`SuperLED RGB|RRGGBB`
+* `SuperLED RGB|RRGGBB`
  -> set superled to color, default: 000 = off
 
 ### L8 text
-`DisplayChar char top|bottom|left|right offset`
+* `DisplayChar char top|bottom|left|right offset`
  -> displays char with offset in pixels from top|bottom|left|right
-`Text RGB|RRGGBB text 0|1|2 true|false`
+* `Text RGB|RRGGBB text 0|1|2 true|false`
  -> scrolling text (max length: 18, color and text are required parameter) with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true
 
 ### L8 ad-hoc animations
-`Repeat #|forever delay`
+* `Repeat #|forever delay`
  -> repeats all commands number of times specified or forever with optional delay (specified in 100th of a second) between commands
-`RepeatSilent #|forever delay`
+* `RepeatSilent #|forever delay`
  -> repeats all commands number of times specified or forever with optional delay (specified in 100th of a second) between commands without printing responses from L8
 
 ### L8 serial port
-`Interface devicename`
+* `Interface devicename`
  -> sets COM-port to use, default: /dev/ttyACM0
 
 ### L8 misc
-`Bootloader`
+* `Bootloader`
  -> switch to DFU mode
-`DeleteUserSpace`
+* `DeleteUserSpace`
  -> Delete userspace
-`Init`
+* `Init`
  -> get trace info
-`Poweroff`
+* `Poweroff`
  -> poweroff
-`Reset`
+* `Reset`
  -> reset
-`StatusLED true|false`
+* `StatusLED true|false`
  -> turn status LEDs on or off, default: false = off
-`UID`
+* `UID`
  -> query device UID
-`Version`
+* `Version`
  -> query device versions
 
 `RGB|RRGGBB` - values in hex, either 3 or 6 digits, LEDs only support 4-bits per channel
