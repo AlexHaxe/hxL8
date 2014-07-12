@@ -303,9 +303,13 @@ starts dice app in white
 stops current app
 
 
+
 `L8Ctl.exe interface COM3 storeframe f00f70ff00f000f40880f storeframe f70ff00f000f40880ff00 storeframe ff00f000f40880ff00f70 storeframe 0f000f40880ff00f70ff0 storeframe 00f40880ff00f70ff00f0 storeframe 40880ff00f70ff00f000f storeframe 80ff00f70ff00f000f408`
+-> returns the frame numbers
 `L8Ctl.exe interface COM3 storeanim 15,1,16,1,17,1,18,1,19,1,20,1,21,1`
+-> replace 15-21 with frame numbers from previous command
 `L8Ctl.exe interface COM3 playanim 11`
+-> replace 11 with number returned from storeanim
 rainbow animation (please adjust numbers for storeanim and playanim to match your L8 - storeframe and storeanim will return the actual numbers)
 
 
