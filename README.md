@@ -276,8 +276,9 @@ Notifications
 
 default interface: /dev/ttyACM0
 
+(for Linux Bluetooth `/dev/rfcomm0`)
 (for Mac it is something like `/dev/tty.usbmodem641` for USB and `/dev/tty.L8-SerialPortServerPort1` for Bluetooth)
-(for Windows it is something like `COM3` or `COM4` )
+(for Windows use `COM3`, `COM4` etc. )
 
 Samples
 -------
@@ -316,4 +317,3 @@ Windows32 binary was tested on Windows XP.
 Java binary was tested on Linux.
 
 L8Ctl works with USB and Bluetooth (for Bluetooth to work you need to pair L8 with your computer first).
-
