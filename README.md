@@ -4,7 +4,7 @@ hxL8 is a Haxe based communication library for L8 smartlight
 
 There are currently two tools based on that library:
 * L8Ctl is a command line application for Windows, Mac OSX and Linux and enables you to send commands to your L8 - also comes as Java version
-* L8NodeSrv is a node.js Server version of L8Ctl, with most of the commands the cli version offers, it enables you to talk to your L8 over a network using simple HTTP GET Requests
+* L8NodeSrv is a node.js server version of L8Ctl, with most of the commands the cli version offers, it enables you to talk to your L8 over a network using simple HTTP GET requests
 
 The `bin` folder contains binaries for all supported systems in zip/tgz format and unpacked.
 
