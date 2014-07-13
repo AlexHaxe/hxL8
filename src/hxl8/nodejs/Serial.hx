@@ -8,6 +8,7 @@ import haxe.io.BytesData;
 
 typedef SerialCallback = Void -> Void;
 typedef SerialDataCallback = Dynamic -> Void;
+typedef DeviceListCallback = Map<String, String> -> Void;
 
 class Serial
 {
@@ -41,13 +42,20 @@ class Serial
         this.dataHandler = dataHandler;
     }
 
-    static public function getDeviceList () : Array<String>
+    static public function getDeviceList (callback : DeviceListCallback) : Void
     {
         var nodeSerial = Node.require ("serialport");
-        nodeSerial.list (function (err, ports) {
-            trace (ports);
+        nodeSerial.list (function (err, ports : Array<Dynamic>) {
+            var devices : Map<String, String> = new Map<String, String> ();
+            for (port in ports)
+            {
+                devices.set (port.comName, port.pnpId);
+            }
+            if (callback != null)
+            {
+                callback (devices);
+            }
         });
-        return [];
     }
 
     public function get_isSetup () : Bool
@@ -99,7 +107,7 @@ class Serial
 
     public function readBytes (length : Int) : BytesData
     {
-        return m_serialPort.read (length);
+        return null;
     }
 
     public function writeByte (byte : Int) : Bool
@@ -107,30 +115,30 @@ class Serial
         return false;
     }
 
-    public function readByte () : Int
-    {
-        var data : BytesData = m_serialPort.readBytes (1, 10000);
-        return cast (data [0], Int);
-    }
+    //public function readByte () : Int
+    //{
+    //    var data : BytesData = m_serialPort.readBytes (1, 10000);
+    //    return cast (data [0], Int);
+    //}
 
     public function flush (?flushIn : Bool = false, ?flushOut = false) : Void
     {
-        var flags : Int = 0;
-        if (flushIn)
-        {
-            flags |= 0x0008;
-        }
-        if (flushOut)
-        {
-            flags |= 0x0004;
-        }
-        m_serialPort.purgePort (flags);
+        //var flags : Int = 0;
+        //if (flushIn)
+        //{
+        //    flags |= 0x0008;
+        //}
+        //if (flushOut)
+        //{
+        //    flags |= 0x0004;
+        //}
+        //m_serialPort.purgePort (flags);
     }
 
-    public function available () : Int
-    {
-        return m_serialPort.getInputBufferBytesCount ();
-    }
+    //public function available () : Int
+    //{
+    //    return m_serialPort.getInputBufferBytesCount ();
+    //}
 
     public function close () : Int
     {

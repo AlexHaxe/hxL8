@@ -47,6 +47,13 @@ HxOverrides.substr = function(s,pos,len) {
 	} else if(len < 0) len = s.length + len - pos;
 	return s.substr(pos,len);
 };
+HxOverrides.iter = function(a) {
+	return { cur : 0, arr : a, hasNext : function() {
+		return this.cur < this.arr.length;
+	}, next : function() {
+		return this.arr[this.cur++];
+	}};
+};
 var List = function() {
 	this.length = 0;
 };
@@ -490,7 +497,7 @@ haxe.Template.prototype = {
 			var e4 = e[2];
 			var v2 = e4();
 			try {
-				var x = v2.iterator();
+				var x = $iterator(v2)();
 				if(x.hasNext == null) throw null;
 				v2 = x;
 			} catch( e5 ) {
@@ -705,9 +712,27 @@ haxe.crypto.BaseCode.prototype = {
 	,__class__: haxe.crypto.BaseCode
 };
 haxe.ds = {};
-haxe.ds.StringMap = function() { };
+haxe.ds.StringMap = function() {
+	this.h = { };
+};
 haxe.ds.StringMap.__name__ = true;
 haxe.ds.StringMap.__interfaces__ = [IMap];
+haxe.ds.StringMap.prototype = {
+	set: function(key,value) {
+		this.h["$" + key] = value;
+	}
+	,get: function(key) {
+		return this.h["$" + key];
+	}
+	,keys: function() {
+		var a = [];
+		for( var key in this.h ) {
+		if(this.h.hasOwnProperty(key)) a.push(key.substr(1));
+		}
+		return HxOverrides.iter(a);
+	}
+	,__class__: haxe.ds.StringMap
+};
 haxe.io.BytesBuffer = function() {
 	this.b = new Array();
 };
@@ -1325,6 +1350,25 @@ hxl8.L8NodeSrv.prototype = {
 		responseHandler.setCSVHeader(parser.csvHeader);
 		responseHandler.setHex(parser.hex);
 		responseHandler.setSilent(parser.silent);
+		hxl8.nodejs.Serial.getDeviceList(function(comPorts) {
+			_g.checkComPortsAndRun(res,parser,responseHandler,comPorts);
+		});
+	}
+	,checkComPortsAndRun: function(res,parser,responseHandler,comPorts) {
+		var _g = this;
+		var found = false;
+		var $it0 = comPorts.keys();
+		while( $it0.hasNext() ) {
+			var comPort = $it0.next();
+			if(comPort == parser.comPort) {
+				found = true;
+				break;
+			}
+		}
+		if(!found) {
+			this.showComPorts(res,parser.comPort,comPorts);
+			return;
+		}
 		var serial = null;
 		try {
 			serial = new hxl8.nodejs.Serial(parser.comPort,9600,true);
@@ -1343,10 +1387,10 @@ hxl8.L8NodeSrv.prototype = {
 		var lines;
 		serial.setDataHandler(function(data) {
 			lines = _g.handleResponse(haxe.io.Bytes.ofData(data),responseHandler);
-			var _g11 = 0;
-			while(_g11 < lines.length) {
-				var line = lines[_g11];
-				++_g11;
+			var _g1 = 0;
+			while(_g1 < lines.length) {
+				var line = lines[_g1];
+				++_g1;
 				output.push(line);
 			}
 			if(responseHandler.isFinished()) {
@@ -1375,6 +1419,22 @@ hxl8.L8NodeSrv.prototype = {
 		var template = new haxe.Template(index);
 		var context = { port : this.tcpPort, serialPort : this.serialPort};
 		res.end(template.execute(context));
+	}
+	,showComPorts: function(res,requestedPort,comPorts) {
+		var buf = new StringBuf();
+		if(requestedPort == null) buf.b += "null"; else buf.b += "" + requestedPort;
+		buf.b += " not available\n\n";
+		buf.b += "Available serial ports:\n";
+		var $it0 = comPorts.keys();
+		while( $it0.hasNext() ) {
+			var comPort = $it0.next();
+			var name = comPorts.get(comPort);
+			if(comPort == null) buf.b += "null"; else buf.b += "" + comPort;
+			buf.b += " - ";
+			if(name == null) buf.b += "null"; else buf.b += "" + name;
+			buf.b += "\n";
+		}
+		res.end(buf.b);
 	}
 	,__class__: hxl8.L8NodeSrv
 };
@@ -2715,12 +2775,20 @@ hxl8.nodejs.Serial = function(portName,baud,setupImmediately) {
 	if(setupImmediately) this.setup();
 };
 hxl8.nodejs.Serial.__name__ = true;
-hxl8.nodejs.Serial.getDeviceList = function() {
+hxl8.nodejs.Serial.getDeviceList = function(callback) {
 	var nodeSerial = js.Node.require("serialport");
 	nodeSerial.list(function(err,ports) {
-		console.log(ports);
+		var devices = new haxe.ds.StringMap();
+		var _g = 0;
+		while(_g < ports.length) {
+			var port = ports[_g];
+			++_g;
+			var key = port.comName;
+			var value = port.pnpId;
+			devices.set(key,value);
+		}
+		if(callback != null) callback(devices);
 	});
-	return [];
 };
 hxl8.nodejs.Serial.prototype = {
 	setOpenHandler: function(openHandler) {
@@ -2761,25 +2829,14 @@ hxl8.nodejs.Serial.prototype = {
 		return buffer.length;
 	}
 	,readBytes: function(length) {
-		return this.m_serialPort.read(length);
+		return null;
 	}
 	,writeByte: function($byte) {
 		return false;
 	}
-	,readByte: function() {
-		var data = this.m_serialPort.readBytes(1,10000);
-		return js.Boot.__cast(data[0] , Int);
-	}
 	,flush: function(flushIn,flushOut) {
 		if(flushOut == null) flushOut = false;
 		if(flushIn == null) flushIn = false;
-		var flags = 0;
-		if(flushIn) flags |= 8;
-		if(flushOut) flags |= 4;
-		this.m_serialPort.purgePort(flags);
-	}
-	,available: function() {
-		return this.m_serialPort.getInputBufferBytesCount();
 	}
 	,close: function() {
 		return 1;
@@ -3995,9 +4052,6 @@ js.Boot.__instanceof = function(o,cl) {
 		return o.__enum__ == cl;
 	}
 };
-js.Boot.__cast = function(o,t) {
-	if(js.Boot.__instanceof(o,t)) return o; else throw "Cannot cast " + Std.string(o) + " to " + Std.string(t);
-};
 js.NodeC = function() { };
 js.NodeC.__name__ = true;
 js.Node = function() { };
@@ -4138,6 +4192,7 @@ sys.FileSystem.readRecursiveInternal = function(root,dir,filter) {
 	}
 	return result;
 };
+function $iterator(o) { if( o instanceof Array ) return function() { return HxOverrides.iter(o); }; return typeof(o.iterator) == 'function' ? $bind(o,o.iterator) : o.iterator; }
 var $_, $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }
 String.prototype.__class__ = String;

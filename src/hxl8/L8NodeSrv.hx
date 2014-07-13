@@ -61,6 +61,28 @@ class L8NodeSrv
         responseHandler.setHex (parser.hex);
         responseHandler.setSilent (parser.silent);
 
+        Serial.getDeviceList (function (comPorts : Map<String, String>) {
+            checkComPortsAndRun (res, parser, responseHandler, comPorts);
+        });
+    }
+    private function checkComPortsAndRun (res : NodeHttpServerResp, parser : L8CmdParser, responseHandler : L8ResponseHandler, comPorts : Map<String, String>)
+    {
+        var found : Bool = false;
+        for (comPort in comPorts.keys ())
+        {
+            if (comPort == parser.comPort)
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+        {
+            showComPorts (res, parser.comPort, comPorts);
+            return;
+        }
+
         var serial : Serial = null;
         try
         {
@@ -135,6 +157,25 @@ class L8NodeSrv
             serialPort: serialPort
         };
         res.end (template.execute (context));
+    }
+
+    private function showComPorts (res : NodeHttpServerResp, requestedPort : String, comPorts : Map<String, String>) : Void
+    {
+        var buf : StringBuf = new StringBuf ();
+
+        buf.add (requestedPort);
+        buf.add (" not available\n\n");
+        buf.add ("Available serial ports:\n");
+
+        for (comPort in comPorts.keys ())
+        {
+            var name : String = comPorts.get (comPort);
+            buf.add (comPort);
+            buf.add (" - ");
+            buf.add (name);
+            buf.add ("\n");
+        }
+        res.end (buf.toString ());
     }
 
     public static function main()
