@@ -10,7 +10,8 @@
 Running on port ::port::<br />
 default interface ::serialPort::<br />
 <br />
-Commands (case insensitive):<br />
+List of supported commands with samples:<br />
+<h2>L8 applications</h2>
 <a href="/appstop">stop current app</a><br />
 <a href="/appambient/f00/00f/10">start ambient light app with matrix color, superled color and threshold</a><br />
 <a href="/appcolorchange/multicolor/10/true">Start color changer app Multiclor with speed in SuperLED invert(= true), default: false</a><br />
@@ -21,61 +22,47 @@ Commands (case insensitive):<br />
 <a href="/appproximity/f00/00f/10">start proximity app with matrix color, superled color and threshold</a><br />
 <a href="/party">run party app</a><br />
 <br />
+<h2>L8 sensors</h2>
 <a href="/autorotate/true">enable autorotate</a><br />
 <a href="/autorotate/false">disable autorotate</a><br />
-<br />
 <a href="/batchg">battery charge status</a><br />
-<br />
-<a href="/bootloader">switch to DFU mode</a><br />
-<br />
-<a href="/brightness/true">set low brightness of LEDs (matrix and super) true = high, false = low, default: false</a><br />
-<br />
-<a href="/box/2/2/6/6/f00/00f/0f0">shows a box from left/top to right/bottom with border, fill and outside color</a><br />
-<br />
 <a href="/button">read button status</a><br />
-<br />
-<a href="/csv/getamb">print responses in CSV format</a><br />
-<a href="/csvheader/getamb">print responses in CSV format with header</a><br />
-<a href="/hex/getamb">print responses in raw hex format</a><br />
-<br />
-/deleteanim/anim# - Delete Animation by number (between 0 and GetNumAnims)<br />
-/deleteframe/frame# - Delete Frame by number (between 0 and GetNumFrames)<br />
-/deletel8y/l8y# - Delete L8y by number (between 0 and GetNumL8ies)<br />
-/deleteuserspace/YES - Delete userspace (set YES to delete)<br />
-<br />
-<a href="/displaychar/@/top/0">displays char with offset in pixels from top|bottom|left|right</a><br />
-<br />
-<a href="/enableallnotifications/true">enable all notifications, default: true</a><br />
-<a href="/enableallnotifications/false">disable all notifications, default: true</a><br />
-<a href="/enablenotification/1/true">enable notification, default: true</a><br />
-<a href="/enablenotification/1/false">disable notification, default: true</a><br />
-<br />
 <a href="/getacc">get values of accelerometer</a><br />
 <a href="/getamb">get values of ambient sensor</a><br />
-<a href="/getmatrix">get current Matrix LED</a><br />
 <a href="/getmcutemp">get current MCU temperature</a><br />
 <a href="/getmic">get current noise sensor value</a><br />
-<a href="/getnotifyapp app#">get Name, Matrix colors, Super LED color and Enabled flag of app number (0-255)</a><br />
-<a href="/getnumnotifyapps">get the number of notification apps</a><br />
-<a href="/getnumanims">get the number of anims in User space</a><br />
-<a href="/getnumframes">get the number of Frames in User space</a><br />
-<a href="/getnuml8ies">get the number of L8ies in User space</a><br />
 <a href="/getprox">get value of proximity sensor</a><br />
 <a href="/gettemp">get value of temperature sensor</a><br />
 <a href="/getthreshold">get current ambient, noise and proximity thresholds</a><br />
 <a href="/getvoltage">get the voltage of L8 battery</a><br />
 <a href="/getvbus">get the voltage of USB connection</a><br />
+<a href="/setorientation/top">sets orientation top</a><br />
+<a href="/setorientation/bottom">sets orientation bottom</a><br />
+<a href="/setorientation/left">sets orientation left</a><br />
+<a href="/setorientation/right">sets orientation right</a><br />
+/setambthreshold/min/max - sets min max values of ambient threshold<br />
+/setnoisethreshold/min/max - sets min max values of noise threshold<br />
+/setproxthreshold/min/max - sets min max values of proximity threshold<br />
 <br />
-<a href="/init">get trace info</a><br />
+<h2>L8 response output options</h2>
+<a href="/csv/getamb">print responses in CSV format</a><br />
+<a href="/csvheader/getamb">print responses in CSV format with header</a><br />
+<a href="/hex/getamb">print responses in raw hex format</a><br />
 <br />
-<a href="/interface/%2Fdev%2FttyACM1/matrixoff"changes sets COM-port, default: ::serialPort:: - currently crashes nodejs server if unavailable</a><br />
-<br />
+<h2>L8y</h2>
+/deletel8y/l8y# - Delete L8y by number (between 0 and GetNumL8ies)<br />
+<a href="/getnuml8ies">get the number of L8ies in User space</a><br />
+<a href="/readl8y/2">get matrix colors for L8y (l8y# between 0 and GetNumL8ies)</a><br />
 <a href="/l8y/0">show L8y (between 0 and GetNumL8ies)</a><br />
-<a href="/led/5/5/FFF"> set a single LED pixel</a><br />
-<a href="/matrixleduni/fff">set matrix to one color, default: 000 = off</a><br />
-<a href="/matrixledstring/f00f70ff00f000f40880f">set matrix to colorlist</a><br />
-<a href="/matrixoff">clear matrix</a><br />
+/storel8y/64*(RGB|RRGGBB)"> - stores a L8y (returns new index of L8y)<br />
 <br />
+<h2>L8 notifications</h2>
+<a href="/enableallnotifications/true">enable all notifications, default: true</a><br />
+<a href="/enableallnotifications/false">disable all notifications, default: true</a><br />
+<a href="/enablenotification/1/true">enable notification, default: true</a><br />
+<a href="/enablenotification/1/false">disable notification, default: true</a><br />
+<a href="/getnumnotifyapps">get the number of notification apps</a><br />
+<a href="/getnotifyapp app#">get Name, Matrix colors, Super LED color and Enabled flag of app number (0-255)</a><br />
 <a href="/notify/Phone%20Call/on/0">display Phone Call notification, parameters see below</a><br />
 <a href="/notify/WhatsApp/on/0">display WhatsApp notification, parameters see below</a><br />
 <a href="/notify/Facebook/on/0">display Facebook notification, parameters see below</a><br />
@@ -87,44 +74,55 @@ Commands (case insensitive):<br />
 <a href="/notify/Instagram/on/0">display Instagram notification, parameters see below</a><br />
 <a href="/notify/Hangout/on/0">display Hangout notification, parameters see below</a><br />
 <a href="/notify/GooglePlus/on/0">display Google+ notification, parameters see below</a><br />
+/storenotification/appbundle 64*(RGB|RRGGBB) RGB true|false - creates a new notification for app-bundlename with color-matrix and SuperLED color and initial enabled status<br />
 <br />
-<a href="/playanim/2/false">plays animation # as loop = true or once = false; default: loop=true</a><br />
-<br />
-<a href="/poweroff">poweroff</a><br />
-<br />
-<a href="/readanim/2">gets frame and duration for animation from User Space (anim# between 0 and GetNumAnims)</a><br />
+<h2>L8 frames</h2>
+/deleteframe/frame# - Delete Frame by number (between 0 and GetNumFrames)<br />
+<a href="/getnumframes">get the number of Frames in User space</a><br />
 <a href="/readframe/1">gets frame from User Space (frame# between 0 and GetNumFrames)</a><br />
-<a href="/readl8y/2">get matrix colors for L8y (l8y# between 0 and GetNumL8ies)</a><br />
+/storeframe/64*(RGB|RRGGBB) - stores a new frame in userspace (returns new index of frame)<br />
 <br />
-<a href="/reset">reset</a><br />
+<h2>L8 animations</h2>
+/deleteanim/anim# - Delete Animation by number (between 0 and GetNumAnims)<br />
+<a href="/getnumanims">get the number of anims in User space</a><br />
+<a href="/playanim/2/false">plays animation # as loop = true or once = false; default: loop=true</a><br />
+<a href="/readanim/2">gets frame and duration for animation from User Space (anim# between 0 and GetNumAnims)</a><br />
+<a href="/stopanim">stops current animation</a><br />
+/storeAnim/frame#,duration,frame#,duration,... - stores a new animation in userspace (returns new index of anim)<br />
 <br />
+<h2>L8 matrix</h2>
+<a href="/box/2/2/6/6/f00/00f/0f0">shows a box from left/top to right/bottom with border, fill and outside color</a><br />
+<a href="/brightness/true">set high brightness of LEDs (matrix and super) true = high, false = low, default: false</a><br />
+<a href="/brightness/false">set low brightness of LEDs (matrix and super) true = high, false = low, default: false</a><br />
+<a href="/getmatrix">get current Matrix LED</a><br />
+<a href="/led/5/5/FFF"> set a single LED pixel</a><br />
+<a href="/matrixleduni/fff">set matrix to one color, default: 000 = off</a><br />
+<a href="/matrixledstring/f00f70ff00f000f40880f">set matrix to colorlist</a><br />
+<a href="/matrixoff">clear matrix</a><br />
+<br />
+<h2>L8 super LED</h2>
+<a href="/superled/ff0">set superled to color, default: 000 = off</a><br />
+<br />
+<h2>L8 text</h2>
+<a href="/displaychar/@/top/0">displays char with offset in pixels from top|bottom|left|right</a><br />
+<a href="/text/ff0/Hello%20World/0/false">scrolling text (max length: 18, color and text are required parameter) with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true</a><br />
+<br />
+<h2>L8 ad-hoc animations</h2>
 <a href="/repeat/10/1000/gettemp">repeats all commands number of times specified or forever with optional delay (specified in 100th of a second) between commands</a><br />
-<a href="/repeatsilent/forever/50/super/400/super/800/super/c00/super/f00/super/800/super/000">repeats all commands number of times specified or forever with optional delay (specified in 100th of a second) between commands without printing responses from L8</a><br />
+<a href="/repeatsilent/20/50/super/400/super/800/super/c00/super/f00/super/800/super/000">repeats all commands number of times specified or forever with optional delay (specified in 100th of a second) between commands without printing responses from L8</a><br />
 <a href="/repeatsilent/10/75/super/f00/super/000/super/00f/super/000/">red/blue blinking super</a><br />
 <a href="/repeatsilent/15/50/matrixstring/f00f70ff00f000f40880f/matrixstring/f70ff00f000f40880ff00/matrixstring/ff00f000f40880ff00f70/matrixstring/0f000f40880ff00f70ff0/matrixstring/00f40880ff00f70ff00f0/matrixstring/40880ff00f70ff00f000f/matrixstring/80ff00f70ff00f000f408">rainbow animation</a><br />
 <br />
-<a href="/setorientation/top">sets orientation top</a><br />
-<a href="/setorientation/bottom">sets orientation bottom</a><br />
-<a href="/setorientation/left">sets orientation left</a><br />
-<a href="/setorientation/right">sets orientation right</a><br />
+<h2>L8 serial port</h2>
+<a href="/interface/%2Fdev%2FttyACM1/matrixoff">changes sets COM-port, default: ::serialPort::</a><br />
 <br />
-/setambthreshold/min/max - sets min max values of ambient threshold<br />
-/setnoisethreshold/min/max - sets min max values of noise threshold<br />
-/setproxthreshold/min/max - sets min max values of proximity threshold<br />
-<br />
-<a href="/superled/ff0">set superled to color, default: 000 = off</a><br />
-</br />
+<h2>L8 misc</h2>
+<a href="/bootloader">switch to DFU mode</a><br />
+/deleteuserspace/YES - Delete userspace (set YES to delete)<br />
+<a href="/init">get trace info</a><br />
+<a href="/poweroff">poweroff</a><br />
+<a href="/reset">reset</a><br />
 <a href="/statusled/false">turn status LEDs on or off, default: false = off</a><br />
-<br />
-<a href="/stopanim">stops current animation</a><br />
-<br />
-/storeAnim/frame#,duration,frame#,duration,... - stores a new animation in userspace (returns new index of anim)<br />
-/storeframe/64*(RGB|RRGGBB) - stores a new frame in userspace (returns new index of frame)<br />
-/storenotification/appbundle 64*(RGB|RRGGBB) RGB true|false - creates a new notification for app-bundlename with color-matrix and SuperLED color and initial enabled status<br />
-/storel8y/64*(RGB|RRGGBB)"> - stores a L8y (returns new index of L8y)<br />
-<br />
-<a href="/text/ff0/Hello%20World/0/false">scrolling text (max length: 18, color and text are required parameter) with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true</a><br />
-<br />
 <a href="/uid">query device UID</a><br />
 <a href="/version">query device versions</a><br />
 <br />
