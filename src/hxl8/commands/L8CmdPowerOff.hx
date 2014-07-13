@@ -10,4 +10,8 @@ class L8CmdPowerOff extends L8CmdBase
     {
         super (157);
     }
+    override public function hasResponse () : Bool
+    {
+        return false;
+    }
 }

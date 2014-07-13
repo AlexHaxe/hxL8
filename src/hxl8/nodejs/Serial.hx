@@ -20,6 +20,7 @@ class Serial
 
     private var openHandler : SerialCallback = null;
     private var dataHandler : SerialDataCallback = null;
+    private var errorHandler : SerialDataCallback = null;
 
     public function new (portName : String, ?baud : Int = 9600, ?setupImmediately : Bool = false)
     {
@@ -40,6 +41,10 @@ class Serial
     public function setDataHandler (dataHandler : SerialDataCallback) : Void
     {
         this.dataHandler = dataHandler;
+    }
+    public function setErrorHandler (errorHandler : SerialDataCallback) : Void
+    {
+        this.errorHandler = errorHandler;
     }
 
     static public function getDeviceList (callback : DeviceListCallback) : Void
@@ -92,8 +97,11 @@ class Serial
                 dataHandler (data);
             }
         });
-        m_serialPort.on ('error', function (data) {
-            trace (data);
+        m_serialPort.on ('error', function (error) {
+            if (errorHandler != null)
+            {
+                errorHandler (error);
+            }
         });
 
         isSetup = true;
@@ -142,7 +150,7 @@ class Serial
 
     public function close () : Int
     {
-//        if (m_serialPort.close ())
+        if (m_serialPort.close ())
         {
             return 1;
         }
