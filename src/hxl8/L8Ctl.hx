@@ -48,34 +48,30 @@ class L8Ctl extends L8CommBase
             return;
         }
 
-        var parser : L8CmdParser = new L8CmdParser (args);
+        var responseHandler : L8ResponseHandler = new L8ResponseHandler ();
+        var parser : L8CmdParser = new L8CmdParser (args, responseHandler);
 
-        if (parser.commands.length <= 0)
+        if (!parser.hasCommands ())
         {
             showHelp ();
             Sys.exit (0);
             return;
         }
-        var responseHandler : L8ResponseHandler = new L8ResponseHandler ();
-        responseHandler.setCSV (parser.csv);
-        responseHandler.setCSVHeader (parser.csvHeader);
-        responseHandler.setHex (parser.hex);
-        responseHandler.setSilent (parser.silent);
 
-        var serial : Serial = setup (parser.comPort, true, responseHandler);
+        var serial : Serial = setup (parser.getComPort (), true, responseHandler);
         if (serial == null)
         {
             Sys.exit (-1);
             return;
         }
         var sender : L8CmdQueueSender;
-        if (parser.repeat)
+        if (parser.isRepeat ())
         {
-            sender = new L8CmdRepeatingQueueSender (serial, parser.commands, parser.repeatsDelay, parser.repeatsCount, parser.repeatForever, responseHandler);
+            sender = new L8CmdRepeatingQueueSender (serial, parser, responseHandler);
         }
         else
         {
-            sender = new L8CmdQueueSender (serial, parser.commands, parser.delay, responseHandler);
+            sender = new L8CmdQueueSender (serial, parser, responseHandler);
         }
         sender.start ();
 

@@ -23,11 +23,11 @@ class L8CmdQueueSender
     private var delay : Int;
     private var responseHandler : L8ResponseHandler;
 
-    public function new (serial : Serial, commands : Array<L8CmdBase>, delay : Int = 100, responseHandler : L8ResponseHandler)
+    public function new (serial : Serial, commandList : ICommandList, responseHandler : L8ResponseHandler)
     {
         this.serial = serial;
-        this.commands = commands;
-        this.delay = delay;
+        this.commands = commandList.getCommands ();
+        this.delay = commandList.getDelay ();
         this.responseHandler = responseHandler;
     }
     public function start () : Void

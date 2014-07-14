@@ -9,7 +9,7 @@ import hxl8.commands.*;
 import hxl8.exceptions.*;
 import hxl8.responses.*;
 
-class L8CmdParser 
+class L8CmdParser implements ICommandList implements ICommandListRepeating
 {
     private static var m_commands : Array<String> = ["appstop", "stop", "appambient", "appdice", "dice", "applight", 
             "appcolorchange", "colorchange", "appproximity", "appprox", "autorotate", "bootloader", "dfu", 
@@ -33,25 +33,20 @@ class L8CmdParser
             "storeframefile", "storenotification", "storenotify", "setnotify", "setnotification", "text", 
             "uid", "version", "versions", "ver", "v", "hex", "csv", "csvheader", "csvhead", "numanim", "delay"];
 
-    public var commands : Array<L8CmdBase> = new Array<L8CmdBase> ();
+    private var commands : Array<L8CmdBase> = new Array<L8CmdBase> ();
 
-    public var needResponse : Bool = false;
+    private var needResponse : Bool = false;
 
-    public var repeat : Bool = false;
-    public var repeatForever : Bool = false;
-    public var repeatsCount : Int = 0;
-    public var repeatsDelay : Int = 10;
+    private var repeat : Bool = false;
+    private var repeatForever : Bool = false;
+    private var repeatsCount : Int = 0;
+    private var repeatsDelay : Int = 10;
 
-    public var delay : Int = 100;
+    private var delay : Int = 100;
 
-    public var comPort : String = "/dev/ttyACM0";
+    private var comPort : String = "/dev/ttyACM0";
 
-    public var silent : Bool = false;
-    public var hex : Bool = false;
-    public var csv : Bool = false;
-    public var csvHeader : Bool = false;
-
-    public function new (args : Array<String>, overwriteComPort : String = null)
+    public function new (args : Array<String>, overwriteComPort : String = null, outputter : IResponseOutput)
     {
 #if mac
         comPort = "/dev/cu.usbmodem641";
@@ -63,10 +58,47 @@ class L8CmdParser
         {
             comPort = overwriteComPort;
         }
-        parse (args);
+        parse (args, outputter);
     }
 
-    private function parse (args : Array<String>) : Void
+    public function isRepeat () : Bool
+    {
+        return repeat;
+    }
+    public function isRepeatForever () : Bool
+    {
+        return repeatForever;
+    }
+    public function getRepeatCount () : Int
+    {
+        return repeatsCount;
+    }
+    public function getRepeatDelay () : Int
+    {
+        return repeatsDelay;
+    }
+    public function getDelay () : Int
+    {
+        return delay;
+    }
+    public function hasCommands () : Bool
+    {
+        if (commands == null)
+        {
+            return false;
+        }
+        return (commands.length > 0);
+    }
+    public function getCommands () : Array<L8CmdBase>
+    {
+        return commands;
+    }
+    public function getComPort () : String
+    {
+        return comPort;
+    }
+
+    private function parse (args : Array<String>, outputter : IResponseOutput) : Void
     {
         if (args.length <= 0)
         {
@@ -137,9 +169,11 @@ class L8CmdParser
                     var really : String = args.shift ();
                     if (really != "YES")
                     {
+#if (cpp || java)
+                        Sys.println ('Please use: $command YES');
+                        Sys.exit (-1);
+#end
                         break;
-//                        Sys.println ('Please use: $command YES');
-//                        Sys.exit (-1);
                     }
                     commands.push (new L8CmdDeleteUserMemory ());
                 case "displaychar", "char":
@@ -243,7 +277,7 @@ class L8CmdParser
                     repeat = true;
                     if ((command == "repeatsilent") || (command == "silentrepeat"))
                     {
-                        silent = true;
+                        outputter.setSilent (true);
                     }
                 case "reset":
                     commands.push (new L8CmdReset ());
@@ -339,15 +373,11 @@ class L8CmdParser
                 case "version", "versions", "ver", "v":
                     commands.push (new L8CmdQueryVersions ());
                 case "hex":
-                    hex = true;
-                    csv = false;
+                    outputter.setHex (true);
                 case "csv":
-                    hex = false;
-                    csv = true;
+                    outputter.setCSV (true);
                 case "csvheader", "csvhead":
-                    hex = false;
-                    csv = true;
-                    csvHeader = true;
+                    outputter.setCSVHeader (true);
                 case "delay":
                     delay = consumeArgInt (args, 100);
                 default:

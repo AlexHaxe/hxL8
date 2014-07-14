@@ -45,21 +45,16 @@ class L8NodeSrv
             }
         }
 
-        var parser : L8CmdParser = new L8CmdParser (args, serialPort);
-        serialPort = parser.comPort;
-        if (parser.commands.length <= 0)
+        var responseHandler : L8ResponseHandler = new L8ResponseHandler ();
+        var parser : L8CmdParser = new L8CmdParser (args, serialPort, responseHandler);
+        serialPort = parser.getComPort ();
+        if (!parser.hasCommands ())
         {
             showCommandPage (res);
             return;
         }
         res.setHeader("Content-Type","text/plain");
         res.writeHead(200);
-
-        var responseHandler : L8ResponseHandler = new L8ResponseHandler ();
-        responseHandler.setCSV (parser.csv);
-        responseHandler.setCSVHeader (parser.csvHeader);
-        responseHandler.setHex (parser.hex);
-        responseHandler.setSilent (parser.silent);
 
         Serial.getDeviceList (function (comPorts : Map<String, String>) {
             checkComPortsAndRun (res, parser, responseHandler, comPorts);
@@ -68,9 +63,10 @@ class L8NodeSrv
     private function checkComPortsAndRun (res : NodeHttpServerResp, parser : L8CmdParser, responseHandler : L8ResponseHandler, comPorts : Map<String, String>)
     {
         var found : Bool = false;
+        var requestedComPort : String = parser.getComPort ();
         for (comPort in comPorts.keys ())
         {
-            if (comPort == parser.comPort)
+            if (comPort == requestedComPort)
             {
                 found = true;
                 break;
@@ -79,14 +75,14 @@ class L8NodeSrv
 
         if (!found)
         {
-            showComPorts (res, parser.comPort, comPorts);
+            showComPorts (res, requestedComPort, comPorts);
             return;
         }
 
         var serial : Serial = null;
         try
         {
-            serial = new Serial (parser.comPort, 9600, true);
+            serial = new Serial (requestedComPort, 9600, true);
         }
         catch (e : Dynamic)
         {
@@ -130,13 +126,13 @@ class L8NodeSrv
             return;
         }
         var sender : L8CmdQueueSender;
-        if (parser.repeat)
+        if (parser.isRepeat ())
         {
-            sender = new L8CmdRepeatingQueueSender (serial, parser.commands, parser.repeatsDelay, parser.repeatsCount, parser.repeatForever, responseHandler);
+            sender = new L8CmdRepeatingQueueSender (serial, parser, responseHandler);
         }
         else
         {
-            sender = new L8CmdQueueSender (serial, parser.commands, parser.delay, responseHandler);
+            sender = new L8CmdQueueSender (serial, parser, responseHandler);
         }
         sender.setFinishCallback (function () {
             responseHandler.sendFinished = true;

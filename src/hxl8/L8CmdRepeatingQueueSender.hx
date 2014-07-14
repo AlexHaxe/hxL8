@@ -18,11 +18,12 @@ class L8CmdRepeatingQueueSender extends L8CmdQueueSender
     private var repeatsCount : Int = 0;
     private var currentIndex : Int = 0;
 
-    public function new (serial : Serial, commands : Array<L8CmdBase>, delay : Int, count : Int, forever : Bool, responseHandler : L8ResponseHandler)
+    public function new (serial : Serial, commandList : ICommandListRepeating, responseHandler : L8ResponseHandler)
     {
-        super (serial, commands, delay, responseHandler);
-        repeatForever = forever;
-        repeatsCount = count;
+        super (serial, commandList, responseHandler);
+        delay = commandList.getRepeatDelay ();
+        repeatForever = commandList.isRepeatForever ();
+        repeatsCount = commandList.getRepeatCount ();
     }
     override public function start () : Void
     {

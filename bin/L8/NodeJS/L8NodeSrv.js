@@ -779,11 +779,23 @@ haxe.io.Error.OutsideBounds = ["OutsideBounds",2];
 haxe.io.Error.OutsideBounds.__enum__ = haxe.io.Error;
 haxe.io.Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe.io.Error; return $x; };
 var hxl8 = {};
-hxl8.L8CmdParser = function(args,overwriteComPort) {
-	this.csvHeader = false;
-	this.csv = false;
-	this.hex = false;
-	this.silent = false;
+hxl8.ICommandList = function() { };
+hxl8.ICommandList.__name__ = true;
+hxl8.ICommandList.prototype = {
+	__class__: hxl8.ICommandList
+};
+hxl8.ICommandListRepeating = function() { };
+hxl8.ICommandListRepeating.__name__ = true;
+hxl8.ICommandListRepeating.__interfaces__ = [hxl8.ICommandList];
+hxl8.ICommandListRepeating.prototype = {
+	__class__: hxl8.ICommandListRepeating
+};
+hxl8.IResponseOutput = function() { };
+hxl8.IResponseOutput.__name__ = true;
+hxl8.IResponseOutput.prototype = {
+	__class__: hxl8.IResponseOutput
+};
+hxl8.L8CmdParser = function(args,overwriteComPort,outputter) {
 	this.comPort = "/dev/ttyACM0";
 	this.delay = 100;
 	this.repeatsDelay = 10;
@@ -793,11 +805,37 @@ hxl8.L8CmdParser = function(args,overwriteComPort) {
 	this.needResponse = false;
 	this.commands = new Array();
 	if(overwriteComPort != null) this.comPort = overwriteComPort;
-	this.parse(args);
+	this.parse(args,outputter);
 };
 hxl8.L8CmdParser.__name__ = true;
+hxl8.L8CmdParser.__interfaces__ = [hxl8.ICommandListRepeating,hxl8.ICommandList];
 hxl8.L8CmdParser.prototype = {
-	parse: function(args) {
+	isRepeat: function() {
+		return this.repeat;
+	}
+	,isRepeatForever: function() {
+		return this.repeatForever;
+	}
+	,getRepeatCount: function() {
+		return this.repeatsCount;
+	}
+	,getRepeatDelay: function() {
+		return this.repeatsDelay;
+	}
+	,getDelay: function() {
+		return this.delay;
+	}
+	,hasCommands: function() {
+		if(this.commands == null) return false;
+		return this.commands.length > 0;
+	}
+	,getCommands: function() {
+		return this.commands;
+	}
+	,getComPort: function() {
+		return this.comPort;
+	}
+	,parse: function(args,outputter) {
 		if(args.length <= 0) return;
 		var param;
 		try {
@@ -998,7 +1036,7 @@ hxl8.L8CmdParser.prototype = {
 					}
 					if(this.repeatsDelay <= 0) this.repeatsDelay = 50;
 					this.repeat = true;
-					if(command == "repeatsilent" || command == "silentrepeat") this.silent = true;
+					if(command == "repeatsilent" || command == "silentrepeat") outputter.setSilent(true);
 					break;
 				case "reset":
 					this.commands.push(new hxl8.commands.L8CmdReset());
@@ -1089,17 +1127,13 @@ hxl8.L8CmdParser.prototype = {
 					this.commands.push(new hxl8.commands.L8CmdQueryVersions());
 					break;
 				case "hex":
-					this.hex = true;
-					this.csv = false;
+					outputter.setHex(true);
 					break;
 				case "csv":
-					this.hex = false;
-					this.csv = true;
+					outputter.setCSV(true);
 					break;
 				case "csvheader":case "csvhead":
-					this.hex = false;
-					this.csv = true;
-					this.csvHeader = true;
+					outputter.setCSVHeader(true);
 					break;
 				case "delay":
 					this.delay = this.consumeArgInt(args,100);
@@ -1233,11 +1267,10 @@ hxl8.L8CmdParser.prototype = {
 	}
 	,__class__: hxl8.L8CmdParser
 };
-hxl8.L8CmdQueueSender = function(serial,commands,delay,responseHandler) {
-	if(delay == null) delay = 100;
+hxl8.L8CmdQueueSender = function(serial,commandList,responseHandler) {
 	this.serial = serial;
-	this.commands = commands;
-	this.delay = delay;
+	this.commands = commandList.getCommands();
+	this.delay = commandList.getDelay();
 	this.responseHandler = responseHandler;
 };
 hxl8.L8CmdQueueSender.__name__ = true;
@@ -1267,13 +1300,14 @@ hxl8.L8CmdQueueSender.prototype = {
 	}
 	,__class__: hxl8.L8CmdQueueSender
 };
-hxl8.L8CmdRepeatingQueueSender = function(serial,commands,delay,count,forever,responseHandler) {
+hxl8.L8CmdRepeatingQueueSender = function(serial,commandList,responseHandler) {
 	this.currentIndex = 0;
 	this.repeatsCount = 0;
 	this.repeatForever = false;
-	hxl8.L8CmdQueueSender.call(this,serial,commands,delay,responseHandler);
-	this.repeatForever = forever;
-	this.repeatsCount = count;
+	hxl8.L8CmdQueueSender.call(this,serial,commandList,responseHandler);
+	this.delay = commandList.getRepeatDelay();
+	this.repeatForever = commandList.isRepeatForever();
+	this.repeatsCount = commandList.getRepeatCount();
 };
 hxl8.L8CmdRepeatingQueueSender.__name__ = true;
 hxl8.L8CmdRepeatingQueueSender.__super__ = hxl8.L8CmdQueueSender;
@@ -1337,19 +1371,15 @@ hxl8.L8NodeSrv.prototype = {
 		if(args.length > 0) {
 			if(args[0] == "") args.shift();
 		}
-		var parser = new hxl8.L8CmdParser(args,this.serialPort);
-		this.serialPort = parser.comPort;
-		if(parser.commands.length <= 0) {
+		var responseHandler = new hxl8.L8ResponseHandler();
+		var parser = new hxl8.L8CmdParser(args,this.serialPort,responseHandler);
+		this.serialPort = parser.getComPort();
+		if(!parser.hasCommands()) {
 			this.showCommandPage(res);
 			return;
 		}
 		res.setHeader("Content-Type","text/plain");
 		res.writeHead(200);
-		var responseHandler = new hxl8.L8ResponseHandler();
-		responseHandler.setCSV(parser.csv);
-		responseHandler.setCSVHeader(parser.csvHeader);
-		responseHandler.setHex(parser.hex);
-		responseHandler.setSilent(parser.silent);
 		hxl8.nodejs.Serial.getDeviceList(function(comPorts) {
 			_g.checkComPortsAndRun(res,parser,responseHandler,comPorts);
 		});
@@ -1357,21 +1387,22 @@ hxl8.L8NodeSrv.prototype = {
 	,checkComPortsAndRun: function(res,parser,responseHandler,comPorts) {
 		var _g = this;
 		var found = false;
+		var requestedComPort = parser.getComPort();
 		var $it0 = comPorts.keys();
 		while( $it0.hasNext() ) {
 			var comPort = $it0.next();
-			if(comPort == parser.comPort) {
+			if(comPort == requestedComPort) {
 				found = true;
 				break;
 			}
 		}
 		if(!found) {
-			this.showComPorts(res,parser.comPort,comPorts);
+			this.showComPorts(res,requestedComPort,comPorts);
 			return;
 		}
 		var serial = null;
 		try {
-			serial = new hxl8.nodejs.Serial(parser.comPort,9600,true);
+			serial = new hxl8.nodejs.Serial(requestedComPort,9600,true);
 		} catch( e ) {
 			res.end(Std.string(e));
 			return;
@@ -1406,7 +1437,7 @@ hxl8.L8NodeSrv.prototype = {
 	,handleCommands: function(serial,parser,res,responseHandler) {
 		if(serial == null) return;
 		var sender;
-		if(parser.repeat) sender = new hxl8.L8CmdRepeatingQueueSender(serial,parser.commands,parser.repeatsDelay,parser.repeatsCount,parser.repeatForever,responseHandler); else sender = new hxl8.L8CmdQueueSender(serial,parser.commands,parser.delay,responseHandler);
+		if(parser.isRepeat()) sender = new hxl8.L8CmdRepeatingQueueSender(serial,parser,responseHandler); else sender = new hxl8.L8CmdQueueSender(serial,parser,responseHandler);
 		sender.setFinishCallback(function() {
 			responseHandler.sendFinished = true;
 		});
@@ -1643,18 +1674,25 @@ hxl8.L8ResponseHandler = function() {
 	this.silent = false;
 };
 hxl8.L8ResponseHandler.__name__ = true;
+hxl8.L8ResponseHandler.__interfaces__ = [hxl8.IResponseOutput];
 hxl8.L8ResponseHandler.prototype = {
 	setSilent: function(silent) {
 		this.silent = silent;
 	}
 	,setHex: function(hex) {
 		this.hex = hex;
+		if(hex) {
+			this.csv = false;
+			this.csvHeader = false;
+		}
 	}
 	,setCSV: function(csv) {
 		this.csv = csv;
+		if(csv) this.hex = false;
 	}
 	,setCSVHeader: function(csvHeader) {
 		this.csvHeader = csvHeader;
+		if(csvHeader) this.csv = true; else this.hex = false;
 	}
 	,isPending: function() {
 		return this.expected > 0;

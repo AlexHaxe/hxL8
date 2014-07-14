@@ -2,7 +2,7 @@ package hxl8;
 
 import hxl8.responses.L8ResponseBase;
 
-class L8ResponseHandler
+class L8ResponseHandler implements IResponseOutput
 {
     public var silent : Bool = false;
     public var hex : Bool = false;
@@ -24,14 +24,31 @@ class L8ResponseHandler
     public function setHex (hex : Bool) : Void
     {
         this.hex = hex;
+        if (hex)
+        {
+            csv = false;
+            csvHeader = false;
+        }
     }
     public function setCSV (csv : Bool) : Void
     {
         this.csv = csv;
+        if (csv)
+        {
+            hex = false;
+        }
     }
     public function setCSVHeader (csvHeader : Bool) : Void
     {
         this.csvHeader = csvHeader;
+        if (csvHeader)
+        {
+            this.csv = true;
+        }
+        else
+        {
+            hex = false;
+        }
     }
     public function isPending () : Bool
     {
