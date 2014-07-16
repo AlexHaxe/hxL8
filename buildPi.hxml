@@ -1,0 +1,11 @@
+# 32bit Version
+-cp src
+-cpp outPi
+
+-lib hxSerial
+-lib hxlode
+-lib hxcpp
+-D static
+
+-main hxl8.L8Ctl
+
