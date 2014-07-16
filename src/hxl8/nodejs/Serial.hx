@@ -78,7 +78,7 @@ class Serial
         var nodeSerial = Node.require ("serialport").SerialPort;
         try
         {
-            m_serialPort = untyped __js__('new nodeSerial (serialPort, {baudrate: serialBaud})');
+            m_serialPort = untyped __js__('new nodeSerial (serialPort, {baudrate: serialBaud}, true)');
         }
         catch (e : Dynamic)
         {
@@ -102,6 +102,10 @@ class Serial
             {
                 errorHandler (error);
             }
+            else
+            {
+                trace (error);
+            }
         });
 
         isSetup = true;
@@ -123,37 +127,19 @@ class Serial
         return false;
     }
 
-    //public function readByte () : Int
-    //{
-    //    var data : BytesData = m_serialPort.readBytes (1, 10000);
-    //    return cast (data [0], Int);
-    //}
-
     public function flush (?flushIn : Bool = false, ?flushOut = false) : Void
     {
-        //var flags : Int = 0;
-        //if (flushIn)
-        //{
-        //    flags |= 0x0008;
-        //}
-        //if (flushOut)
-        //{
-        //    flags |= 0x0004;
-        //}
-        //m_serialPort.purgePort (flags);
     }
 
-    //public function available () : Int
-    //{
-    //    return m_serialPort.getInputBufferBytesCount ();
-    //}
-
-    public function close () : Int
+    public function close () : Void
     {
-        if (m_serialPort.close ())
+        m_serialPort.close (errorCallback);
+    }
+    private function errorCallback (error) : Void
+    {
+        if (error != null)
         {
-            return 1;
+            trace (error);
         }
-        return 0;
     }
 }

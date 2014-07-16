@@ -1426,7 +1426,9 @@ hxl8.L8NodeSrv.prototype = {
 			}
 			if(responseHandler.isFinished()) {
 				res.end(output.join("\n"));
-				serial.close();
+				js.Node.setTimeout(function() {
+					serial.close();
+				},10);
 			}
 		});
 	}
@@ -2852,7 +2854,7 @@ hxl8.nodejs.Serial.prototype = {
 		var serialBaud = this.baud;
 		var nodeSerial = js.Node.require("serialport").SerialPort;
 		try {
-			this.m_serialPort = new nodeSerial (serialPort, {baudrate: serialBaud});
+			this.m_serialPort = new nodeSerial (serialPort, {baudrate: serialBaud}, true);
 		} catch( e ) {
 			console.log(e);
 			return false;
@@ -2864,7 +2866,7 @@ hxl8.nodejs.Serial.prototype = {
 			if(_g.dataHandler != null) _g.dataHandler(data);
 		});
 		this.m_serialPort.on("error",function(error) {
-			if(_g.errorHandler != null) _g.errorHandler(error);
+			if(_g.errorHandler != null) _g.errorHandler(error); else console.log(error);
 		});
 		this.isSetup = true;
 		return true;
@@ -2884,8 +2886,10 @@ hxl8.nodejs.Serial.prototype = {
 		if(flushIn == null) flushIn = false;
 	}
 	,close: function() {
-		if(this.m_serialPort.close()) return 1;
-		return 0;
+		this.m_serialPort.close($bind(this,this.errorCallback));
+	}
+	,errorCallback: function(error) {
+		if(error != null) console.log(error);
 	}
 	,__class__: hxl8.nodejs.Serial
 };

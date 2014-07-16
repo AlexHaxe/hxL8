@@ -110,7 +110,11 @@ class L8NodeSrv
             if (responseHandler.isFinished ())
             {
                 res.end (output.join ("\n"));
-                serial.close ();
+                // we need to close port outside of callback,
+                // since data callback tries to read after callback function
+                Node.setTimeout (function () {
+                    serial.close ();
+                }, 10);
             }
         });
     }
