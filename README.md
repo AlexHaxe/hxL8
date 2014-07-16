@@ -30,6 +30,7 @@ Features
 Requirements
 ------------
 * git
+
 * XCode on MacOSX
 * Visual Studio on Windows
 * gcc/g++ on Linux
@@ -328,3 +329,4 @@ Windows32 binary was tested on Windows XP.
 Java binary was tested on Linux.
 
 L8Ctl works with USB and Bluetooth (for Bluetooth to work you need to pair L8 with your computer first).
+L8NodeSrv was tested on Linux.
