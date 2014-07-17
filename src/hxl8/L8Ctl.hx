@@ -196,6 +196,7 @@ class L8Ctl extends L8CommBase
         Sys.println ("L8 misc");
         Sys.println ("-------");
         Sys.println ("Bootloader\n -> switch to DFU mode");
+        Sys.println ("Delay ms\n -> delay in ms between commands when sending multiple commands, default: 100");
         Sys.println ("DeleteUserSpace\n -> Delete userspace");
         Sys.println ("Init\n -> get trace info");
         Sys.println ("Poweroff\n -> poweroff");
