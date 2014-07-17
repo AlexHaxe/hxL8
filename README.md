@@ -251,6 +251,8 @@ Commands (case insensitive):
 ### L8 misc
 * `Bootloader`
  -> switch to DFU mode
+* `delay ms`
+ -> delay in ms between commands when sending multiple commands -  Default: 100
 * `DeleteUserSpace`
  -> Delete userspace
 * `Init`
