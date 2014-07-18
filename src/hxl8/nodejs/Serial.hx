@@ -21,13 +21,15 @@ class Serial
     private var openHandler : SerialCallback = null;
     private var dataHandler : SerialDataCallback = null;
     private var errorHandler : SerialDataCallback = null;
+    private var openErrorHandler : SerialDataCallback = null;
 
-    public function new (portName : String, ?baud : Int = 9600, ?setupImmediately : Bool = false)
+    public function new (portName : String, ?baud : Int = 9600, ?setupImmediately : Bool = false, openErrorCallback : SerialDataCallback)
     {
         this.isSetup = false;
 
         this.portName = portName;
         this.baud = baud;
+        this.openErrorHandler = openErrorCallback;
 
         if (setupImmediately)
         {
@@ -78,7 +80,16 @@ class Serial
         var nodeSerial = Node.require ("serialport").SerialPort;
         try
         {
-            m_serialPort = untyped __js__('new nodeSerial (serialPort, {baudrate: serialBaud}, true)');
+            var err;
+            if (openErrorHandler != null)
+            {
+                err = openErrorHandler;
+            }
+            else
+            {
+                err = errorCallback;
+            }
+            m_serialPort = untyped __js__('new nodeSerial (serialPort, {baudrate: serialBaud}, true, err)');
         }
         catch (e : Dynamic)
         {

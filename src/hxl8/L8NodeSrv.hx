@@ -16,7 +16,6 @@ class L8NodeSrv
     private var server : NodeHttpServer = null;
     private var tcpPort : Int;
     private var serialPort : String;
-    private var serial : Serial = null;
 
     public function new (tcpPort : Int, serialPort : String)
     {
@@ -47,10 +46,9 @@ class L8NodeSrv
 
         var responseHandler : L8ResponseHandler = new L8ResponseHandler ();
         var parser : L8CmdParser = new L8CmdParser (args, serialPort, responseHandler);
-        serialPort = parser.getComPort ();
         if (!parser.hasCommands ())
         {
-            showCommandPage (res);
+            showCommandPage (res, parser.getComPort ());
             return;
         }
         res.setHeader("Content-Type","text/plain");
@@ -72,6 +70,7 @@ class L8NodeSrv
                 break;
             }
         }
+        found = true;
 
         if (!found)
         {
@@ -82,7 +81,12 @@ class L8NodeSrv
         var serial : Serial = null;
         try
         {
-            serial = new Serial (requestedComPort, 9600, true);
+            serial = new Serial (requestedComPort, 9600, true, function (err)  {
+                if (err != null)
+                {
+                    showComPorts (res, requestedComPort, comPorts, err);
+                }
+            });
         }
         catch (e : Dynamic)
         {
@@ -144,7 +148,7 @@ class L8NodeSrv
         sender.start ();
     }
 
-    private function showCommandPage (res : NodeHttpServerResp) : Void
+    private function showCommandPage (res : NodeHttpServerResp, comPort : String) : Void
     {
         res.setHeader("Content-Type","text/html");
         res.writeHead(200);
@@ -154,14 +158,20 @@ class L8NodeSrv
 
         var context = {
             port: tcpPort,
-            serialPort: serialPort
+            serialPort: comPort
         };
         res.end (template.execute (context));
     }
 
-    private function showComPorts (res : NodeHttpServerResp, requestedPort : String, comPorts : Map<String, String>) : Void
+    private function showComPorts (res : NodeHttpServerResp, requestedPort : String, comPorts : Map<String, String>, ?err : String) : Void
     {
         var buf : StringBuf = new StringBuf ();
+
+        if (err != null)
+        {
+            buf.add (err);
+            buf.add ("\n\n");
+        }
 
         buf.add (requestedPort);
         buf.add (" not available\n\n");
