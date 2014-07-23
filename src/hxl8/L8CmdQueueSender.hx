@@ -2,14 +2,9 @@ package hxl8;
 
 #if nodejs
 import js.Node;
-import hxl8.nodejs.Serial;
-#elseif java
-import hxl8.java.Serial;
-#elseif cpp
-import hxSerial.Serial;
-#else
 #end
 
+import hxl8.Types;
 
 import hxl8.commands.L8CmdBase;
 

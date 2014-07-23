@@ -119,7 +119,7 @@ class L8ResponseHandler implements IResponseOutput
                     format = CSV;
                 }
             }
-            response.print (format);
+            Sys.println (response.print (format).join ("\n"));
         }
     }
 #end

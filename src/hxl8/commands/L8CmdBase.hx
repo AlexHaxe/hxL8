@@ -3,14 +3,7 @@ package hxl8.commands;
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
-#if cpp
-import hxSerial.Serial;
-#elseif java
-import hxl8.java.Serial;
-#elseif nodejs
-import hxl8.nodejs.Serial;
-#else
-#end
+import hxl8.Types;
 
 import hxl8.commands.L8CrcCalc;
 
@@ -51,9 +44,7 @@ class L8CmdBase
 //        trace (sendBytes.toHex ());
 #if cpp
         var written : Int = serial.writeBytes (sendBytes.toString ());
-#elseif java
-        var written : Int = serial.writeBytes (sendBytes.getData ());
-#elseif nodejs
+#elseif (java || nodejs)
         var written : Int = serial.writeBytes (sendBytes.getData ());
 #else
 #end

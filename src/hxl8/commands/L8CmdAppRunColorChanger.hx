@@ -9,11 +9,11 @@ class L8CmdAppRunColorChanger extends L8CmdAppRun
     private var m_colors : Int;
     private var m_speed : Int;
     private var m_invertSuperLED : Bool;
-    
+
     public function new (colors : String, speed : Int, invertSuperLED : Bool)
     {
         super ();
-        
+
         switch (colors.toLowerCase ())
         {
             case "multicolor", "multi", "m":
@@ -44,6 +44,6 @@ class L8CmdAppRunColorChanger extends L8CmdAppRun
         {
             buffer.addByte (0);
         }
-        return buffer;   
+        return buffer;
     }
 }

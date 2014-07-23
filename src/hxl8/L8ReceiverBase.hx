@@ -1,33 +1,15 @@
 package hxl8;
 
-#if cpp
-import cpp.vm.Thread;
-#elseif java
-import java.vm.Thread;
-#elseif nodejs
-#else
-fail - unsupported
-#end
-
 import sys.FileSystem;
-
-#if cpp
-import hxSerial.Serial;
-#elseif java
-import hxl8.java.Serial;
-#elseif nodejs
-import hxl8.nodejs.Serial;
-#else
-fail - unsupported
-#end
 
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
+import hxl8.Types;
+
 import hxl8.commands.L8CrcCalc;
 
 import hxl8.responses.*;
-
 
 class L8ReceiverBase
 {
