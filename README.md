@@ -74,7 +74,9 @@ output folders
 Running L8Ctl on Raspberry Pi
 -----------------------
 Serial ports on Raspberry Pi might need some additional setup, to make communication reliable:
+
 `stty -F /dev/ttyACM0 -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke min 1 time 0 -brkint -icrnl -imaxbel -opost -onlcr`
+
 (maybe not all options are needed, but they work for me)
 
 Running L8NodeSrv
