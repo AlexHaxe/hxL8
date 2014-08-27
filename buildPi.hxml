@@ -6,6 +6,7 @@
 -lib hxlode
 -lib hxcpp
 -D static
+-D rpi
 
 -main hxl8.L8Ctl
 

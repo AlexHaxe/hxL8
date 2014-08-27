@@ -25,3 +25,7 @@ typedef Thread =
 #else
 #error
 #end
+
+#if rpi
+typedef UInt = Int;
+#end
