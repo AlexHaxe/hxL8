@@ -79,6 +79,8 @@ Serial ports on Raspberry Pi might need some additional setup, to make communica
 
 (maybe not all options are needed, but they work for me)
 
+You need to call stty before running L8Ctl!
+
 Running L8NodeSrv
 -----------------
 - you need a working node.js installation

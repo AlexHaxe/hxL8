@@ -51,8 +51,8 @@ class L8NodeSrv
             showCommandPage (res, parser.getComPort ());
             return;
         }
-        res.setHeader("Content-Type","text/plain");
-        res.writeHead(200);
+        res.setHeader ("Content-Type", "text/plain");
+        res.writeHead (200);
 
         Serial.getDeviceList (function (comPorts : Map<String, String>) {
             checkComPortsAndRun (res, parser, responseHandler, comPorts);
@@ -150,8 +150,8 @@ class L8NodeSrv
 
     private function showCommandPage (res : NodeHttpServerResp, comPort : String) : Void
     {
-        res.setHeader("Content-Type","text/html");
-        res.writeHead(200);
+        res.setHeader ("Content-Type", "text/html");
+        res.writeHead (200);
 
         var index : String = Resource.getString ("indexCommands.html");
         var template : Template = new Template (index);
@@ -188,11 +188,11 @@ class L8NodeSrv
         res.end (buf.toString ());
     }
 
-    public static function main()
+    public static function main ()
     {
         var tcpPort : Int = 1818;
         var serialPort : String = null;
-        var args : Array<String> = Sys.args();
+        var args : Array<String> = Sys.args ();
         if (args.length > 2)
         {
             tcpPort = Std.parseInt (args[2]);
