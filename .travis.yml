@@ -1,5 +1,9 @@
 language: haxe
 
+os:
+  - linux
+  - osx
+
 haxe:
   - "3.1.3"
   - development
@@ -10,8 +14,9 @@ install:
   - haxelib install hxlode
   - haxelib install hxSerial
   - haxelib install nodejs
+  - haxelib list
 
 script:
-  - haxe build.hxml
-  - haxe buildNodeJS.hxml
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then haxe build.hxml; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then haxe buildMac.hxml; fi
 
