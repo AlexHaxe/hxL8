@@ -1,8 +1,8 @@
 language: haxe
 
-os:
-  - linux
-  - osx
+#os:
+#  - linux
+#  - osx
 
 haxe:
   - "3.1.3"
@@ -17,6 +17,7 @@ install:
   - haxelib list
 
 script:
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then haxe build.hxml; fi
-  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then haxe buildMac.hxml; fi
+  - haxe build.hxml
+  #- if [ "${TRAVIS_OS_NAME}" = "linux" ]; then haxe build.hxml; fi
+  #- if [ "${TRAVIS_OS_NAME}" = "osx" ]; then haxe buildMac.hxml; fi
 
