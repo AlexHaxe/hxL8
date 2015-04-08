@@ -1,14 +1,26 @@
+git:
+  depth: 1
+
 language: haxe
+
+os:
+  - linux
+  - osx
 
 haxe:
   - "3.1.3"
+#  - development
+
 install:
-  - hxcpp
-  - hxlode
-  - hxSerial
-  - hxjava
-  - nodejs
-hxml:
-  - build.hxml
-#    - buildNodeJS.hxml
+  - haxelib install hxcpp
+  - haxelib install hxjava
+  - haxelib install hxlode
+  - haxelib install hxSerial
+  - haxelib install nodejs
+  - haxelib list
+
+script:
+  - mkdir -p outNodeJS
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then haxe build.hxml; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then haxe buildMac.hxml; fi
 

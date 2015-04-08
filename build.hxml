@@ -71,6 +71,8 @@
 
 -resource templates/indexCommands.html@indexCommands.html
 
+-cmd mkdir -p outNodeJS
+
 -js outNodeJS/L8NodeSrv.js
 -main hxl8.L8NodeSrv
 
