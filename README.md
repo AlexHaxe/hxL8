@@ -1,7 +1,6 @@
 # hxL8
 
 [![Build Status](https://travis-ci.org/AlexHaxe/hxL8.svg?branch=master)](https://travis-ci.org/AlexHaxe/hxL8)
-[![Build Status](https://travis-ci.org/AlexHaxe/hxL8.svg?branch=travisci)](https://travis-ci.org/AlexHaxe/hxL8)
 
 hxL8 is a Haxe based communication library for L8 smartlight
 
