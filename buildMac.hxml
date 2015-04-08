@@ -60,7 +60,7 @@
 
 -main hxl8.L8tiesParser
 
--cmd mkdir outNodeJS
+-cmd mkdir -p outNodeJS
 
 --next
 
@@ -71,7 +71,7 @@
 
 -resource templates/indexCommands.html@indexCommands.html
 
--cmd mkdir outNodeJS
+-cmd mkdir -p outNodeJS
 
 -js outNodeJS/L8NodeSrv.js
 -main hxl8.L8NodeSrv
