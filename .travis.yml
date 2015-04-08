@@ -1,0 +1,13 @@
+language: haxe
+
+hxml:
+    - build.hxml
+#    - buildNodeJS.hxml
+
+install:
+    - hxcpp
+    - hxlode
+    - hxSerial
+    - hxjava
+    - nodejs
+

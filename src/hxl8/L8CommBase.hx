@@ -72,14 +72,19 @@ class L8CommBase
     }
     private function closeConnection (serial : Serial, responseHandler : L8ResponseHandler) : Void
     {
+        var timeout : Int = 200;
         if (m_thread != null)
         {
             while (true)
             {
                 if (responseHandler.isPending ())
                 {
-                    Sys.sleep (0.01);
-                    continue;
+                    timeout--;
+                    if (timeout > 0)
+                    {
+                        Sys.sleep (0.01);
+                        continue;
+                    }
                 }
                 var bye : String = Thread.readMessage (false);
                 m_thread.sendMessage ("close");

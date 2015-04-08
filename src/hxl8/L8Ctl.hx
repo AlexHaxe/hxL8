@@ -144,6 +144,9 @@ class L8Ctl extends L8CommBase
         Sys.println ("StopAnim\n -> stops current animation");
         Sys.println ("StoreAnim frame#,duration,frame#,duration,...\n -> stores a new animation in userspace (returns new index of anim)");
         Sys.println ("");
+
+
+        
         Sys.println ("L8 matrix");
         Sys.println ("---------");
         Sys.println ("Brightness true|false\n -> set low brightness of LEDs (matrix and super) true = high, false = low, default: false");
