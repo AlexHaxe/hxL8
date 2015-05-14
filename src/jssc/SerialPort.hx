@@ -5,7 +5,7 @@ import haxe.io.BytesData;
 
 extern class SerialPort
 {
-    public function new (portName : String); 
+    public function new (portName : String);
 
     public function getPortName () : String;
     public function isOpened () : Bool;
@@ -49,7 +49,7 @@ extern class SerialPort
     @:overload(function () : Array<Int> {})
     @:overload(function (byteCount : Int) : Array<Int> {})
     public function readIntArray (byteCount : Int, timeout : Int) : Array<Int>;
-    
+
     public function getInputBufferBytesCount () : Int;
     public function getOutputBufferBytesCount () : Int;
     public function setFlowControlMode (mask : Int) : Bool;

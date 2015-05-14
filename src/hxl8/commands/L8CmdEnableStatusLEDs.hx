@@ -7,7 +7,7 @@ import hxl8.commands.L8CmdBase;
 class L8CmdEnableStatusLEDs extends L8CmdBase
 {
     private var m_enable : Bool;
-    
+
     public function new (enable : Bool)
     {
         super (158);
@@ -24,6 +24,6 @@ class L8CmdEnableStatusLEDs extends L8CmdBase
         {
             buffer.addByte (0);
         }
-        return buffer;   
+        return buffer;
     }
 }

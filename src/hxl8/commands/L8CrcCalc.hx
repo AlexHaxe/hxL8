@@ -20,7 +20,7 @@ class L8CrcCalc
         var crc : Int = 0;
         for (index in 0...bytes.length)
         {
-            var value : Int = bytes.get (index);  
+            var value : Int = bytes.get (index);
             var tableIndex : Int = crc ^ value;
             if (tableIndex > m_table.length)
             {
@@ -33,7 +33,7 @@ class L8CrcCalc
     private static function makeTable () : Void
     {
         var buffer : BytesBuffer = new BytesBuffer ();
-        
+
         for (index in 0...256)
         {
             var value : Int = index;
@@ -50,6 +50,6 @@ class L8CrcCalc
             }
             buffer.addByte (value & 255);
         }
-        m_table = buffer.getBytes ();        
-    } 
+        m_table = buffer.getBytes ();
+    }
 }

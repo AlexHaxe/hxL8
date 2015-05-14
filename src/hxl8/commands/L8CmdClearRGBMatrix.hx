@@ -6,8 +6,8 @@ import hxl8.commands.L8CmdBase;
 
 class L8CmdClearRGBMatrix extends L8CmdBase
 {
-    private var m_fadeOut : Bool; 
-    
+    private var m_fadeOut : Bool;
+
     public function new (fadeOut : Bool = false)
     {
         super (69);
@@ -28,6 +28,6 @@ class L8CmdClearRGBMatrix extends L8CmdBase
         {
             buffer.add (0);
         }
-        return buffer;   
+        return buffer;
     }
 }

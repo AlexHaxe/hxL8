@@ -7,7 +7,7 @@ import hxl8.commands.L8CmdBase;
 class L8CmdSetBrightness extends L8CmdBase
 {
     private var m_brightness : Bool;
-    
+
     public function new (brightness : Bool)
     {
         super (154);
@@ -26,7 +26,7 @@ class L8CmdSetBrightness extends L8CmdBase
             // low brightness
             buffer.addByte (1);
         }
-        return buffer;   
+        return buffer;
     }
     override public function hasResponse () : Bool
     {

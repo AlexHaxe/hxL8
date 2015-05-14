@@ -14,5 +14,5 @@ class L8CRCException extends L8Exception
     override public function toString () : String
     {
         return 'CRC-Error [$m_code] $m_message';
-    } 
+    }
 }

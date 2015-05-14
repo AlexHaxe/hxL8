@@ -1,0 +1,143 @@
+{
+    "checks": [
+        {
+            "type": "Anonymous",
+            "props": {
+                "severity": "ERROR"
+            }
+        },
+        {
+            "type": "ArrayInstantiation",
+            "props": {
+                "severity": "WARNING"
+            }
+        },
+        {
+            "type": "BlockFormat",
+            "props": {
+                "severity": "ERROR",
+                "emptyBlockCheck": false
+            }
+        },
+        {
+            "type": "EmptyLines",
+            "props": {
+                "severity": "INFO",
+                "maxConsecutiveEmptyLines": 1
+            }
+        },
+        {
+            "type": "ERegInstantiation",
+            "props": {
+                "severity": "ERROR"
+            }
+        },
+        {
+            "type": "HexadecimalLiterals",
+            "props": {
+                "severity": "INFO"
+            }
+        },
+        {
+            "type": "IndentationCharacter",
+            "props": {
+                "severity": "INFO",
+                "character": "space"
+            }
+        },
+        {
+            "type": "LineLength",
+            "props": {
+                "severity": "ERROR",
+                "maxCharacters": 160
+            }
+        },
+        {
+            "type": "ListenerName",
+            "props": {
+                "severity": "ERROR",
+                "listeners": [
+                    "addEventListener",
+                    "addListener",
+                    "on",
+                    "once"
+                ]
+            }
+        },
+        {
+            "type": "MethodLength",
+            "props": {
+                "severity": "ERROR",
+                "maxFunctionLines": 80
+            }
+        },
+        {
+            "type": "Naming",
+            "props": {
+                "severity": "INFO",
+                "privateUnderscorePrefix": false
+            }
+        },
+        {
+            "type": "Override",
+            "props": {
+                "severity": "ERROR"
+            }
+        },
+        {
+            "type": "PublicPrivate",
+            "props": {
+                "severity": "INFO",
+                "enforcePublicPrivate": true
+            }
+        },
+        {
+            "type": "Return",
+            "props": {
+                "severity": "INFO",
+                "allowEmptyReturn": false,
+                "enforceReturnType": true
+            }
+        },
+        {
+            "type": "Spacing",
+            "props": {
+                "severity": "INFO",
+                "spaceIfCondition": true,
+                "spaceAroundBinop": true,
+                "spaceAroundBinop": true,
+                "ignoreRangeOperator": true
+            }
+        },
+        {
+            "type": "TabForAligning",
+            "props": {
+                "severity": "INFO"
+            }
+        },
+        {
+            "type": "TODOComment",
+            "props": {
+                "severity": "INFO"
+            }
+        },
+        {
+            "type": "TrailingWhitespace",
+            "props": {
+                "severity": "INFO"
+            }
+        },
+        {
+            "type": "Type",
+            "props": {
+                "severity": "ERROR"
+            }
+        },
+        {
+            "type": "VariableInitialisation",
+            "props": {
+                "severity": "WARNING"
+            }
+        }
+    ]
+}

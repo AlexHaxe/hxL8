@@ -8,7 +8,7 @@ class L8CmdPlayAnim extends L8CmdBase
 {
     private var m_anim : Int;
     private var m_loop : Bool;
-     
+
     public function new (anim : Int, loop : Bool)
     {
         super (124);
@@ -27,7 +27,7 @@ class L8CmdPlayAnim extends L8CmdBase
         {
             buffer.addByte (0);
         }
-        return buffer;   
+        return buffer;
     }
     override public function hasResponse () : Bool
     {

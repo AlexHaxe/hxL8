@@ -7,7 +7,7 @@ import hxl8.commands.L8CmdBase;
 class L8CmdEnableAutoRotate extends L8CmdBase
 {
     private var m_enable : Bool;
-    
+
     public function new (enable : Bool)
     {
         super (134);
@@ -24,6 +24,6 @@ class L8CmdEnableAutoRotate extends L8CmdBase
         {
             buffer.addByte (0);
         }
-        return buffer;   
+        return buffer;
     }
 }

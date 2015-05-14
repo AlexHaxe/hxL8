@@ -14,6 +14,6 @@ class L8CmdAppRunParty extends L8CmdAppRun
     {
         var buffer : BytesBuffer = super.getBytes ();
         buffer.addByte (1);
-        return buffer;   
+        return buffer;
     }
 }

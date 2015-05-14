@@ -9,7 +9,7 @@ import hxl8.L8RGB;
 class L8CmdSetSuperLED extends L8CmdBase
 {
     private var m_rgb : L8RGB;
-    
+
     public function new (rgb : L8RGB)
     {
         super (0x4B);
@@ -21,6 +21,6 @@ class L8CmdSetSuperLED extends L8CmdBase
         buffer.addByte (m_rgb.getB ());
         buffer.addByte (m_rgb.getG ());
         buffer.addByte (m_rgb.getR ());
-        return buffer;  
+        return buffer;
     }
 }

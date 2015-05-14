@@ -4,17 +4,24 @@ import hxl8.responses.L8ResponseBase;
 
 class L8ResponseHandler implements IResponseOutput
 {
-    public var silent : Bool = false;
-    public var hex : Bool = false;
-    public var csv : Bool = false;
-    public var csvHeader : Bool = false;
+    public var silent : Bool;
+    public var hex : Bool;
+    public var csv : Bool;
+    public var csvHeader : Bool;
 
-    public var handled : Int = 0;
-    public var expected : Int = 0;
-    public var sendFinished : Bool = false;
+    public var handled : Int;
+    public var expected : Int;
+    public var sendFinished : Bool;
 
     public function new ()
     {
+        silent = false;
+        hex = false;
+        csv = false;
+        csvHeader = false;
+        handled = 0;
+        expected = 0;
+        sendFinished = false;
     }
 
     public function setSilent (silent : Bool) : Void

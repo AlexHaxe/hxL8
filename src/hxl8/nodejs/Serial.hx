@@ -18,10 +18,10 @@ class Serial
     public var baud (default,null) : Int;
     public var isSetup (get,null) : Bool;
 
-    private var openHandler : SerialCallback = null;
-    private var dataHandler : SerialDataCallback = null;
-    private var errorHandler : SerialDataCallback = null;
-    private var openErrorHandler : SerialDataCallback = null;
+    private var openHandler : SerialCallback;
+    private var dataHandler : SerialDataCallback;
+    private var errorHandler : SerialDataCallback;
+    private var openErrorHandler : SerialDataCallback;
 
     public function new (portName : String, ?baud : Int = 9600, ?setupImmediately : Bool = false, openErrorCallback : SerialDataCallback)
     {
@@ -30,6 +30,11 @@ class Serial
         this.portName = portName;
         this.baud = baud;
         this.openErrorHandler = openErrorCallback;
+
+        openHandler = null;
+        dataHandler = null;
+        errorHandler = null;
+        openErrorHandler = null;
 
         if (setupImmediately)
         {

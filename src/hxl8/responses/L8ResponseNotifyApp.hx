@@ -25,7 +25,7 @@ class L8ResponseNotifyApp extends L8ResponseBase
     {
         super.parseData (data);
 
-        m_rgbs = new Array<L8RGB> ();
+        m_rgbs = [];
         m_app = "invalid";
         m_super = new L8RGB ("000");
         m_enabled = false;

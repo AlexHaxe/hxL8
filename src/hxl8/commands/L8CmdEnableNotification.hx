@@ -8,7 +8,7 @@ class L8CmdEnableNotification extends L8CmdBase
 {
     private var m_index : Int;
     private var m_enable : Bool;
-    
+
     public function new (index : Int, enable : Bool)
     {
         super (0x97);
@@ -27,6 +27,6 @@ class L8CmdEnableNotification extends L8CmdBase
 //        {
 //            buffer.addByte (0);
 //        }
-        return buffer;   
+        return buffer;
     }
 }

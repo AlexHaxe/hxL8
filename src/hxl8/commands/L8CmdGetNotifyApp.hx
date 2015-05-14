@@ -8,7 +8,7 @@ class L8CmdGetNotifyApp extends L8CmdBase
 {
     private var m_index : Int;
     private var m_extended : Bool;
-    
+
     public function new (index : Int, extended : Bool)
     {
         super (147);
@@ -27,6 +27,6 @@ class L8CmdGetNotifyApp extends L8CmdBase
         {
             buffer.addByte (0);
         }
-        return buffer;   
+        return buffer;
     }
 }

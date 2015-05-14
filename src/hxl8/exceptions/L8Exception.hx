@@ -7,7 +7,7 @@ class L8Exception
 {
     private var m_code : Int;
     private var m_message : String;
-     
+
     public function new (code : Int, message : String)
     {
         m_code = code;
@@ -24,5 +24,5 @@ class L8Exception
     public function toString () : String
     {
         return '[$m_code] $m_message';
-    } 
+    }
 }

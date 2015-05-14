@@ -14,7 +14,7 @@ import hxl8.exceptions.L8SendException;
 class L8CmdSetMatrixLEDArray extends L8CmdBase
 {
     private var m_rgbs : Array<L8RGB>;
-    
+
     public function new (rgbs : Array<L8RGB>)
     {
         super (0x44);
@@ -28,6 +28,6 @@ class L8CmdSetMatrixLEDArray extends L8CmdBase
             buffer.addByte (rgb.getB () & 15);
             buffer.addByte (((rgb.getG () << 4) & 240) | (rgb.getR () & 15));
         }
-        return buffer;  
+        return buffer;
     }
 }

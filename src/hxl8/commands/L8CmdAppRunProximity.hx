@@ -11,7 +11,7 @@ class L8CmdAppRunProximity extends L8CmdAppRun
     private var m_matrixRGB : L8RGB;
     private var m_superRGB : L8RGB;
     private var m_threshold : Int;
-    
+
     public function new (matrixRGB : L8RGB, superRGB : L8RGB, threshold : Int)
     {
         super ();
@@ -31,14 +31,14 @@ class L8CmdAppRunProximity extends L8CmdAppRun
     {
         var buffer : BytesBuffer = super.getBytes ();
         buffer.addByte (3);
-        buffer.addByte (m_matrixRGB.getB ());        
+        buffer.addByte (m_matrixRGB.getB ());
         buffer.addByte (m_matrixRGB.getG ());
         buffer.addByte (m_matrixRGB.getR ());
-        buffer.addByte (m_superRGB.getB ());        
+        buffer.addByte (m_superRGB.getB ());
         buffer.addByte (m_superRGB.getG ());
         buffer.addByte (m_superRGB.getR ());
         buffer.addByte (m_threshold);
         buffer.addByte (0);
-        return buffer;   
+        return buffer;
     }
 }

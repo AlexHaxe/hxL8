@@ -12,7 +12,7 @@ typedef Serial =
 #elseif nodejs
     hxl8.nodejs.Serial;
 #else
-#error
+    {};
 #end
 
 typedef Thread =
@@ -23,7 +23,7 @@ typedef Thread =
 #elseif nodejs
     Void;
 #else
-#error
+    Void;
 #end
 
 #if rpi

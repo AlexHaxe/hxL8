@@ -7,7 +7,7 @@ import hxl8.commands.L8CmdBase;
 class L8CmdSetNotificationsSilence extends L8CmdBase
 {
     private var m_silence : Bool;
-    
+
     public function new (silence : Bool)
     {
         super (165);
@@ -24,6 +24,6 @@ class L8CmdSetNotificationsSilence extends L8CmdBase
         {
             buffer.addByte (0);
         }
-        return buffer;   
+        return buffer;
     }
 }

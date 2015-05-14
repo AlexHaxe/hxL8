@@ -14,5 +14,5 @@ class L8SendException extends L8Exception
     override public function toString () : String
     {
         return 'Send-Error [$m_code] $m_message';
-    } 
+    }
 }

@@ -20,7 +20,7 @@ class L8ResponseFrameGrab extends L8ResponseBase
     override public function parseData (data : Bytes) : Void
     {
         super.parseData (data);
-        m_rgbs = new Array<L8RGB> ();
+        m_rgbs = [];
         if (data.length == 129)
         {
             for (index in 0...64)

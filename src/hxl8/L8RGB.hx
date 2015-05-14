@@ -4,19 +4,22 @@ import haxe.io.BytesBuffer;
 
 class L8RGB
 {
-    private var m_r : Int = 0;
-    private var m_g : Int = 0;
-    private var m_b : Int = 0;
-    
+    private var m_r : Int;
+    private var m_g : Int;
+    private var m_b : Int;
+
     public function new (rgb : String, ?r : Null<Int>, ?g : Null<Int>, ?b : Null<Int>)
     {
+        m_r = 0;
+        m_g = 0;
+        m_b = 0;
         if (rgb == null)
         {
             m_r = r;
             m_g = g;
             m_b = b;
             return;
-        }        
+        }
         if (rgb.length == 3)
         {
             m_r = parseDigit (rgb.charAt (0));
@@ -84,6 +87,6 @@ class L8RGB
     }
     public function toString () : String
     {
-        return StringTools.hex (m_r, 1) + StringTools.hex (m_g, 1) + StringTools.hex (m_b, 1); 
+        return StringTools.hex (m_r, 1) + StringTools.hex (m_g, 1) + StringTools.hex (m_b, 1);
     }
 }

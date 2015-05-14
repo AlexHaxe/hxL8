@@ -41,7 +41,7 @@ class L8ResponseBase
     }
     public function toCSV (header : Bool = false) : Array<String>
     {
-        return new Array<String> ();
+        return [];
     }
     public function toHex () : String
     {
@@ -49,7 +49,7 @@ class L8ResponseBase
     }
     public function print (format : PrintFormat) : Array<String>
     {
-        var lines : Array<String> = new Array<String> ();
+        var lines : Array<String> = [];
         switch (format)
         {
             case TEXT:

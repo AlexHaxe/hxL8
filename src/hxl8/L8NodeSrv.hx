@@ -13,7 +13,7 @@ import hxl8.responses.L8ResponseBase;
 
 class L8NodeSrv
 {
-    private var server : NodeHttpServer = null;
+    private var server : NodeHttpServer;
     private var tcpPort : Int;
     private var serialPort : String;
 
@@ -30,7 +30,7 @@ class L8NodeSrv
     {
         var urlParts = Node.url.parse (req.url, true);
         var rawArgs : Array<String> = urlParts.pathname.split ("/");
-        var args : Array<String> = new Array<String> ();
+        var args : Array<String> = [];
         for (arg in rawArgs)
         {
             args.push (Node.querystring.unescape (arg));
@@ -58,7 +58,10 @@ class L8NodeSrv
             checkComPortsAndRun (res, parser, responseHandler, comPorts);
         });
     }
-    private function checkComPortsAndRun (res : NodeHttpServerResp, parser : L8CmdParser, responseHandler : L8ResponseHandler, comPorts : Map<String, String>)
+    private function checkComPortsAndRun (res : NodeHttpServerResp,
+                                            parser : L8CmdParser,
+                                            responseHandler : L8ResponseHandler,
+                                            comPorts : Map<String, String>) : Void
     {
         var found : Bool = false;
         var requestedComPort : String = parser.getComPort ();
@@ -103,7 +106,7 @@ class L8NodeSrv
                 res.end (Std.string (e));
             }
         });
-        var output : Array<String> = new Array<String> ();
+        var output : Array<String> = [];
         var lines : Array<String>;
         serial.setDataHandler (function (data) {
             lines = handleResponse (Bytes.ofData (data), responseHandler);
@@ -188,7 +191,7 @@ class L8NodeSrv
         res.end (buf.toString ());
     }
 
-    public static function main ()
+    public static function main () : Void
     {
         var tcpPort : Int = 1818;
         var serialPort : String = null;

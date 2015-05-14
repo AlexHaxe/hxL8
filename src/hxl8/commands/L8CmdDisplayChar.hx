@@ -15,18 +15,18 @@ class L8CmdDisplayChar extends L8CmdBase
 {
     private var m_char : String;
     private var m_shift : Int;
-    
+
     public function new (char : String, orient : String, offset : Int)
     {
         super (0x7F);
-        
+
         m_char = char.substr (0, 1);
         if (m_char.length <= 0)
         {
             m_char = "X";
         }
-        
-        var direction : Int; 
+
+        var direction : Int;
         switch (orient.toLowerCase ())
         {
             case "left":
@@ -45,10 +45,10 @@ class L8CmdDisplayChar extends L8CmdBase
     override public function getBytes () : BytesBuffer
     {
         var buffer : BytesBuffer = super.getBytes ();
-        
+
         buffer.addByte (m_char.charCodeAt (0));
         buffer.addByte (m_shift);
-        return buffer;  
+        return buffer;
     }
     override public function hasResponse () : Bool
     {

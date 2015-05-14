@@ -7,7 +7,7 @@ import hxl8.commands.L8CmdBase;
 class L8CmdEnableAllNotifications extends L8CmdBase
 {
     private var m_all : Bool;
-    
+
     public function new (all : Bool)
     {
         super (164);
@@ -24,6 +24,6 @@ class L8CmdEnableAllNotifications extends L8CmdBase
         {
             buffer.addByte (0);
         }
-        return buffer;   
+        return buffer;
     }
 }

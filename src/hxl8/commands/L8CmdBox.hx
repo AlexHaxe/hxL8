@@ -23,8 +23,8 @@ class L8CmdBox extends L8CmdSetMatrixLEDArray
 {
     public function new (left : Int, top : Int, right : Int, bottom : Int, border : L8RGB, fill : L8RGB, outer : L8RGB)
     {
-        var rgbs : Array<L8RGB> = new Array<L8RGB> ();
-        
+        var rgbs : Array<L8RGB> = [];
+
         var temp : Int;
         if (left > right)
         {
@@ -42,31 +42,31 @@ class L8CmdBox extends L8CmdSetMatrixLEDArray
         {
             var row : Int = Std.int (index / 8);
             var col : Int = index % 8;
-            
+
             if ((row == top) || (row == bottom))
             {
                 if ((col >= left) && (col <= right))
                 {
                     rgbs.push (border);
                     continue;
-                }  
+                }
             }
             if ((row > top) && (row < bottom))
             {
                 if ((col == left) || (col == right))
                 {
                     rgbs.push (border);
-                    continue;                    
+                    continue;
                 }
                 if ((col > left) && (col < right))
                 {
                     rgbs.push (fill);
-                    continue;                    
+                    continue;
                 }
             }
-            rgbs.push (outer);  
+            rgbs.push (outer);
         }
-         
+
         super (rgbs);
     }
 }

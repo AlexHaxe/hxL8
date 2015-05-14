@@ -25,7 +25,7 @@ class L8ResponseReadAnim extends L8ResponseBase
     override public function parseData (data : Bytes) : Void
     {
         super.parseData (data);
-        m_frames = new Array<AnimFrame> ();
+        m_frames = [];
         if (data.length < 4)
         {
             return;
