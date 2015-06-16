@@ -75,28 +75,28 @@ class L8ResponseHandler implements IResponseOutput
         {
             return [];
         }
-        if (!silent)
+        if (silent)
         {
-            var format : PrintFormat = TEXT;
-
-            if (hex)
-            {
-                format = HEX;
-            }
-            if (csv)
-            {
-                if (csvHeader)
-                {
-                    format = CSV_HEADER;
-                }
-                else
-                {
-                    format = CSV;
-                }
-            }
-            return response.print (format);
+            return [];
         }
-        return [];
+        var format : PrintFormat = TEXT;
+
+        if (hex)
+        {
+            format = HEX;
+        }
+        if (csv)
+        {
+            if (csvHeader)
+            {
+                format = CSV_HEADER;
+            }
+            else
+            {
+                format = CSV;
+            }
+        }
+        return response.print (format);
     }
 #else
     public function handleResponse (response : L8ResponseBase) : Void
@@ -107,27 +107,28 @@ class L8ResponseHandler implements IResponseOutput
         {
             return;
         }
-        if (!silent)
+        if (silent)
         {
-            var format : PrintFormat = TEXT;
-
-            if (hex)
-            {
-                format = HEX;
-            }
-            if (csv)
-            {
-                if (csvHeader)
-                {
-                    format = CSV_HEADER;
-                }
-                else
-                {
-                    format = CSV;
-                }
-            }
-            Sys.println (response.print (format).join ("\n"));
+            return;
         }
+        var format : PrintFormat = TEXT;
+
+        if (hex)
+        {
+            format = HEX;
+        }
+        if (csv)
+        {
+            if (csvHeader)
+            {
+                format = CSV_HEADER;
+            }
+            else
+            {
+                format = CSV;
+            }
+        }
+        Sys.println (response.print (format).join ("\n"));
     }
 #end
 }

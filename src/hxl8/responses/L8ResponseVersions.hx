@@ -11,14 +11,18 @@ import hxl8.responses.L8ResponseBase;
 
 class L8ResponseVersions extends L8ResponseBase
 {
-    private var m_versionLightOS : String = "???";
-    private var m_versionHardware : String = "???";
-    private var m_versionBootloader : String = "???";
-    private var m_versionData : String = "???";
+    private var m_versionLightOS : String;
+    private var m_versionHardware : String;
+    private var m_versionBootloader : String;
+    private var m_versionData : String;
 
     public function new ()
     {
         super ();
+        m_versionLightOS = "???";
+        m_versionHardware = "???";
+        m_versionBootloader = "???";
+        m_versionData = "???";
     }
     override public function parseData (data : Bytes) : Void
     {

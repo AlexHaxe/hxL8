@@ -45,6 +45,8 @@ class L8RGB
     {
         return m_b;
     }
+
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
     private function parseDigit (digit : String) : Int
     {
         switch (digit)

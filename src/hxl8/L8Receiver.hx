@@ -22,7 +22,7 @@ class L8Receiver extends L8ReceiverBase
     public static var csvHeader : Bool = false;
     private var responseHandler : L8ResponseHandler;
 
-    private var mainThread : Thread = null;
+    private var mainThread : Thread;
 
     public function new (serial : Serial, thread : Thread, handler : L8ResponseHandler)
     {

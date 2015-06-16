@@ -19,9 +19,9 @@ import hxl8.exceptions.L8SendException;
 
 class L8CmdStoreL8yFile extends L8CmdBase
 {
-    private var m_fileName : String = "";
-    private var m_offsetX : Int = 0;
-    private var m_offsetY : Int = 0;
+    private var m_fileName : String;
+    private var m_offsetX : Int;
+    private var m_offsetY : Int;
 
     public function new (fileName : String, offsetX : Int = 0, offsetY : Int = 0)
     {

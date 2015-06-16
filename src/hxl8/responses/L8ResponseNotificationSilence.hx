@@ -11,11 +11,12 @@ import hxl8.responses.L8ResponseBase;
 
 class L8ResponseNotificationSilence extends L8ResponseBase
 {
-    private var m_code : Bool = false;
+    private var m_code : Bool;
 
     public function new ()
     {
         super ();
+        m_code = false;
     }
     override public function parseData (data : Bytes) : Void
     {

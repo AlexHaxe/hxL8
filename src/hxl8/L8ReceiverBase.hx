@@ -13,7 +13,7 @@ import hxl8.responses.*;
 
 class L8ReceiverBase
 {
-    private var serial : Serial = null;
+    private var serial : Serial;
 
     public function new (serial : Serial)
     {
@@ -114,6 +114,8 @@ class L8ReceiverBase
         }
     }
 #end
+
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
     public static function processCommand (data : Bytes) : L8ResponseBase
     {
         var response : L8ResponseBase = null;

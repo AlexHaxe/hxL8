@@ -61,6 +61,7 @@ class L8Ctl extends L8CommBase
         closeConnection (serial, responseHandler);
     }
 
+    @SuppressWarnings("checkstyle:MethodLength")
     public static function showHelp () : Void
     {
 #if cpp

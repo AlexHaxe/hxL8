@@ -20,6 +20,50 @@
             }
         },
         {
+            "type": "ConstantName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[A-Z][A-Z0-9]*(_[A-Z0-9_]+)*$",
+                "tokens": [ "INLINE" ]
+            }
+        },
+        {
+            "type": "ConstantName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[a-z]+[a-zA-Z0-9_]*$",
+                "tokens": [ "NOTINLINE" ]
+            }
+        },
+        {
+            "type": "CyclomaticComplexity",
+            "props": {
+                "thresholds": [
+                    {
+                        "severity" : "WARNING",
+                        "complexity" : 11
+                    },
+                    {
+                        "severity" : "ERROR",
+                        "complexity" : 21
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Dynamic",
+            "props": {
+                "severity": "INFO"
+            }
+        },
+        {
+            "type": "EmptyBlock",
+            "props": {
+                "severity": "ERROR",
+                "option": "text"
+            }
+        },
+        {
             "type": "EmptyLines",
             "props": {
                 "severity": "INFO",
@@ -33,6 +77,13 @@
             }
         },
         {
+            "type": "FileLength",
+            "props": {
+                "severity": "WARNING",
+                "max": 1000
+            }
+        },
+        {
             "type": "HexadecimalLiterals",
             "props": {
                 "severity": "INFO"
@@ -43,6 +94,37 @@
             "props": {
                 "severity": "INFO",
                 "character": "space"
+            }
+        },
+        {
+            "type": "LeftCurly",
+            "props": {
+                "severity": "ERROR",
+                "option": "eol",
+                "tokens": [
+                            "TYPEDEF_DEF"
+                ]
+            }
+        },
+        {
+            "type": "LeftCurly",
+            "props": {
+                "severity": "ERROR",
+                "option": "nl",
+                "tokens": [
+                            "CLASS_DEF",
+                            "ENUM_DEF",
+                            "ABSTRACT_DEF",
+                            "CLASS_DEF",
+                            "INTERFACE_DEF",
+                            "FUNCTION",
+                            "FOR",
+                            "IF",
+                            "WHILE",
+                            "SWITCH",
+                            "TRY",
+                            "CATCH"
+                ]
             }
         },
         {
@@ -68,20 +150,90 @@
             "type": "MethodLength",
             "props": {
                 "severity": "ERROR",
-                "maxFunctionLines": 80
+                "maxFunctionLines": 150
             }
         },
         {
-            "type": "Naming",
+            "type": "MethodName",
             "props": {
-                "severity": "INFO",
-                "privateUnderscorePrefix": false
+                "severity": "ERROR",
+                "format": "^[a-z]+[a-zA-Z0-9_]*$",
+                "tokens": []
+            }
+        },
+        {
+            "type": "MemberName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[A-Z][A-Z0-9]*(_[A-Z0-9_]+)*$",
+                "tokens": [ "ENUM" ]
+            }
+        },
+        {
+            "type": "MemberName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^(m_)?[a-zA-Z]+[a-zA-Z0-9_]*$",
+                "tokens": [ "PUBLIC", "PRIVATE" ]
+            }
+        },
+        {
+            "type": "MemberName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[a-z]+[a-zA-Z0-9_]*$",
+                "tokens": [ "TYPEDEF" ]
+            }
+        },
+        {
+            "type": "NeedBraces",
+            "props": {
+                "severity": "ERROR",
+                "allowSingleLineStatement": false,
+                "tokens": []
+            }
+        },
+        {
+            "type": "NestedForDepth",
+            "props": {
+                "severity": "ERROR",
+                "max": 1
+            }
+        },
+        {
+            "type": "NestedIfDepth",
+            "props": {
+                "severity": "ERROR",
+                "max": 1
+            }
+        },
+        {
+            "type": "NestedTryDepth",
+            "props": {
+                "severity": "ERROR",
+                "max": 1
             }
         },
         {
             "type": "Override",
             "props": {
                 "severity": "ERROR"
+            }
+        },
+        {
+            "type": "ParameterName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[a-z]+[a-zA-Z0-9_]*$",
+                "tokens": [ "ENUM" ]
+            }
+        },
+        {
+            "type": "ParameterNumber",
+            "props": {
+                "severity": "INFO",
+                "max": 7,
+                "ignoreOveriddenMethods":false
             }
         },
         {
@@ -131,6 +283,22 @@
             "type": "Type",
             "props": {
                 "severity": "ERROR"
+            }
+        },
+        {
+            "type": "TypeName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^I[A-Z]+[a-zA-Z0-9_]*$",
+                "tokens": [ "INTERFACE" ]
+            }
+        },
+        {
+            "type": "TypeName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[A-Z]+[a-zA-Z0-9_]*$",
+                "tokens": [ "ENUM", "CLASS", "TYPEDEF" ]
             }
         },
         {

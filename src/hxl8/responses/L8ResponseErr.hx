@@ -11,11 +11,12 @@ import hxl8.responses.L8ResponseBase;
 
 class L8ResponseErr extends L8ResponseBase
 {
-    private var m_code : Int = -1;
+    private var m_code : Int;
 
     public function new ()
     {
         super ();
+        m_code = -1;
     }
     override public function parseData (data : Bytes) : Void
     {

@@ -47,7 +47,8 @@ class L8ResponseSensorThresholds extends L8ResponseBase
     }
     override public function toString () : String
     {
-        return 'Thresholds:\nAmbient Light: ${m_ambMinValue} - ${m_ambMaxValue}\nNoise: ${m_noiseMinValue} - ${m_noiseMaxValue}\nProximity: ${m_proxMinValue} - ${m_proxMaxValue}';
+        return 'Thresholds:\nAmbient Light: ${m_ambMinValue} - ${m_ambMaxValue}\n' +
+            'Noise: ${m_noiseMinValue} - ${m_noiseMaxValue}\nProximity: ${m_proxMinValue} - ${m_proxMaxValue}';
     }
     override public function toCSV (header : Bool = false) : Array<String>
     {

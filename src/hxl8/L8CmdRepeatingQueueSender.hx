@@ -14,9 +14,9 @@ import hxl8.commands.L8CmdBase;
 
 class L8CmdRepeatingQueueSender extends L8CmdQueueSender
 {
-    private var repeatForever : Bool = false;
-    private var repeatsCount : Int = 0;
-    private var currentIndex : Int = 0;
+    private var repeatForever : Bool;
+    private var repeatsCount : Int;
+    private var currentIndex : Int;
 
     public function new (serial : Serial, commandList : ICommandListRepeating, responseHandler : L8ResponseHandler)
     {

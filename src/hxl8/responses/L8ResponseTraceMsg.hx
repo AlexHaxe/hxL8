@@ -27,6 +27,7 @@ class L8ResponseTraceMsg extends L8ResponseBase
             m_code = data.get (2);
         }
     }
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
     override public function toString () : String
     {
         var msg : String = "";

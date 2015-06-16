@@ -106,6 +106,7 @@ class L8CmdParser implements ICommandList implements ICommandListRepeating
         return comPort;
     }
 
+    @SuppressWarnings(["checkstyle:CyclomaticComplexity", "checkstyle:MethodLength"])
     private function parse (args : Array<String>, outputter : IResponseOutput) : Void
     {
         if (args.length <= 0)
