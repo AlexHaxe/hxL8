@@ -9,7 +9,8 @@ import hxl8.commands.L8CrcCalc;
 
 import hxl8.exceptions.L8SendException;
 
-enum PrintFormat {
+enum PrintFormat
+{
     TEXT;
     CSV;
     CSV_HEADER;
@@ -24,6 +25,7 @@ class L8ResponseBase
 
     public function new ()
     {
+        // do nothing
     }
     public function parseData (data : Bytes) : Void
     {

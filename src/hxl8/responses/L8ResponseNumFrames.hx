@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseNumFrames extends L8ResponseBase
 {
     private var m_frameCount : Int;
-    
+
     public function new ()
     {
         super ();

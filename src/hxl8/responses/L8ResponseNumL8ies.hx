@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseNumL8ies extends L8ResponseBase
 {
     private var m_l8iesCount : Int;
-    
+
     public function new ()
     {
         super ();

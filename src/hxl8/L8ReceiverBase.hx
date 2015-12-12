@@ -9,7 +9,38 @@ import hxl8.Types;
 
 import hxl8.commands.L8CrcCalc;
 
-import hxl8.responses.*;
+import hxl8.responses.L8ResponseBase;
+import hxl8.responses.L8ResponseOK;
+import hxl8.responses.L8ResponsePong;
+import hxl8.responses.L8ResponseVoltage;
+import hxl8.responses.L8ResponseTemperature;
+import hxl8.responses.L8ResponseAccelerator;
+import hxl8.responses.L8ResponseUID;
+import hxl8.responses.L8ResponseAmbientLight;
+import hxl8.responses.L8ResponseProximity;
+import hxl8.responses.L8ResponseVersions;
+import hxl8.responses.L8ResponseButton;
+import hxl8.responses.L8ResponseNoise;
+import hxl8.responses.L8ResponseVBUS;
+import hxl8.responses.L8ResponseMCUTemp;
+import hxl8.responses.L8ResponseStoreL8y;
+import hxl8.responses.L8ResponseFrameGrab;
+import hxl8.responses.L8ResponseStoreFrame;
+import hxl8.responses.L8ResponseFrameGrab;
+import hxl8.responses.L8ResponseBatchG;
+import hxl8.responses.L8ResponseStoreAnim;
+import hxl8.responses.L8ResponseReadAnim;
+import hxl8.responses.L8ResponseTraceMsg;
+import hxl8.responses.L8ResponseOrientation;
+import hxl8.responses.L8ResponseNumL8ies;
+import hxl8.responses.L8ResponseNumAnims;
+import hxl8.responses.L8ResponseNumFrames;
+import hxl8.responses.L8ResponseNotifyApp;
+import hxl8.responses.L8ResponseNumNotifyApps;
+import hxl8.responses.L8ResponseFrameGrab;
+import hxl8.responses.L8ResponseSensorThresholds;
+import hxl8.responses.L8ResponseNotificationSilence;
+import hxl8.responses.L8ResponseErr;
 
 class L8ReceiverBase
 {
@@ -26,6 +57,7 @@ class L8ReceiverBase
     }
     public function closing () : Void
     {
+        // do nothing
     }
 
 #if (cpp || java)

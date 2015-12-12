@@ -5,9 +5,77 @@ import sys.FileSystem;
 
 import hxl8.commands.L8CrcCalc;
 
-import hxl8.commands.*;
-import hxl8.exceptions.*;
-import hxl8.responses.*;
+import hxl8.commands.L8CmdBase;
+import hxl8.commands.L8CmdAppStop;
+import hxl8.commands.L8CmdAppRunAmbient;
+import hxl8.commands.L8CmdAppRunDice;
+import hxl8.commands.L8CmdAppRunColorChanger;
+import hxl8.commands.L8CmdAppRunProximity;
+import hxl8.commands.L8CmdEnableAutoRotate;
+import hxl8.commands.L8CmdBootloader;
+import hxl8.commands.L8CmdQueryBatChg;
+import hxl8.commands.L8CmdSetBrightness;
+import hxl8.commands.L8CmdBox;
+import hxl8.commands.L8CmdQueryButton;
+import hxl8.commands.L8CmdDeleteL8y;
+import hxl8.commands.L8CmdDeleteAnim;
+import hxl8.commands.L8CmdDeleteFrame;
+import hxl8.commands.L8CmdDeleteUserMemory;
+import hxl8.commands.L8CmdDisplayChar;
+import hxl8.commands.L8CmdEnableAllNotifications;
+import hxl8.commands.L8CmdEnableNotification;
+import hxl8.commands.L8CmdQueryAcc;
+import hxl8.commands.L8CmdQueryAmbientLight;
+import hxl8.commands.L8CmdGetCurrentMatrix;
+import hxl8.commands.L8CmdQueryMCUTemp;
+import hxl8.commands.L8CmdQueryNoise;
+import hxl8.commands.L8CmdGetNotifyApp;
+import hxl8.commands.L8CmdGetNumNotifyApps;
+import hxl8.commands.L8CmdQueryNumAnims;
+import hxl8.commands.L8CmdQueryNumFrames;
+import hxl8.commands.L8CmdQueryNumL8ies;
+import hxl8.commands.L8CmdQueryProximity;
+import hxl8.commands.L8CmdQuerySensorThresholds;
+import hxl8.commands.L8CmdQueryTemp;
+import hxl8.commands.L8CmdQueryVoltage;
+import hxl8.commands.L8CmdQueryVBUSVoltage;
+import hxl8.commands.L8CmdQueryInitStatus;
+import hxl8.commands.L8CmdMatrixOff;
+import hxl8.commands.L8CmdPowerOff;
+import hxl8.commands.L8CmdQueryNotificationsSilent;
+import hxl8.commands.L8CmdSetNotification;
+import hxl8.commands.L8CmdAppRunParty;
+import hxl8.commands.L8CmdPlayAnim;
+import hxl8.commands.L8CmdSendPing;
+import hxl8.commands.L8CmdReadAnim;
+import hxl8.commands.L8CmdReadFrame;
+import hxl8.commands.L8CmdReadL8y;
+import hxl8.commands.L8CmdReset;
+import hxl8.commands.L8CmdSetLED;
+import hxl8.commands.L8CmdSetStoredL8y;
+import hxl8.commands.L8CmdSetMatrixLEDArray;
+import hxl8.commands.L8CmdSetNotificationsSilence;
+import hxl8.commands.L8CmdSetMatrixLEDUni;
+import hxl8.commands.L8CmdSetSuperLED;
+import hxl8.commands.L8CmdSetOrientation;
+import hxl8.commands.L8CmdSetAmbThreshold;
+import hxl8.commands.L8CmdSetNoiseThreshold;
+import hxl8.commands.L8CmdSetProxThreshold;
+import hxl8.commands.L8CmdEnableStatusLEDs;
+import hxl8.commands.L8CmdStopAnim;
+import hxl8.commands.L8CmdStoreAnim;
+import hxl8.commands.L8CmdStoreL8y;
+import hxl8.commands.L8CmdStoreFrame;
+import hxl8.commands.L8CmdStoreNotification;
+import hxl8.commands.L8CmdSetText;
+import hxl8.commands.L8CmdQueryMCUID;
+import hxl8.commands.L8CmdQueryVersions;
+
+#if cpp
+import hxl8.commands.L8CmdSetMatrixLEDFile;
+import hxl8.commands.L8CmdStoreL8yFile;
+import hxl8.commands.L8CmdStoreFrameFile;
+#end
 
 class L8CmdParser implements ICommandList implements ICommandListRepeating
 {

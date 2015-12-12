@@ -13,8 +13,10 @@ class L8tiesParser
 {
     public function new ()
     {
+        // do nothing
     }
 
+    @SuppressWarnings("checkstyle:Dynamic")
     public function run (fileName : String) : Void
     {
         var data : String = File.getContent (fileName);

@@ -7,9 +7,11 @@ import haxe.io.BytesBuffer;
 import haxe.io.BytesData;
 
 typedef SerialCallback = Void -> Void;
+@SuppressWarnings("checkstyle:Dynamic")
 typedef SerialDataCallback = Dynamic -> Void;
 typedef DeviceListCallback = Map<String, String> -> Void;
 
+@SuppressWarnings("checkstyle:Dynamic")
 class Serial
 {
     private var m_serialPort : Dynamic;
@@ -54,10 +56,11 @@ class Serial
         this.errorHandler = errorHandler;
     }
 
-    static public function getDeviceList (callback : DeviceListCallback) : Void
+    public static function getDeviceList (callback : DeviceListCallback) : Void
     {
         var nodeSerial = Node.require ("serialport");
-        nodeSerial.list (function (err, ports : Array<Dynamic>) {
+        nodeSerial.list (function (err, ports : Array<Dynamic>)
+        {
             var devices : Map<String, String> = new Map<String, String> ();
             for (port in ports)
             {
@@ -101,19 +104,22 @@ class Serial
             trace (e);
             return false;
         }
-        m_serialPort.on ('open', function () {
+        m_serialPort.on ('open', function ()
+        {
             if (openHandler != null)
             {
                 openHandler ();
             }
         });
-        m_serialPort.on ('data', function (data) {
+        m_serialPort.on ('data', function (data)
+        {
             if (dataHandler != null)
             {
                 dataHandler (data);
             }
         });
-        m_serialPort.on ('error', function (error) {
+        m_serialPort.on ('error', function (error)
+        {
             if (errorHandler != null)
             {
                 errorHandler (error);
@@ -145,6 +151,7 @@ class Serial
 
     public function flush (?flushIn : Bool = false, ?flushOut = false) : Void
     {
+        // do nothing
     }
 
     public function close () : Void

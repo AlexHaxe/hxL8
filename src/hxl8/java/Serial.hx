@@ -30,7 +30,7 @@ class Serial
         }
     }
 
-    static public function getDeviceList () : Array<String>
+    public static function getDeviceList () : Array<String>
     {
         return [];
     }
@@ -113,6 +113,7 @@ class Serial
         }
         catch (e : SerialPortException)
         {
+            // do nothing
         }
         return 0;
     }
@@ -134,6 +135,7 @@ class Serial
         }
         catch (e : SerialPortException)
         {
+            // do nothing
         }
     }
 
@@ -160,6 +162,7 @@ class Serial
         }
         catch (e : SerialPortException)
         {
+            // do nothing
         }
         return 0;
     }

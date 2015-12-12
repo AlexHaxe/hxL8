@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseNumNotifyApps extends L8ResponseBase
 {
     private var m_appCount : Int;
-    
+
     public function new ()
     {
         super ();

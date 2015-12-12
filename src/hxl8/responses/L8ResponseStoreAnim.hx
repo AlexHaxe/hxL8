@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseStoreAnim extends L8ResponseBase
 {
     private var m_anim : Int;
-    
+
     public function new ()
     {
         super ();

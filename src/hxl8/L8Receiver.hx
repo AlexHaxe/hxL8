@@ -9,7 +9,6 @@ import hxl8.Types;
 
 import hxl8.commands.L8CrcCalc;
 
-import hxl8.responses.*;
 import hxl8.responses.L8ResponseBase;
 
 import hxl8.L8ReceiverBase;
@@ -56,9 +55,9 @@ class L8Receiver extends L8ReceiverBase
 
         var thread : Thread = Thread.readMessage (true);
         var serial : Serial = Thread.readMessage (true);
-        var responseHandler : L8ResponseHandler = Thread.readMessage (true);
+        var handler : L8ResponseHandler = Thread.readMessage (true);
 
-        var receiver : L8Receiver = new L8Receiver (serial, thread, responseHandler);
+        var receiver : L8Receiver = new L8Receiver (serial, thread, handler);
         receiver.receiveResponseLoop ();
     }
 

@@ -12,7 +12,7 @@ import hxl8.responses.L8ResponseBase;
 class L8ResponseNumAnims extends L8ResponseBase
 {
     private var m_animCount : Int;
-    
+
     public function new ()
     {
         super ();

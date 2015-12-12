@@ -12,7 +12,9 @@ typedef Serial =
 #elseif nodejs
     hxl8.nodejs.Serial;
 #else
-    {};
+{
+    // empty implementation
+};
 #end
 
 typedef Thread =

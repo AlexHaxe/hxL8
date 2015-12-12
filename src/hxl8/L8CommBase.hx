@@ -15,6 +15,7 @@ class L8CommBase
 
     public function new ()
     {
+        // do nothing
     }
 
     public function setup (comPort : String, startThread : Bool = false, responseHandler : L8ResponseHandler) : Serial
