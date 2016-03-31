@@ -2,8 +2,6 @@ package hxl8.commands;
 
 import haxe.io.BytesBuffer;
 
-import hxl8.commands.L8CmdBase;
-
 class L8CmdGetNotifyApp extends L8CmdBase
 {
     private var m_index : Int;

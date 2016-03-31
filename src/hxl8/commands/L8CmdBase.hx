@@ -3,9 +3,7 @@ package hxl8.commands;
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
-import hxl8.Types;
-
-import hxl8.commands.L8CrcCalc;
+import hxl8.Types.Serial;
 
 import hxl8.exceptions.L8SendException;
 

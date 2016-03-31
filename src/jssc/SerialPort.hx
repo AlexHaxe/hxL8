@@ -1,9 +1,8 @@
 package jssc;
 
-import haxe.io.Bytes;
 import haxe.io.BytesData;
 
-@SuppressWarnings(["checkstyle:LeftCurly", "checkstyle:RightCurly"])
+@SuppressWarnings(["checkstyle:LeftCurly", "checkstyle:RightCurly", "checkstyle:EmptyBlock"])
 extern class SerialPort
 {
     public function new (portName : String);

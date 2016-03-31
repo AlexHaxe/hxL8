@@ -1,18 +1,18 @@
 {
     "checks": [
         {
-                "type": "AccessOrder",
-                "props": {
-                        "severity": "WARNING",
-                        "modifiers": [
-                                "MACRO",
-                                "OVERRIDE",
-                                "PUBLIC_PRIVATE",
-                                "STATIC",
-                                "INLINE",
-                                "DYNAMIC"
-                        ]
-                }
+            "type": "AccessOrder",
+            "props": {
+                "severity": "WARNING",
+                "modifiers": [
+                        "MACRO",
+                        "OVERRIDE",
+                        "PUBLIC_PRIVATE",
+                        "STATIC",
+                        "INLINE",
+                        "DYNAMIC"
+                ]
+            }
         },
         {
             "type": "Anonymous",
@@ -27,18 +27,15 @@
             }
         },
         {
-            "type": "AvoidStarImport",
+            "type": "AvoidInlineConditionals",
             "props": {
-                "severity": "WARNING",
-                "allowStarImports": false,
-                "allowStarUsing": false
+                "severity": "WARNING"
             }
         },
         {
-            "type": "BlockFormat",
+            "type": "AvoidStarImport",
             "props": {
-                "severity": "ERROR",
-                "option": "text"
+                "severity": "WARNING"
             }
         },
         {
@@ -79,11 +76,38 @@
             }
         },
         {
+            "type": "EmptyBlock",
+            "props": {
+                "severity": "WARNING",
+                "option": "text",
+                "tokens": [
+                            "CLASS_DEF",
+                            "ENUM_DEF",
+                            "ABSTRACT_DEF",
+                            "CLASS_DEF",
+                            "INTERFACE_DEF",
+                            "FUNCTION",
+                            "FOR",
+                            "IF",
+                            "WHILE",
+                            "SWITCH",
+                            "TRY",
+                            "CATCH"
+                ]
+            }
+        },
+        {
             "type": "EmptyLines",
             "props": {
                 "severity": "INFO",
                 "max": 1
             }
+        },
+        {
+            "props": {
+                "severity": "INFO"
+            },
+            "type": "EmptyPackage"
         },
         {
             "type": "ERegInstantiation",
@@ -119,6 +143,13 @@
                 "severity": "INFO",
                 "character": "space"
             }
+        },
+        {
+            "props": {
+                "allowMarkerInterfaces": true,
+                "severity": "INFO"
+            },
+            "type": "Interface"
         },
         {
             "type": "LeftCurly",
@@ -198,7 +229,7 @@
             "props": {
                 "severity": "ERROR",
                 "format": "^(m_)?[a-zA-Z]+[a-zA-Z0-9_]*$",
-                "tokens": [ "PUBLIC", "PRIVATE" ]
+                "tokens": [ "CLASS", "ABSTRACT", "PUBLIC", "PRIVATE" ]
             }
         },
         {
@@ -207,6 +238,12 @@
                 "severity": "ERROR",
                 "format": "^[a-z]+[a-zA-Z0-9_]*$",
                 "tokens": [ "TYPEDEF" ]
+            }
+        },
+        {
+            "type": "MultipleVariableDeclarations",
+            "props": {
+                "severity": "ERROR"
             }
         },
         {
@@ -239,6 +276,83 @@
             }
         },
         {
+            "type": "NullableParameter",
+            "props": {
+                "severity": "IGNORE",
+                "option": "questionMark"
+            }
+        },
+        {
+            "type": "OperatorWhitespace",
+            "props": {
+                "severity": "ERROR",
+                "assignOpPolicy": "around",
+                "unaryOpPolicy": "none",
+                "ternaryOpPolicy": "around",
+                "arithmeticOpPolicy": "around",
+                "compareOpPolicy": "around",
+                "bitwiseOpPolicy": "around",
+                "boolOpPolicy": "around",
+                "intervalOpPolicy": "none",
+                "arrowPolicy": "around",
+                "functionArgPolicy": "around"
+            }
+        },
+        {
+            "type": "OperatorWrap",
+            "props": {
+                "severity": "WARNING",
+                "option": "eol",
+                "tokens": [
+                          "=",
+                          "+",
+                          "-",
+                          "*",
+                          "/",
+                          "%",
+                          ">",
+                          "<",
+                          ">=",
+                          "<=",
+                          "==",
+                          "!=",
+                          "&",
+                          "|",
+                          "^",
+                          "&&",
+                          "||",
+                          "<<",
+                          ">>",
+                          ">>>",
+                          "+=",
+                          "-=",
+                          "*=",
+                          "/=",
+                          "%=",
+                          "<<=",
+                          ">>=",
+                          ">>>=",
+                          "|=",
+                          "&=",
+                          "^=",
+                          "...",
+                          "=>",
+                          "++",
+                          "--"
+                ]
+            }
+        },
+        {
+            "type": "OperatorWrap",
+            "props": {
+                "severity": "WARNING",
+                "option": "nl",
+                "tokens": [
+                            "!"
+                ]
+            }
+        },
+        {
             "type": "ParameterName",
             "props": {
                 "severity": "ERROR",
@@ -251,7 +365,7 @@
             "props": {
                 "severity": "INFO",
                 "max": 7,
-                "ignoreOveriddenMethods":false
+                "ignoreOverriddenMethods":false
             }
         },
         {
@@ -262,12 +376,26 @@
             }
         },
         {
+            "props": {
+                "enforcePublicPrivate": false,
+                "severity": "IGNORE"
+            },
+            "type": "RedundantModifier"
+        },
+        {
             "type": "Return",
             "props": {
                 "severity": "INFO",
                 "allowEmptyReturn": false,
                 "enforceReturnType": true
             }
+        },
+        {
+            "props": {
+                "max": 2,
+                "severity": "IGNORE"
+            },
+            "type": "ReturnCount"
         },
         {
             "type": "RightCurly",
@@ -301,14 +429,58 @@
             }
         },
         {
+            "type": "SeparatorWhitespace",
+            "props": {
+                "severity": "WARNING",
+                "dotPolicy": "none",
+                "commaPolicy": "after",
+                "semicolonPolicy": "after"
+            }
+        },
+        {
+            "type": "SeparatorWrap",
+            "props": {
+                "severity": "WARNING",
+                "option": "eol",
+                "tokens": [
+                            ","
+                ]
+            }
+        },
+        {
+            "type": "SeparatorWrap",
+            "props": {
+                "severity": "WARNING",
+                "option": "nl",
+                "tokens": [
+                            "."
+                ]
+            }
+        },
+        {
             "type": "Spacing",
             "props": {
                 "severity": "INFO",
                 "spaceIfCondition": true,
                 "spaceAroundBinop": true,
-                "spaceAroundBinop": true,
+                "noSpaceAroundUnop": true,
+                "spaceForLoop": true,
+                "spaceWhileLoop": true,
+                "spaceSwitchCase": true,
                 "ignoreRangeOperator": true
             }
+        },
+        {
+            "type": "SimplifyBooleanExpression",
+            "props": {
+                "severity": "INFO"
+            }
+        },
+        {
+            "props": {
+                "severity": "INFO"
+            },
+            "type": "SimplifyBooleanReturn"
         },
         {
             "type": "TabForAligning",
@@ -318,6 +490,13 @@
         },
         {
             "type": "TODOComment",
+            "props": {
+                "severity": "INFO",
+                "format": "TODO|FIXME|XXX"
+            }
+        },
+        {
+            "type": "Trace",
             "props": {
                 "severity": "INFO"
             }
@@ -351,9 +530,42 @@
             }
         },
         {
+                "props": {
+                        "severity": "WARNING"
+                },
+                "type": "UnnecessaryConstructor"
+        },
+        {
+                "props": {
+                        "severity": "INFO",
+                        "ignoreModules": [
+                          "haxe.macro.Expr",
+                          "com.kewbee.config.AppConfig",
+                          "com.kewbee.database.field.DBFieldTypes",
+                          "com.kewbee.interfaces.ISiteID",
+                          "com.kewbee.utils.Unsafe"
+                        ]
+                },
+                "type": "UnusedImport"
+        },
+        {
             "type": "VariableInitialisation",
             "props": {
                 "severity": "WARNING"
+            }
+        },
+        {
+            "type": "WhitespaceAfter",
+            "props": {
+                "severity": "WARNING",
+                "tokens": [ ",", ";" ]
+            }
+        },
+        {
+            "type": "WhitespaceAround",
+            "props": {
+                "severity": "WARNING",
+                "tokens": [ "=", "+", "-", "/", "*" ]
             }
         }
     ]

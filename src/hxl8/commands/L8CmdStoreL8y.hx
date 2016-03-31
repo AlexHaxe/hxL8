@@ -1,21 +1,8 @@
 package hxl8.commands;
 
-import sys.FileSystem;
-
-import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
-#if cpp
-import hxlode.PicoPNG;
-#elseif neko
-import hxlode.PicoPNG;
-#end
-
-import hxl8.commands.L8CmdBase;
-
 import hxl8.L8RGB;
-
-import hxl8.exceptions.L8SendException;
 
 class L8CmdStoreL8y extends L8CmdBase
 {

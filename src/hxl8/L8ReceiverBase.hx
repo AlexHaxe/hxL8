@@ -1,11 +1,9 @@
 package hxl8;
 
-import sys.FileSystem;
-
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
-import hxl8.Types;
+import hxl8.Types.Serial;
 
 import hxl8.commands.L8CrcCalc;
 
@@ -26,7 +24,6 @@ import hxl8.responses.L8ResponseMCUTemp;
 import hxl8.responses.L8ResponseStoreL8y;
 import hxl8.responses.L8ResponseFrameGrab;
 import hxl8.responses.L8ResponseStoreFrame;
-import hxl8.responses.L8ResponseFrameGrab;
 import hxl8.responses.L8ResponseBatchG;
 import hxl8.responses.L8ResponseStoreAnim;
 import hxl8.responses.L8ResponseReadAnim;
@@ -37,7 +34,6 @@ import hxl8.responses.L8ResponseNumAnims;
 import hxl8.responses.L8ResponseNumFrames;
 import hxl8.responses.L8ResponseNotifyApp;
 import hxl8.responses.L8ResponseNumNotifyApps;
-import hxl8.responses.L8ResponseFrameGrab;
 import hxl8.responses.L8ResponseSensorThresholds;
 import hxl8.responses.L8ResponseNotificationSilence;
 import hxl8.responses.L8ResponseErr;
@@ -107,12 +103,14 @@ class L8ReceiverBase
             switch (status)
             {
                 case 0:
-                    if (byte == 170) // 0xAA
+                    // 0xAA
+                    if (byte == 170)
                     {
                         status = 1;
                     }
                 case 1:
-                    if (byte == 85) // 0x55
+                    // 0x55
+                    if (byte == 85)
                     {
                         status = 2;
                     }

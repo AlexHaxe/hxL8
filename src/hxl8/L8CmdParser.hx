@@ -1,6 +1,5 @@
 package hxl8;
 
-import EReg;
 import sys.FileSystem;
 
 import hxl8.commands.L8CrcCalc;
@@ -512,6 +511,7 @@ class L8CmdParser implements ICommandList implements ICommandListRepeating
         return new L8RGB (rawVal);
     }
 
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
     private function consumeArgColorArray (args : Array<String>, defaultRGB : String) : Array<L8RGB>
     {
         var result : Array<L8RGB> = [];

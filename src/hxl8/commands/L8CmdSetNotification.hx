@@ -3,8 +3,6 @@ package hxl8.commands;
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
 
-import hxl8.commands.L8CmdBase;
-
 class L8CmdSetNotification extends L8CmdBase
 {
     private var m_app : String;
@@ -15,7 +13,7 @@ class L8CmdSetNotification extends L8CmdBase
     {
         super (153);
 
-        m_app = app.substr (0,32);
+        m_app = app.substr (0, 32);
 
         m_category = category;
         switch (m_category)

@@ -3,17 +3,15 @@ package hxl8.java;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
-import haxe.io.Bytes;
-import haxe.io.BytesBuffer;
 import haxe.io.BytesData;
 
 class Serial
 {
     private var m_serialPort : SerialPort;
 
-    public var portName (default,null) : String;
-    public var baud (default,null) : Int;
-    public var isSetup (get,null) : Bool;
+    public var portName (default, null) : String;
+    public var baud (default, null) : Int;
+    public var isSetup (get, null) : Bool;
 
     public function new (portName : String, ?baud : Int = 9600, ?setupImmediately : Bool = false)
     {

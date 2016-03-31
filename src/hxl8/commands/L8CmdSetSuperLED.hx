@@ -2,8 +2,6 @@ package hxl8.commands;
 
 import haxe.io.BytesBuffer;
 
-import hxl8.commands.L8CmdBase;
-
 import hxl8.L8RGB;
 
 class L8CmdSetSuperLED extends L8CmdBase

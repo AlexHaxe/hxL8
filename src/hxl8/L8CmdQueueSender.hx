@@ -4,7 +4,7 @@ package hxl8;
 import js.Node;
 #end
 
-import hxl8.Types;
+import hxl8.Types.Serial;
 
 import hxl8.commands.L8CmdBase;
 

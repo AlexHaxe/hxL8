@@ -1,11 +1,6 @@
 package hxl8;
 
-import sys.FileSystem;
-
 import sys.io.File;
-
-import haxe.io.Bytes;
-import haxe.io.BytesBuffer;
 
 import haxe.Json;
 

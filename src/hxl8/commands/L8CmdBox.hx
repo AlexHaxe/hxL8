@@ -1,26 +1,10 @@
 package hxl8.commands;
 
-import sys.FileSystem;
-
-import haxe.io.Bytes;
-import haxe.io.BytesBuffer;
-
-#if cpp
-import hxlode.PicoPNG;
-#elseif neko
-import hxlode.PicoPNG;
-#end
-
-import hxl8.commands.L8CmdBase;
-
 import hxl8.L8RGB;
-
-import hxl8.exceptions.L8SendException;
-
-import hxl8.commands.L8CmdSetMatrixLEDArray;
 
 class L8CmdBox extends L8CmdSetMatrixLEDArray
 {
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
     public function new (left : Int, top : Int, right : Int, bottom : Int, border : L8RGB, fill : L8RGB, outer : L8RGB)
     {
         var rgbs : Array<L8RGB> = [];

@@ -1,14 +1,6 @@
 package hxl8;
 
-import EReg;
-import sys.FileSystem;
-
-import haxe.io.Bytes;
-import haxe.io.BytesBuffer;
-
-import hxl8.Types;
-
-import hxl8.commands.L8CrcCalc;
+import hxl8.Types.Serial;
 
 import hxl8.commands.L8CmdSetText;
 import hxl8.exceptions.L8Exception;
@@ -170,7 +162,8 @@ class L8Ctl extends L8CommBase
         Sys.println ("L8 text");
         Sys.println ("-------");
         Sys.println ("DisplayChar char top|bottom|left|right offset\n -> displays char with offset in pixels from top|bottom|left|right");
-        Sys.println ('Text RGB|RRGGBB text 0|1|2 true|false\n -> scrolling text (max length: ${L8CmdSetText.MAX_LENGTH}, color and text are
+        var len : Int = L8CmdSetText.MAX_LENGTH;
+        Sys.println ('Text RGB|RRGGBB text 0|1|2 true|false\n -> scrolling text (max length: $len, color and text are
  required parameter) with speed 0 = fast, 1 = medium, 2 = slow and true|false for loop, Default: loop = true');
         Sys.println ("");
 
@@ -231,6 +224,9 @@ class L8Ctl extends L8CommBase
 
     public static function main () : Void
     {
+#if debug
+        new debugger.HaxeRemote(true, "localhost");
+#end
         try
         {
             var reader : L8Ctl = new L8Ctl ();

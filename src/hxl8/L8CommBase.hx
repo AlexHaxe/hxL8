@@ -1,11 +1,7 @@
 package hxl8;
 
-import sys.FileSystem;
-
-import haxe.io.Bytes;
-import haxe.io.BytesBuffer;
-
-import hxl8.Types;
+import hxl8.Types.Thread;
+import hxl8.Types.Serial;
 
 import hxl8.responses.L8ResponseBase;
 
@@ -120,7 +116,7 @@ class L8CommBase
             tries -= 1;
             if (tries <= 0)
             {
-                trace ("timeout waiting for response");
+                Sys.println ("timeout waiting for response");
                 return null;
             }
             var response : L8ResponseBase = Thread.readMessage (false);

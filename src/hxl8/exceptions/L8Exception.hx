@@ -1,8 +1,5 @@
 package hxl8.exceptions;
 
-import haxe.io.Bytes;
-import haxe.io.BytesBuffer;
-
 class L8Exception
 {
     private var m_code : Int;

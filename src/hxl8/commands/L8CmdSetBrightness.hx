@@ -2,8 +2,6 @@ package hxl8.commands;
 
 import haxe.io.BytesBuffer;
 
-import hxl8.commands.L8CmdBase;
-
 class L8CmdSetBrightness extends L8CmdBase
 {
     private var m_brightness : Bool;

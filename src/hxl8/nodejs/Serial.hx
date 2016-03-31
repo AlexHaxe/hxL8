@@ -2,8 +2,6 @@ package hxl8.nodejs;
 
 import js.Node;
 
-import haxe.io.Bytes;
-import haxe.io.BytesBuffer;
 import haxe.io.BytesData;
 
 typedef SerialCallback = Void -> Void;
@@ -11,14 +9,14 @@ typedef SerialCallback = Void -> Void;
 typedef SerialDataCallback = Dynamic -> Void;
 typedef DeviceListCallback = Map<String, String> -> Void;
 
-@SuppressWarnings("checkstyle:Dynamic")
+@SuppressWarnings("checkstyle:Dynamic", "checkstyle:Trace")
 class Serial
 {
     private var m_serialPort : Dynamic;
 
-    public var portName (default,null) : String;
-    public var baud (default,null) : Int;
-    public var isSetup (get,null) : Bool;
+    public var portName (default, null) : String;
+    public var baud (default, null) : Int;
+    public var isSetup (get, null) : Bool;
 
     private var openHandler : SerialCallback;
     private var dataHandler : SerialDataCallback;

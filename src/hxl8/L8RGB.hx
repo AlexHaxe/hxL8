@@ -1,7 +1,5 @@
 package hxl8;
 
-import haxe.io.BytesBuffer;
-
 class L8RGB
 {
     private var m_r : Int;

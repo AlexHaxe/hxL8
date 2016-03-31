@@ -11,8 +11,7 @@ typedef Serial =
     hxl8.java.Serial;
 #elseif nodejs
     hxl8.nodejs.Serial;
-#else
-{
+#else {
     // empty implementation
 };
 #end

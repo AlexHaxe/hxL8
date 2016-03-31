@@ -8,7 +8,6 @@ import haxe.Template;
 
 import hxl8.nodejs.Serial;
 
-import hxl8.commands.L8CmdBase;
 import hxl8.responses.L8ResponseBase;
 
 class L8NodeSrv

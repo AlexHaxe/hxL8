@@ -1,17 +1,9 @@
 package hxl8;
 
-import sys.FileSystem;
-
-import haxe.io.Bytes;
-import haxe.io.BytesBuffer;
-
-import hxl8.Types;
-
-import hxl8.commands.L8CrcCalc;
+import hxl8.Types.Thread;
+import hxl8.Types.Serial;
 
 import hxl8.responses.L8ResponseBase;
-
-import hxl8.L8ReceiverBase;
 
 class L8Receiver extends L8ReceiverBase
 {

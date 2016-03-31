@@ -11,7 +11,7 @@
 
 -main hxl8.L8Ctl
 
---next 
+--next
 
 # 32bit Version
 -cp src
@@ -38,13 +38,13 @@
 -main hxl8.L8Ctl
 
 # --next
-# 
+#
 # -cp src
 # -js ourJS/l8ctl.js
-# 
+#
 # # -lib hxSerial
 # # -lib hxlode
-# 
+#
 # -main hxl8.L8Ctl
 
 --next
@@ -75,4 +75,3 @@
 
 -js outNodeJS/L8NodeSrv.js
 -main hxl8.L8NodeSrv
-

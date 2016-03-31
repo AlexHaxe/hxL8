@@ -1,0 +1,18 @@
+# 64bit Version
+-cp src
+-cpp outDebug
+
+-lib hxSerial
+-lib hxlode
+-lib hxcpp
+-D HXCPP_M64
+-D static
+-D linux
+
+-debug
+-lib hxcpp-debugger
+-D HXCPP_DEBUGGER
+-D HXCPP_STACK_TRACE
+-D HXCPP_TELEMETRY
+
+-main hxl8.L8Ctl

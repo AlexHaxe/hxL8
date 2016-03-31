@@ -1,7 +1,5 @@
 package hxl8;
 
-import hxl8.commands.L8CmdBase;
-
 interface ICommandListRepeating extends ICommandList
 {
     public function isRepeat () : Bool;

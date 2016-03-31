@@ -1,20 +1,13 @@
 package hxl8.responses;
 
 import haxe.io.Bytes;
-import haxe.io.BytesBuffer;
-
-import hxl8.commands.L8CrcCalc;
-
-import hxl8.exceptions.L8SendException;
-
-import hxl8.responses.L8ResponseBase;
 
 class L8ResponseAccelerator extends L8ResponseBase
 {
     private var m_accX : Float;
     private var m_accY : Float;
     private var m_accZ : Float;
-    private var m_lying : Bool;
+    private var m_facing : Bool;
     private var m_orient : Int;
     private var m_tap : Bool;
     private var m_shake : Bool;
@@ -31,7 +24,7 @@ class L8ResponseAccelerator extends L8ResponseBase
             m_accX = 0;
             m_accY = 0;
             m_accZ = 0;
-            m_lying = false;
+            m_facing = false;
             m_orient = 0;
             m_tap = false;
             m_shake = false;
@@ -41,7 +34,7 @@ class L8ResponseAccelerator extends L8ResponseBase
         m_accX = data.get (1);
         m_accY = data.get (2);
         m_accZ = data.get (3);
-        m_lying = (data.get (4) == 2);
+        m_facing = (data.get (4) == 2);
         m_orient = data.get (5);
         m_tap = (data.get (6) == 1);
         m_shake = (data.get (7) == 1);
@@ -52,9 +45,30 @@ class L8ResponseAccelerator extends L8ResponseBase
         var accY : String = Std.string (m_accY / 32 * 1.5);
         var accZ : String = Std.string (m_accZ / 32 * 1.5);
 
-        var lying : String = (m_lying) ? "Up" : "Upside-down";
-        var tap : String = (m_tap) ? "tap" : "---";
-        var shake : String = (m_shake) ? "shaking" : "not shaking";
+        var facing : String = if (m_facing)
+        {
+            "Up";
+        }
+        else
+        {
+            "Upside-down";
+        }
+        var tap : String = if (m_tap)
+        {
+            "tap";
+        }
+        else
+        {
+            "---";
+        }
+        var shake : String = if (m_shake)
+        {
+            "shaking";
+        }
+        else
+        {
+            "not shaking";
+        }
         var orient : String = "";
         switch (m_orient)
         {
@@ -69,7 +83,7 @@ class L8ResponseAccelerator extends L8ResponseBase
             default:
         }
 
-        return 'ACC: X=${accX}g Y=${accY}g Z=${accZ}g lying=$lying orient=$orient tap=$tap shaking=$shake';
+        return 'ACC: X=${accX}g Y=${accY}g Z=${accZ}g facing=$facing orient=$orient tap=$tap shaking=$shake';
     }
     override public function toCSV (header : Bool = false) : Array<String>
     {
@@ -78,7 +92,7 @@ class L8ResponseAccelerator extends L8ResponseBase
         {
             result.push ('response;x-axis;y-axis;z-axis;lying info;orientation;tap;shake');
         }
-        result.push ('$m_cmd;$m_accX;$m_accY;$m_accZ;$m_lying;$m_orient;$m_tap;$m_shake');
+        result.push ('$m_cmd;$m_accX;$m_accY;$m_accZ;$m_facing;$m_orient;$m_tap;$m_shake');
         return result;
     }
 }
