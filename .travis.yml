@@ -21,7 +21,7 @@ install:
   - haxelib list
 
 script:
+  - haxelib run checkstyle -c checkstyleConfig.json -s src
   - mkdir -p outNodeJS
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then haxe build.hxml; fi
   - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then haxe buildMac.hxml; fi
-  - haxelib run checkstyle -c checkstyleConfig.json -s src
