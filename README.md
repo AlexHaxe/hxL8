@@ -297,24 +297,24 @@ default interface: /dev/ttyACM0
 
 Samples
 -------
-(on Windows using COM3)
+(on Windows using COM3 = default)
 
-`L8Ctl.exe interface COM3 super f00`
+`L8Ctl.exe super f00`
 sets super led to red
 
-`L8Ctl.exe interface COM3 super fff matrixuni f00`
+`L8Ctl.exe super fff matrixuni f00`
 sets super led to white and matrix to all red
 
-`L8Ctl.exe interface COM3 matrixfile icon.png 50 50`
+`L8Ctl.exe matrixfile icon.png 50 50`
 sets matrix to contents of icon.png at offset 50×50
 
-`L8Ctl.exe interface COM3 text 00f “this is a test” 1 true`
+`L8Ctl.exe text 00f “this is a test” 1 true`
 starts text scroller in blue with medium speed (= 1) and loop = true
 
-`L8Ctl.exe interface COM3 dice fff`
+`L8Ctl.exe dice fff`
 starts dice app in white
 
-`L8Ctl.exe interface COM3 appstop`
+`L8Ctl.exe appstop`
 stops current app
 
 
