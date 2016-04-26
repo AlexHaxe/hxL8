@@ -4,8 +4,8 @@ git:
 language: haxe
 
 os:
-  - linux
   - osx
+  - linux
 
 haxe:
   - "3.2.1"
