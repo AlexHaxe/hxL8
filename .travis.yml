@@ -12,7 +12,9 @@ haxe:
   - development
 
 install:
-  - haxelib install hxcpp
+  - haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp.git
+  - (cd ~/haxe/lib/hxcpp/git/project; neko build.n static-linux-m32)
+  - (cd ~/haxe/lib/hxcpp/git/project; neko build.n static-linux-m64)
   - haxelib install hxjava
   - haxelib install hxlode
   - haxelib install hxSerial
