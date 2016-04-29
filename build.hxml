@@ -13,19 +13,19 @@
 
 --next
 
-# 32bit Version
--cp src
--cpp out32
-
--lib hxSerial
--lib hxlode
--lib hxcpp
--D static
--D linux
-
--main hxl8.L8Ctl
-
---next
+# # 32bit Version
+# -cp src
+# -cpp out32
+#
+# -lib hxSerial
+# -lib hxlode
+# -lib hxcpp
+# -D static
+# -D linux
+#
+# -main hxl8.L8Ctl
+#
+# --next
 
 -cp src
 -java outJava
