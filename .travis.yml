@@ -4,8 +4,8 @@ git:
 language: haxe
 
 os:
-  - osx
   - linux
+  - osx
 
 haxe:
   - "3.2.1"
@@ -13,6 +13,9 @@ haxe:
 
 install:
   - haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp.git
+  - (cd ~/haxe/lib/hxcpp/git/tools/hxcpp; haxe compile.hxml)
+  - (cd ~/haxe/lib/hxcpp/git/tools/build; haxe compile.hxml)
+  - (cd ~/haxe/lib/hxcpp/git/tools/run; haxe compile.hxml)
   - (cd ~/haxe/lib/hxcpp/git/project; neko build.n static-linux-m32)
   - (cd ~/haxe/lib/hxcpp/git/project; neko build.n static-linux-m64)
   - haxelib install hxjava
