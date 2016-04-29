@@ -16,7 +16,8 @@ install:
   - (cd ~/haxe/lib/hxcpp/git/tools/hxcpp; haxe compile.hxml)
   - (cd ~/haxe/lib/hxcpp/git/tools/build; haxe compile.hxml)
   - (cd ~/haxe/lib/hxcpp/git/tools/run; haxe compile.hxml)
-  - (cd ~/haxe/lib/hxcpp/git/project; neko build.n static-linux-m64)
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then (cd ~/haxe/lib/hxcpp/git/project; neko build.n static-linux-m64); fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then (cd ~/haxe/lib/hxcpp/git/project; neko build.n static-mac-m64); fi
   - haxelib install hxjava
   - haxelib install hxlode
   - haxelib install hxSerial
@@ -27,5 +28,5 @@ install:
 script:
   - haxelib run checkstyle -c checkstyleConfig.json -s src
   - mkdir -p outNodeJS
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then haxe build.hxml; fi
-  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then haxe buildMac.hxml; fi
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then haxe buildTravis.hxml; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then haxe buildMacTravis.hxml; fi

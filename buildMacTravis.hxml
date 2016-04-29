@@ -7,21 +7,7 @@
 -lib hxcpp
 -D HXCPP_M64
 -D static
--D linux
-
--main hxl8.L8Ctl
-
---next
-
-# 32bit Version
--cp src
--cpp out32
-
--lib hxSerial
--lib hxlode
--lib hxcpp
--D static
--D linux
+-D mac
 
 -main hxl8.L8Ctl
 
@@ -56,7 +42,7 @@
 -lib hxcpp
 -D HXCPP_M64
 -D static
--D linux
+-D mac
 
 -main hxl8.L8tiesParser
 
@@ -75,3 +61,4 @@
 
 -js outNodeJS/L8NodeSrv.js
 -main hxl8.L8NodeSrv
+
