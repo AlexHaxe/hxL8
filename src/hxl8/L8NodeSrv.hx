@@ -211,6 +211,6 @@ class L8NodeSrv
         {
             serialPort = args[3];
         }
-        var srv : L8NodeSrv = new L8NodeSrv (tcpPort, serialPort);
+        new L8NodeSrv (tcpPort, serialPort);
     }
 }

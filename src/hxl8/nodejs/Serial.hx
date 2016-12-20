@@ -79,6 +79,7 @@ class Serial
         }
         return m_serialPort.isOpened ();
     }
+    @SuppressWarnings("checkstyle:UnusedLocalVar")
     public function setup () : Bool
     {
         var serialPort = portName;

@@ -1,9 +1,5 @@
 package hxl8;
 
-import sys.FileSystem;
-
-import hxl8.commands.L8CrcCalc;
-
 import hxl8.commands.L8CmdBase;
 import hxl8.commands.L8CmdAppStop;
 import hxl8.commands.L8CmdAppRunAmbient;
@@ -181,7 +177,7 @@ class L8CmdParser implements ICommandList implements ICommandListRepeating
             return;
         }
 
-        var param : String;
+        //var param : String;
         while (args.length > 0)
         {
             var command : String = args.shift ();

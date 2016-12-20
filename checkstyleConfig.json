@@ -39,6 +39,14 @@
             }
         },
         {
+            "type": "ConditionalCompilation",
+            "props": {
+                "severity": "WARNING",
+                "policy": "startOfLine",
+                "allowSingleline": false
+            }
+        },
+        {
             "type": "ConstantName",
             "props": {
                 "severity": "ERROR",
@@ -542,11 +550,16 @@
                           "haxe.macro.Expr",
                           "com.kewbee.config.AppConfig",
                           "com.kewbee.database.field.DBFieldTypes",
-                          "com.kewbee.interfaces.ISiteID",
-                          "com.kewbee.utils.Unsafe"
+                          "com.kewbee.interfaces.ISiteID"
                         ]
                 },
                 "type": "UnusedImport"
+        },
+        {
+            "type": "UnusedLocalVar",
+            "props": {
+                "severity": "INFO"
+            }
         },
         {
             "type": "VariableInitialisation",

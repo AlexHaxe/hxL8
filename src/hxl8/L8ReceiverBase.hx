@@ -62,7 +62,7 @@ class L8ReceiverBase
         while (true)
         {
             var response : L8ResponseBase = readOneResponse ();
-            if(response == null)
+            if (response == null)
             {
                 return;
             }

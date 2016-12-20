@@ -43,7 +43,7 @@ class L8Receiver extends L8ReceiverBase
 
     public static function receiverThread () : Void
     {
-        var started : Bool = false;
+        //var started : Bool = false;
 
         var thread : Thread = Thread.readMessage (true);
         var serial : Serial = Thread.readMessage (true);
