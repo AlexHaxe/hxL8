@@ -30,3 +30,8 @@ script:
   - mkdir -p outNodeJS
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then haxe buildTravis.hxml; fi
   - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then haxe buildMacTravis.hxml; fi
+
+
+matrix:
+  allow_failures:
+    - haxe: development
