@@ -48,7 +48,7 @@ class L8ResponseSensorThresholds extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;noise min;noise max;proximity min;proximity max;ambient min;ambient max');
+            result.push ("response;noise min;noise max;proximity min;proximity max;ambient min;ambient max");
         }
         result.push ('$m_cmd;$m_noiseMinValue;$m_noiseMaxValue;$m_proxMinValue;$m_proxMaxValue;$m_ambMinValue;$m_ambMaxValue');
         return result;

@@ -22,11 +22,11 @@ class L8ResponseButton extends L8ResponseBase
     {
         if (m_pressed)
         {
-            return 'Button pressed';
+            return "Button pressed";
         }
         else
         {
-            return 'Button not pressed';
+            return "Button not pressed";
         }
     }
     override public function toCSV (header : Bool = false) : Array<String>
@@ -34,7 +34,7 @@ class L8ResponseButton extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;button status');
+            result.push ("response;button status");
         }
         result.push ('$m_cmd;$m_pressed');
         return result;

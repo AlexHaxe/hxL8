@@ -58,17 +58,17 @@ class Serial
     {
         var nodeSerial = Node.require ("serialport");
         nodeSerial.list (function (err, ports : Array<Dynamic>)
-        {
-            var devices : Map<String, String> = new Map<String, String> ();
-            for (port in ports)
             {
-                devices.set (port.comName, port.pnpId);
-            }
-            if (callback != null)
-            {
-                callback (devices);
-            }
-        });
+                var devices : Map<String, String> = new Map<String, String> ();
+                for (port in ports)
+                {
+                    devices.set (port.comName, port.pnpId);
+                }
+                if (callback != null)
+                {
+                    callback (devices);
+                }
+            });
     }
 
     public function get_isSetup () : Bool
@@ -96,38 +96,38 @@ class Serial
             {
                 err = errorCallback;
             }
-            m_serialPort = untyped __js__('new nodeSerial (serialPort, {baudrate: serialBaud}, true, err)');
+            m_serialPort = untyped __js__("new nodeSerial (serialPort, {baudrate: serialBaud}, true, err)");
         }
         catch (e : Dynamic)
         {
             trace (e);
             return false;
         }
-        m_serialPort.on ('open', function ()
-        {
-            if (openHandler != null)
+        m_serialPort.on ("open", function ()
             {
-                openHandler ();
-            }
-        });
-        m_serialPort.on ('data', function (data)
-        {
-            if (dataHandler != null)
+                if (openHandler != null)
+                {
+                    openHandler ();
+                }
+            });
+        m_serialPort.on ("data", function (data)
             {
-                dataHandler (data);
-            }
-        });
-        m_serialPort.on ('error', function (error)
-        {
-            if (errorHandler != null)
+                if (dataHandler != null)
+                {
+                    dataHandler (data);
+                }
+            });
+        m_serialPort.on ("error", function (error)
             {
-                errorHandler (error);
-            }
-            else
-            {
-                trace (error);
-            }
-        });
+                if (errorHandler != null)
+                {
+                    errorHandler (error);
+                }
+                else
+                {
+                    trace (error);
+                }
+            });
 
         isSetup = true;
         return true;

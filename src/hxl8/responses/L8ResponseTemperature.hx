@@ -30,7 +30,7 @@ class L8ResponseTemperature extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;temperature');
+            result.push ("response;temperature");
         }
         result.push ('$m_cmd;$m_temperature');
         return result;

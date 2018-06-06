@@ -5,6 +5,7 @@ import haxe.io.Bytes;
 class L8ResponseBatchG extends L8ResponseBase
 {
     private var m_charge : Int;
+
     public function new ()
     {
         super ();
@@ -40,7 +41,7 @@ class L8ResponseBatchG extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;charging status');
+            result.push ("response;charging status");
         }
         result.push ('$m_cmd;$m_charge');
         return result;

@@ -8,7 +8,7 @@ os:
 #  - osx
 
 haxe:
-  - "3.2.1"
+  - "3.4.7"
   - development
 
 install:
@@ -26,7 +26,7 @@ install:
   - haxelib list
 
 script:
-  - haxelib run checkstyle -c checkstyleConfig.json -s src
+  - haxelib run checkstyle -c checkstyle.json -s src
   - mkdir -p outNodeJS
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then haxe buildTravis.hxml; fi
   - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then haxe buildMacTravis.hxml; fi

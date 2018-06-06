@@ -46,29 +46,29 @@ class L8ResponseAccelerator extends L8ResponseBase
         var accZ : String = Std.string (m_accZ / 32 * 1.5);
 
         var facing : String = if (m_facing)
-        {
-            "Up";
-        }
-        else
-        {
-            "Upside-down";
-        }
+            {
+                "Up";
+            }
+            else
+            {
+                "Upside-down";
+            }
         var tap : String = if (m_tap)
-        {
-            "tap";
-        }
-        else
-        {
-            "---";
-        }
+            {
+                "tap";
+            }
+            else
+            {
+                "---";
+            }
         var shake : String = if (m_shake)
-        {
-            "shaking";
-        }
-        else
-        {
-            "not shaking";
-        }
+            {
+                "shaking";
+            }
+            else
+            {
+                "not shaking";
+            }
         var orient : String = "";
         switch (m_orient)
         {
@@ -90,7 +90,7 @@ class L8ResponseAccelerator extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;x-axis;y-axis;z-axis;lying info;orientation;tap;shake');
+            result.push ("response;x-axis;y-axis;z-axis;lying info;orientation;tap;shake");
         }
         result.push ('$m_cmd;$m_accX;$m_accY;$m_accZ;$m_facing;$m_orient;$m_tap;$m_shake');
         return result;

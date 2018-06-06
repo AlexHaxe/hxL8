@@ -70,7 +70,7 @@ class L8ResponseNotifyApp extends L8ResponseBase
         var buffer2 : StringBuf = new StringBuf ();
 
         buffer.add ('Name: $m_app\n');
-        buffer.add ('Matrix:\n');
+        buffer.add ("Matrix:\n");
         var index : Int = 0;
         for (rgb in m_rgbs)
         {
@@ -96,7 +96,7 @@ class L8ResponseNotifyApp extends L8ResponseBase
         if (header)
         {
             var headerText : StringBuf = new StringBuf ();
-            headerText.add ('response;length of app string;app string');
+            headerText.add ("response;length of app string;app string");
             var index : Int = 0;
             for (rgb in m_rgbs)
             {
@@ -114,8 +114,8 @@ class L8ResponseNotifyApp extends L8ResponseBase
         dataText.add (m_app);
         for (rgb in m_rgbs)
         {
-           dataText.add (";");
-           dataText.add (rgb.toString ());
+            dataText.add (";");
+            dataText.add (rgb.toString ());
         }
         dataText.add (";");
         dataText.add (m_super.toString ());

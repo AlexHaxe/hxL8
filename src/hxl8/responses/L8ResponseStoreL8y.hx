@@ -27,7 +27,7 @@ class L8ResponseStoreL8y extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;new l8y number');
+            result.push ("response;new l8y number");
         }
         result.push ('$m_cmd;$m_l8y');
         return result;

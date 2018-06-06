@@ -11,6 +11,7 @@ class L8Receiver extends L8ReceiverBase
     public static var hex : Bool = false;
     public static var csv : Bool = false;
     public static var csvHeader : Bool = false;
+
     private var responseHandler : L8ResponseHandler;
 
     private var mainThread : Thread;

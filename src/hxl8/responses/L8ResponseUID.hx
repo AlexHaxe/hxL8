@@ -31,7 +31,7 @@ class L8ResponseUID extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;uid');
+            result.push ("response;uid");
         }
         result.push ('$m_cmd;$m_UID');
         return result;

@@ -74,27 +74,29 @@ import hxl8.commands.L8CmdStoreFrameFile;
 
 class L8CmdParser implements ICommandList implements ICommandListRepeating
 {
-    private static var m_commands : Array<String> = ["appstop", "stop", "appambient", "appdice", "dice", "applight",
-            "appcolorchange", "colorchange", "appproximity", "appprox", "autorotate", "bootloader", "dfu",
-            "batchg", "bat", "brightness", "bright", "box", "button", "deletel8y", "deleteanim", "deleteframe",
-            "deleteusermemory", "deleteuserspace", "displaychar", "char", "enableallnotifications",
-            "enableallnotify", "enablenotification", "enablenotify", "notifyenable", "getacc", "accelerator",
-            "acc", "getamb", "ambient", "amb", "getmatrix", "getmcutemp", "mcutemperature", "mcutemp", "getmic",
-            "microphone", "mic", "noise", "getnoise", "getnotifyapp", "readnotifyapp", "getnotify", "readnotify",
-            "getnumnotifyapps", "numnotifyapps", "numnotify", "getnumanims", "numanims", "getnumframes",
-            "numframes", "numframe", "getnuml8ies", "getnuml8y", "numl8ies", "numl8y", "getprox", "proximity",
-            "prox", "getthreshold", "sensorthresholds", "thresholds", "threshold", "gettemp", "temperature",
-            "temp", "getvoltage", "voltage", "getvbus", "vbus", "init", "initstatus", "status", "interface",
-            "int", "if", "matrixoff", "matrixclear", "clear", "poweroff", "off", "notificationssilent",
-            "notification", "notify", "party", "playanim", "play", "ping", "readanim", "readframe", "readl8y",
-            "silentrepeat", "repeat", "repeatsilent", "reset", "setmatrixledfile", "matrixledfile", "matrixfile",
-            "setled", "led", "setl8y", "l8y", "setmatrixledstring", "matrixledstring", "matrixstring",
-            "setnotificationsilence", "silence", "silent", "setmatrixleduni", "matrixleduni", "matrixuni",
-            "setsuperled", "superled", "super", "setorientation", "orientation", "orient", "setambthreshold",
-            "ambthreshold", "setnoisethreshold", "noisethreshold", "setproxthreshold", "proxthreshold",
-            "statusleds", "statusled", "stopanim", "storeanim", "storel8y", "storel8yfile", "storeframe",
-            "storeframefile", "storenotification", "storenotify", "setnotify", "setnotification", "text",
-            "uid", "version", "versions", "ver", "v", "hex", "csv", "csvheader", "csvhead", "numanim", "delay"];
+    private static var m_commands : Array<String> = [
+        "appstop", "stop", "appambient", "appdice", "dice", "applight",
+        "appcolorchange", "colorchange", "appproximity", "appprox", "autorotate", "bootloader", "dfu",
+        "batchg", "bat", "brightness", "bright", "box", "button", "deletel8y", "deleteanim", "deleteframe",
+        "deleteusermemory", "deleteuserspace", "displaychar", "char", "enableallnotifications",
+        "enableallnotify", "enablenotification", "enablenotify", "notifyenable", "getacc", "accelerator",
+        "acc", "getamb", "ambient", "amb", "getmatrix", "getmcutemp", "mcutemperature", "mcutemp", "getmic",
+        "microphone", "mic", "noise", "getnoise", "getnotifyapp", "readnotifyapp", "getnotify", "readnotify",
+        "getnumnotifyapps", "numnotifyapps", "numnotify", "getnumanims", "numanims", "getnumframes",
+        "numframes", "numframe", "getnuml8ies", "getnuml8y", "numl8ies", "numl8y", "getprox", "proximity",
+        "prox", "getthreshold", "sensorthresholds", "thresholds", "threshold", "gettemp", "temperature",
+        "temp", "getvoltage", "voltage", "getvbus", "vbus", "init", "initstatus", "status", "interface",
+        "int", "if", "matrixoff", "matrixclear", "clear", "poweroff", "off", "notificationssilent",
+        "notification", "notify", "party", "playanim", "play", "ping", "readanim", "readframe", "readl8y",
+        "silentrepeat", "repeat", "repeatsilent", "reset", "setmatrixledfile", "matrixledfile", "matrixfile",
+        "setled", "led", "setl8y", "l8y", "setmatrixledstring", "matrixledstring", "matrixstring",
+        "setnotificationsilence", "silence", "silent", "setmatrixleduni", "matrixleduni", "matrixuni",
+        "setsuperled", "superled", "super", "setorientation", "orientation", "orient", "setambthreshold",
+        "ambthreshold", "setnoisethreshold", "noisethreshold", "setproxthreshold", "proxthreshold",
+        "statusleds", "statusled", "stopanim", "storeanim", "storel8y", "storel8yfile", "storeframe",
+        "storeframefile", "storenotification", "storenotify", "setnotify", "setnotification", "text",
+        "uid", "version", "versions", "ver", "v", "hex", "csv", "csvheader", "csvhead", "numanim", "delay"
+    ];
 
     private var commands : Array<L8CmdBase>;
 

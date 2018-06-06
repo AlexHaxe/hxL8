@@ -44,7 +44,7 @@ class L8CommBase
             Sys.println ('cannot open COM-Port $comPort');
             if (!found)
             {
-                Sys.println ('\navailable COM-Ports:');
+                Sys.println ("\navailable COM-Ports:");
                 for (device in devices)
                 {
                     Sys.println ('\t$device');

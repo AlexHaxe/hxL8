@@ -27,7 +27,7 @@ class L8ResponseNumAnims extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;number of animations');
+            result.push ("response;number of animations");
         }
         result.push ('$m_cmd;$m_animCount');
         return result;

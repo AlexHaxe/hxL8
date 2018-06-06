@@ -42,7 +42,7 @@ class L8CmdSetNotification extends L8CmdBase
         buffer.addByte (m_app.length);
         if (m_app.length > 0)
         {
-                buffer.add (Bytes.ofString (m_app));
+            buffer.add (Bytes.ofString (m_app));
         }
         buffer.addByte (m_eventType);
         buffer.addByte (m_category);

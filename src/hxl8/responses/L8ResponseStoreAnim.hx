@@ -27,7 +27,7 @@ class L8ResponseStoreAnim extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;new anim number');
+            result.push ("response;new anim number");
         }
         result.push ('$m_cmd;$m_anim');
         return result;

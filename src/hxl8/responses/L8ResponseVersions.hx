@@ -47,7 +47,7 @@ class L8ResponseVersions extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;lightos version;hardware version;bootloader version;data version');
+            result.push ("response;lightos version;hardware version;bootloader version;data version");
         }
         result.push ('$m_cmd;$m_versionLightOS;$m_versionHardware;$m_versionBootloader;$m_versionData');
         return result;

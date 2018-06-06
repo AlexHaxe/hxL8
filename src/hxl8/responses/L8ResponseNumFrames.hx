@@ -27,7 +27,7 @@ class L8ResponseNumFrames extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;number of frames');
+            result.push ("response;number of frames");
         }
         result.push ('$m_cmd;$m_frameCount');
         return result;

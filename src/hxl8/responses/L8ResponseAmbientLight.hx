@@ -45,7 +45,7 @@ class L8ResponseAmbientLight extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;light value;light percentage;notification flag');
+            result.push ("response;light value;light percentage;notification flag");
         }
         result.push ('$m_cmd;$m_lightValue;$m_percent;$m_requestFlag');
         return result;

@@ -33,7 +33,7 @@ class L8ResponseErr extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;error code');
+            result.push ("response;error code");
         }
         result.push ('$m_cmd;$m_code');
         return result;

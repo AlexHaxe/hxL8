@@ -30,7 +30,7 @@ class L8ResponseNoise extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;noise');
+            result.push ("response;noise");
         }
         result.push ('$m_cmd;$m_noiseValue');
         return result;

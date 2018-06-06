@@ -1,16 +1,15 @@
 {
-    "checks": [
-        {
-            "type": "AccessOrder",
+    "checks": [{
+            "type": "ModifierOrder",
             "props": {
                 "severity": "WARNING",
                 "modifiers": [
-                        "MACRO",
-                        "OVERRIDE",
-                        "PUBLIC_PRIVATE",
-                        "STATIC",
-                        "INLINE",
-                        "DYNAMIC"
+                    "MACRO",
+                    "OVERRIDE",
+                    "PUBLIC_PRIVATE",
+                    "STATIC",
+                    "INLINE",
+                    "DYNAMIC"
                 ]
             }
         },
@@ -21,7 +20,7 @@
             }
         },
         {
-            "type": "ArrayInstantiation",
+            "type": "ArrayLiteral",
             "props": {
                 "severity": "WARNING"
             }
@@ -51,7 +50,7 @@
             "props": {
                 "severity": "ERROR",
                 "format": "^[A-Z][A-Z0-9]*(_[A-Z0-9_]+)*$",
-                "tokens": [ "INLINE" ]
+                "tokens": ["INLINE"]
             }
         },
         {
@@ -59,20 +58,19 @@
             "props": {
                 "severity": "ERROR",
                 "format": "^[a-z]+[a-zA-Z0-9_]*$",
-                "tokens": [ "NOTINLINE" ]
+                "tokens": ["NOTINLINE"]
             }
         },
         {
             "type": "CyclomaticComplexity",
             "props": {
-                "thresholds": [
-                    {
-                        "severity" : "WARNING",
-                        "complexity" : 11
+                "thresholds": [{
+                        "severity": "WARNING",
+                        "complexity": 11
                     },
                     {
-                        "severity" : "ERROR",
-                        "complexity" : 21
+                        "severity": "ERROR",
+                        "complexity": 21
                     }
                 ]
             }
@@ -89,18 +87,18 @@
                 "severity": "WARNING",
                 "option": "text",
                 "tokens": [
-                            "CLASS_DEF",
-                            "ENUM_DEF",
-                            "ABSTRACT_DEF",
-                            "CLASS_DEF",
-                            "INTERFACE_DEF",
-                            "FUNCTION",
-                            "FOR",
-                            "IF",
-                            "WHILE",
-                            "SWITCH",
-                            "TRY",
-                            "CATCH"
+                    "CLASS_DEF",
+                    "ENUM_DEF",
+                    "ABSTRACT_DEF",
+                    "CLASS_DEF",
+                    "INTERFACE_DEF",
+                    "FUNCTION",
+                    "FOR",
+                    "IF",
+                    "WHILE",
+                    "SWITCH",
+                    "TRY",
+                    "CATCH"
                 ]
             }
         },
@@ -113,15 +111,46 @@
         },
         {
             "props": {
-                "severity": "INFO"
+                "severity": "INFO",
+                "enforceEmptyPackage": true
             },
             "type": "EmptyPackage"
         },
         {
-            "type": "ERegInstantiation",
+            "type": "ERegLiteral",
             "props": {
                 "severity": "ERROR"
             }
+        },
+        {
+            "props": {
+                "max": 1,
+                "skipSingleLineTypes": true,
+                "defaultPolicy": "none",
+                "exact": [
+                    "inFunction",
+                    "afterPackage",
+                    "afterImports",
+                    "beforeUsing",
+                    "betweenTypes",
+                    "beforeFileEnd",
+                    "afterAbstractVars",
+                    "afterClassStaticVars",
+                    "afterClassVars"
+                ],
+                "upto": [
+                    "betweenImports",
+                    "afterSingleLineComment",
+                    "anywhereInFile",
+                    "betweenAbstractVars",
+                    "betweenAbstractMethods",
+                    "betweenClassStaticVars",
+                    "betweenClassVars",
+                    "betweenClassMethods",
+                    "betweenInterfaceFields"
+                ]
+            },
+            "type": "ExtendedEmptyLines"
         },
         {
             "type": "FileLength",
@@ -131,7 +160,7 @@
             }
         },
         {
-            "type": "HexadecimalLiterals",
+            "type": "HexadecimalLiteral",
             "props": {
                 "severity": "INFO"
             }
@@ -160,12 +189,20 @@
             "type": "Interface"
         },
         {
+            "props": {
+                "character": "    ",
+                "ignoreConditionals": true,
+                "severity": "INFO"
+            },
+            "type": "Indentation"
+        },
+        {
             "type": "LeftCurly",
             "props": {
                 "severity": "ERROR",
                 "option": "eol",
                 "tokens": [
-                            "TYPEDEF_DEF"
+                    "TYPEDEF_DEF"
                 ]
             }
         },
@@ -175,18 +212,18 @@
                 "severity": "ERROR",
                 "option": "nl",
                 "tokens": [
-                            "CLASS_DEF",
-                            "ENUM_DEF",
-                            "ABSTRACT_DEF",
-                            "CLASS_DEF",
-                            "INTERFACE_DEF",
-                            "FUNCTION",
-                            "FOR",
-                            "IF",
-                            "WHILE",
-                            "SWITCH",
-                            "TRY",
-                            "CATCH"
+                    "CLASS_DEF",
+                    "ENUM_DEF",
+                    "ABSTRACT_DEF",
+                    "CLASS_DEF",
+                    "INTERFACE_DEF",
+                    "FUNCTION",
+                    "FOR",
+                    "IF",
+                    "WHILE",
+                    "SWITCH",
+                    "TRY",
+                    "CATCH"
                 ]
             }
         },
@@ -229,7 +266,7 @@
             "props": {
                 "severity": "ERROR",
                 "format": "^[A-Z][a-zA-Z0-9_]*$",
-                "tokens": [ "ENUM" ]
+                "tokens": ["ENUM"]
             }
         },
         {
@@ -237,7 +274,7 @@
             "props": {
                 "severity": "ERROR",
                 "format": "^(m_)?[a-zA-Z]+[a-zA-Z0-9_]*$",
-                "tokens": [ "CLASS", "ABSTRACT", "PUBLIC", "PRIVATE" ]
+                "tokens": ["CLASS", "ABSTRACT", "PUBLIC", "PRIVATE"]
             }
         },
         {
@@ -245,7 +282,7 @@
             "props": {
                 "severity": "ERROR",
                 "format": "^[a-z]+[a-zA-Z0-9_]*$",
-                "tokens": [ "TYPEDEF" ]
+                "tokens": ["TYPEDEF"]
             }
         },
         {
@@ -312,41 +349,41 @@
                 "severity": "WARNING",
                 "option": "eol",
                 "tokens": [
-                          "=",
-                          "+",
-                          "-",
-                          "*",
-                          "/",
-                          "%",
-                          ">",
-                          "<",
-                          ">=",
-                          "<=",
-                          "==",
-                          "!=",
-                          "&",
-                          "|",
-                          "^",
-                          "&&",
-                          "||",
-                          "<<",
-                          ">>",
-                          ">>>",
-                          "+=",
-                          "-=",
-                          "*=",
-                          "/=",
-                          "%=",
-                          "<<=",
-                          ">>=",
-                          ">>>=",
-                          "|=",
-                          "&=",
-                          "^=",
-                          "...",
-                          "=>",
-                          "++",
-                          "--"
+                    "=",
+                    "+",
+                    "-",
+                    "*",
+                    "/",
+                    "%",
+                    ">",
+                    "<",
+                    ">=",
+                    "<=",
+                    "==",
+                    "!=",
+                    "&",
+                    "|",
+                    "^",
+                    "&&",
+                    "||",
+                    "<<",
+                    ">>",
+                    ">>>",
+                    "+=",
+                    "-=",
+                    "*=",
+                    "/=",
+                    "%=",
+                    "<<=",
+                    ">>=",
+                    ">>>=",
+                    "|=",
+                    "&=",
+                    "^=",
+                    "...",
+                    "=>",
+                    "++",
+                    "--"
                 ]
             }
         },
@@ -356,7 +393,7 @@
                 "severity": "WARNING",
                 "option": "nl",
                 "tokens": [
-                            "!"
+                    "!"
                 ]
             }
         },
@@ -365,7 +402,7 @@
             "props": {
                 "severity": "ERROR",
                 "format": "^[a-z]+[a-zA-Z0-9_]*$",
-                "tokens": [ "ENUM" ]
+                "tokens": ["ENUM"]
             }
         },
         {
@@ -373,11 +410,11 @@
             "props": {
                 "severity": "INFO",
                 "max": 7,
-                "ignoreOverriddenMethods":false
+                "ignoreOverriddenMethods": false
             }
         },
         {
-            "type": "PublicPrivate",
+            "type": "RedundantModifier",
             "props": {
                 "severity": "INFO",
                 "enforcePublicPrivate": true
@@ -411,7 +448,7 @@
                 "severity": "ERROR",
                 "option": "aloneorsingle",
                 "tokens": [
-                            "OBJECT_DECL"
+                    "OBJECT_DECL"
                 ]
             }
         },
@@ -421,18 +458,18 @@
                 "severity": "ERROR",
                 "option": "alone",
                 "tokens": [
-                            "CLASS_DEF",
-                            "ENUM_DEF",
-                            "ABSTRACT_DEF",
-                            "CLASS_DEF",
-                            "INTERFACE_DEF",
-                            "FUNCTION",
-                            "FOR",
-                            "IF",
-                            "WHILE",
-                            "SWITCH",
-                            "TRY",
-                            "CATCH"
+                    "CLASS_DEF",
+                    "ENUM_DEF",
+                    "ABSTRACT_DEF",
+                    "CLASS_DEF",
+                    "INTERFACE_DEF",
+                    "FUNCTION",
+                    "FOR",
+                    "IF",
+                    "WHILE",
+                    "SWITCH",
+                    "TRY",
+                    "CATCH"
                 ]
             }
         },
@@ -451,7 +488,7 @@
                 "severity": "WARNING",
                 "option": "eol",
                 "tokens": [
-                            ","
+                    ","
                 ]
             }
         },
@@ -461,7 +498,7 @@
                 "severity": "WARNING",
                 "option": "nl",
                 "tokens": [
-                            "."
+                    "."
                 ]
             }
         },
@@ -469,12 +506,12 @@
             "type": "Spacing",
             "props": {
                 "severity": "INFO",
-                "spaceIfCondition": true,
+                "spaceIfCondition": "should",
                 "spaceAroundBinop": true,
                 "noSpaceAroundUnop": true,
-                "spaceForLoop": true,
-                "spaceWhileLoop": true,
-                "spaceSwitchCase": true,
+                "spaceForLoop": "should",
+                "spaceWhileLoop": "should",
+                "spaceSwitchCase": "should",
                 "ignoreRangeOperator": true
             }
         },
@@ -489,6 +526,13 @@
                 "severity": "INFO"
             },
             "type": "SimplifyBooleanReturn"
+        },
+        {
+            "props": {
+                "allowException": true,
+                "policy": "doubleAndInterpolation"
+            },
+            "type": "StringLiteral"
         },
         {
             "type": "TabForAligning",
@@ -526,7 +570,7 @@
             "props": {
                 "severity": "ERROR",
                 "format": "^I[A-Z]+[a-zA-Z0-9_]*$",
-                "tokens": [ "INTERFACE" ]
+                "tokens": ["INTERFACE"]
             }
         },
         {
@@ -534,26 +578,26 @@
             "props": {
                 "severity": "ERROR",
                 "format": "^[A-Z]+[a-zA-Z0-9_]*$",
-                "tokens": [ "ENUM", "CLASS", "TYPEDEF" ]
+                "tokens": ["ENUM", "CLASS", "TYPEDEF"]
             }
         },
         {
-                "props": {
-                        "severity": "WARNING"
-                },
-                "type": "UnnecessaryConstructor"
+            "props": {
+                "severity": "WARNING"
+            },
+            "type": "UnnecessaryConstructor"
         },
         {
-                "props": {
-                        "severity": "INFO",
-                        "ignoreModules": [
-                          "haxe.macro.Expr",
-                          "com.kewbee.config.AppConfig",
-                          "com.kewbee.database.field.DBFieldTypes",
-                          "com.kewbee.interfaces.ISiteID"
-                        ]
-                },
-                "type": "UnusedImport"
+            "props": {
+                "severity": "INFO",
+                "ignoreModules": [
+                    "haxe.macro.Expr",
+                    "haxe.macro.Type",
+                    "com.kewbee.database.field.DBFieldTypes",
+                    "com.kewbee.interfaces.ISiteID"
+                ]
+            },
+            "type": "UnusedImport"
         },
         {
             "type": "UnusedLocalVar",
@@ -571,14 +615,14 @@
             "type": "WhitespaceAfter",
             "props": {
                 "severity": "WARNING",
-                "tokens": [ ",", ";" ]
+                "tokens": [",", ";"]
             }
         },
         {
             "type": "WhitespaceAround",
             "props": {
                 "severity": "WARNING",
-                "tokens": [ "=", "+", "-", "/", "*" ]
+                "tokens": ["=", "+", "-", "/", "*"]
             }
         }
     ]

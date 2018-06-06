@@ -37,7 +37,7 @@ class L8NodeSrv
 
         if (args.length > 0)
         {
-            if (args [0] == '')
+            if (args [0] == "")
             {
                 args.shift ();
             }
@@ -54,9 +54,9 @@ class L8NodeSrv
         res.writeHead (200);
 
         Serial.getDeviceList (function (comPorts : Map<String, String>)
-        {
-            checkComPortsAndRun (res, parser, responseHandler, comPorts);
-        });
+            {
+                checkComPortsAndRun (res, parser, responseHandler, comPorts);
+            });
     }
     @SuppressWarnings("checkstyle:Dynamic")
     private function checkComPortsAndRun (res : NodeHttpServerResp,
@@ -86,12 +86,12 @@ class L8NodeSrv
         try
         {
             serial = new Serial (requestedComPort, 9600, true, function (err)
-            {
-                if (err != null)
                 {
-                    showComPorts (res, requestedComPort, comPorts, err);
-                }
-            });
+                    if (err != null)
+                    {
+                        showComPorts (res, requestedComPort, comPorts, err);
+                    }
+                });
         }
         catch (e : Dynamic)
         {
@@ -99,37 +99,37 @@ class L8NodeSrv
             return;
         }
         serial.setOpenHandler (function ()
-        {
-            try
             {
-                handleCommands (serial, parser, res, responseHandler);
-            }
-            catch (e : Dynamic)
-            {
-                res.end (Std.string (e));
-            }
-        });
+                try
+                {
+                    handleCommands (serial, parser, res, responseHandler);
+                }
+                catch (e : Dynamic)
+                {
+                    res.end (Std.string (e));
+                }
+            });
         var output : Array<String> = [];
         var lines : Array<String>;
         serial.setDataHandler (function (data)
-        {
-            lines = handleResponse (Bytes.ofData (data), responseHandler);
-            for (line in lines)
             {
-                output.push (line);
-            }
-            if (responseHandler.isFinished ())
-            {
-                res.end (output.join ("\n"));
-                // we need to close port outside of callback,
-                // since data callback tries to read after callback function
-                Node.setTimeout (function ()
+                lines = handleResponse (Bytes.ofData (data), responseHandler);
+                for (line in lines)
                 {
-                    serial.close ();
-                },
-                10);
-            }
-        });
+                    output.push (line);
+                }
+                if (responseHandler.isFinished ())
+                {
+                    res.end (output.join ("\n"));
+                    // we need to close port outside of callback,
+                    // since data callback tries to read after callback function
+                    Node.setTimeout (function ()
+                    {
+                        serial.close ();
+                    },
+                    10);
+                }
+            });
     }
     private function handleResponse (data, responseHandler) : Array<String>
     {
@@ -152,9 +152,9 @@ class L8NodeSrv
             sender = new L8CmdQueueSender (serial, parser, responseHandler);
         }
         sender.setFinishCallback (function ()
-        {
-            responseHandler.sendFinished = true;
-        });
+            {
+                responseHandler.sendFinished = true;
+            });
         sender.start ();
     }
 

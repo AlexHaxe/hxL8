@@ -1,7 +1,7 @@
 package hxl8;
 
 #if cpp
-import hxcpp.StaticStd;
+// import hxcpp.StaticStd;
 #end
 
 typedef Serial =

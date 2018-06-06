@@ -27,7 +27,7 @@ class L8ResponseNumNotifyApps extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;number of notify apps');
+            result.push ("response;number of notify apps");
         }
         result.push ('$m_cmd;$m_appCount');
         return result;

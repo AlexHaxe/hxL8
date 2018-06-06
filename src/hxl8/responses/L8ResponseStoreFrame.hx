@@ -27,7 +27,7 @@ class L8ResponseStoreFrame extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;new frame number');
+            result.push ("response;new frame number");
         }
         result.push ('$m_cmd;$m_frame');
         return result;

@@ -12,7 +12,7 @@ class L8CmdAppRunDice extends L8CmdAppRun
     {
         super ();
         m_rgb = rgb;
-     }
+    }
     override public function getBytes () : BytesBuffer
     {
         var buffer : BytesBuffer = super.getBytes ();

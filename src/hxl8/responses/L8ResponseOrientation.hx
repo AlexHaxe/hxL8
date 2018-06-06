@@ -40,7 +40,7 @@ class L8ResponseOrientation extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;orientation');
+            result.push ("response;orientation");
         }
         result.push ('$m_cmd;$m_orient');
         return result;

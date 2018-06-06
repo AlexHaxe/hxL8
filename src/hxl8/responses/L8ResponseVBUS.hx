@@ -30,7 +30,7 @@ class L8ResponseVBUS extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;usb voltage');
+            result.push ("response;usb voltage");
         }
         result.push ('$m_cmd;$m_vbusValue');
         return result;

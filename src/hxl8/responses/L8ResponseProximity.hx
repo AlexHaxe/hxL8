@@ -45,7 +45,7 @@ class L8ResponseProximity extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;proximity value;proximity percentage;notification flag');
+            result.push ("response;proximity value;proximity percentage;notification flag");
         }
         result.push ('$m_cmd;$m_proxValue;$m_percent;$m_requestFlag');
         return result;

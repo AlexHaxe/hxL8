@@ -33,7 +33,7 @@ class L8ResponseVoltage extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;ibattery voltage;percent');
+            result.push ("response;ibattery voltage;percent");
         }
         result.push ('$m_cmd;$m_voltage;$m_percent');
         return result;

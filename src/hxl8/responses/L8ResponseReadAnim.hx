@@ -58,7 +58,7 @@ class L8ResponseReadAnim extends L8ResponseBase
         if (header)
         {
             var headerText : StringBuf = new StringBuf ();
-            headerText.add ('response');
+            headerText.add ("response");
             var index : Int = 0;
             for (frame in m_frames)
             {
@@ -71,10 +71,10 @@ class L8ResponseReadAnim extends L8ResponseBase
         dataText.add (m_cmd);
         for (frame in m_frames)
         {
-           dataText.add (";");
-           dataText.add (frame.frame);
-           dataText.add (";");
-           dataText.add (frame.delay);
+            dataText.add (";");
+            dataText.add (frame.frame);
+            dataText.add (";");
+            dataText.add (frame.delay);
         }
         result.push (dataText.toString ());
         return result;

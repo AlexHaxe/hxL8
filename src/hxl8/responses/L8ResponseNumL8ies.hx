@@ -27,7 +27,7 @@ class L8ResponseNumL8ies extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;number of l8ties');
+            result.push ("response;number of l8ties");
         }
         result.push ('$m_cmd;$m_l8iesCount');
         return result;

@@ -89,7 +89,7 @@ class L8ResponseTraceMsg extends L8ResponseBase
         var result : Array<String> = super.toCSV (header);
         if (header)
         {
-            result.push ('response;type;code');
+            result.push ("response;type;code");
         }
         result.push ('$m_cmd;$m_type;$m_code');
         return result;
