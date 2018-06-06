@@ -5,7 +5,7 @@
 -lib hxSerial
 -lib hxlode
 -lib hxcpp
--D static
+# -D static
 -D rpi
 -D NO_PRECOMPILED_HEADERS
 

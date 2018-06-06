@@ -6,7 +6,7 @@
 -lib hxlode
 -lib hxcpp
 -D HXCPP_M64
--D static
+# -D static
 -D linux
 
 -main hxl8.L8Ctl
@@ -41,7 +41,7 @@
 
 -lib hxcpp
 -D HXCPP_M64
--D static
+# -D static
 -D linux
 
 -main hxl8.L8tiesParser

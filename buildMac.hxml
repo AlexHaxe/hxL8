@@ -6,12 +6,12 @@
 -lib hxlode
 -lib hxcpp
 -D HXCPP_M64
--D static
+# -D static
 -D mac
 
 -main hxl8.L8Ctl
 
---next 
+--next
 
 # 32bit Version
 -cp src
@@ -20,7 +20,7 @@
 -lib hxSerial
 -lib hxlode
 -lib hxcpp
--D static
+# -D static
 -D mac
 
 -main hxl8.L8Ctl
@@ -38,13 +38,13 @@
 -main hxl8.L8Ctl
 
 # --next
-# 
+#
 # -cp src
 # -js ourJS/l8ctl.js
-# 
+#
 # # -lib hxSerial
 # # -lib hxlode
-# 
+#
 # -main hxl8.L8Ctl
 
 --next
@@ -55,7 +55,7 @@
 
 -lib hxcpp
 -D HXCPP_M64
--D static
+# -D static
 -D mac
 
 -main hxl8.L8tiesParser

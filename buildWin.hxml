@@ -5,7 +5,7 @@
 -lib hxSerial
 -lib hxlode
 -lib hxcpp
--D static
+# -D static
 -D windows
 
 -main hxl8.L8Ctl
